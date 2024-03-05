@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/2222/orderSeller.css">
+</head>
+<body>
+    <script>
+        function changeButton(){
+            const btn = document.querySelector('.accept');
+            const btn2 = document.querySelector('.reject');
+
+            const btn3 = document.querySelector('.send');
+            const btn4 = document.querySelector('.golist');
+            if(btn.style.display !== 'none'){
+                btn.style.display = 'none';
+                btn2.style.display = 'none';
+                btn3.style.display = 'block';
+                btn4.style.display = 'block';
+                
+            }else{
+                btn.style.display = 'block';
+                btn2.style.display = 'block';
+                btn3.style.display = 'none';
+                btn4.style.display = 'none';
+                
+            }
+        }
+    </script>
+    <script>
+        function addImg(){
+            
+
+        }
+    </script>
+
+    <div class="order">
+        <header>
+
+        </header>
+        <main>
+            <div class="top"></div>
+            <div class="ordertitle">
+                주문상세
+            </div>
+            <div class="content">
+                <div class="myroom">
+                    <p>내 방</p>
+                    <div class="pics">
+                        <div class="pic">
+                            <img src="">
+                        </div>
+                        <div class="pic">s
+                        </div>
+                        <div class="pic">s
+                        </div>
+                        <div class="pic">s
+                        </div>
+                        <div class="pic">s
+                        </div>
+                    </div>
+                <div class="need">
+                    <p>요구 사항</p>
+                    <textarea class="text" maxlength="300" placeholder="내 방 평수는 필수 기재 사항입니다." disabled></textarea>
+                </div>
+                <div class="last">
+                    <div class="guide">
+                        가이드
+                        <div class="guidepic">
+                            
+                            <label for="file1"><div class="gpic" data-placeholder="ddd"></div></label>
+                            <input type="file" accept="image/*" id="file1" style="display: none;">
+
+                            <label for="file1"><div class="gpic"></div></label>
+                            <input type="file" accept="image/*" id="file1" style="display: none;">
+
+                            <label for="file1"><div class="gpic"></div></label>
+                            <input type="file" accept="image/*" id="file1" style="display: none;">
+
+                            <label for="file1"><div class="gpic"></div></label>
+                            <input type="file" accept="image/*" id="file1" style="display: none;">
+
+                            <label for="file1"><div class="gpic"></div></label>
+                            <input type="file" accept="image/*" id="file1" style="display: none;">
+                        
+                        </div>
+                    </div>
+
+                    <div class="receipt">
+                        결제내역
+                        <div class="orderinfo">
+                            <div class="option">
+                                옵션1
+                            </div>
+                            <div class="date">
+                                <div class="date1" >
+                                    작업일
+                                </div>
+                                <div class="date2">
+                                    11일
+                                </div>
+                            </div>
+                            <div class="fix">
+                                <div class="fix1">
+                                    수정횟수
+                                </div>
+                                <div class="fix2">
+                                    11회
+                                </div>
+                            </div>
+                            <div class="price">
+                                <div class="price1">
+                                    가격
+                                </div>
+                                <div class="price2">
+                                    100000원
+                                </div>
+                            </div>
+                            <div class="totalprice">
+                                <div class="totalprice1">
+                                    결제금액
+                                </div>
+                                <div class="totalprice2">
+                                    100000원
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bott">
+                <div class="buttons">
+                    <button class="btn accept" onclick="" style="display: block;">수락하기</button>
+                    <button class="btn reject" onclick="" style="display: block;">거절하기</button>
+                    <button class="btn send" onclick="" style="display: none;">보내기</button>
+                    <button class="btn golist" onclick="" style="display: none;">목록으로 가기</button>
+                </div>
+            </div>
+            <button onclick="changeButton()">test</button>
+        </main>
+        <footer>
+
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function clickbtn(){
+            alert('바보');
+            inputId = "btn2";
+            label.setAttribute("for",inputId);
+
+        }
+        function clickbtn2(){
+            alert('멍청이');
+        }
+
+        function checknull(a){
+            let btn = document.getElementById("file").value;
+            let ddd = 'pic' + (a + 1);
+            if(!btn){
+                alert(ddd);
+            }else{
+                alert('dd');
+            }
+        }
+    </script>
+
+
+    <label for="btn" id="label">test</label>
+    <input type="button" id="btn" style="display: none;" onclick="clickbtn()">
+    <input type="button" id="btn2" style="display: none;" onclick="clickbtn2()">
+    <input type="file" id="file" accept="image/*">
+
+    <input type="button" id="btn3" onclick="checknull(1)" value="check">
+
+    
+    
+</body>
+</html>

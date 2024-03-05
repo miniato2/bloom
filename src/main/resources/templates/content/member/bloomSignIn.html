@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>블룸 회원가입</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Old+Mincho%3A400"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles/bloomSignIn.css"/>
+<script src="bloomSignIn.js"></script>
+
+</head>
+<body>
+
+
+
+      <br><br>
+      <div class="signInLogo">Sign in</div>
+
+      <div class="memberInput">
+      <p class="emailTitle">이메일 입력</p>
+      <input type="text" id="email" placeholder="이메일을 입력해주세요" >
+      <button onclick="validateEmail()">이메일유효성</button>
+      <div id="result"></div>
+      <p>비밀번호</p>
+      <input type="text"  placeholder="영문자,숫자 12~15자" >
+      <p>비밀번호 확인</p>
+      <input type="text"  placeholder="한번더 입력해주세요" >
+      <p>이름</p>
+      <input type="text"  placeholder="한글,영문자 2~20자" >
+      <p>닉네임</p>
+      <input type="text"  placeholder="한글,영문자,숫자 3~20자" >
+      <p>전화번호</p>
+      <input type="text" id="phone" placeholder=" ' - ' 를빼고 입력하세요" >
+      <button onclick="validatePhone()">전화번호유효성</button>
+    
+    </div>
+
+      
+         
+          <br><br>
+        
+        <fieldset class="fieldset">
+          
+          <div>
+            <input type="checkbox" id="ageLimit" name="ageLimit" />
+            <label for="ageLimit">만 14세 이상입니다.</label>
+            </div>
+          
+          
+        
+          <div>
+            <input type="checkbox" id="serviceAgreement" name="serviceAgreement" />
+            <label for="serviceAgreement">서비스 이용약관에 동의합니다. (필수)</label>
+          </div>
+
+          <div>
+            <input type="checkbox" id="privateInfoAgreement" name="privateInfoAgreement" />
+            <label for="privateInfoAgreement">개인정보 수집/이용에 동의합니다. (필수)</label>
+          </div>
+        </fieldset>
+        
+      </div>
+    
+    </body>

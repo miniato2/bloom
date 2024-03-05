@@ -1,0 +1,110 @@
+
+body{
+    font-family : "Noto Sans KR", sans-serif;
+}
+button, input, select, a{
+    font-family: "Noto Sans KR", sans-serif;
+}
+.inner{
+    width : 1047px;
+    margin: 0 auto;
+}
+header{
+    font-family : "Zen Old Mincho", serif;
+    
+}
+header .inner {
+    /* position: absolute; */
+    height : 70px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+header a{
+    
+    font-family : "Zen Old Mincho", serif;
+}
+#bloom{
+    font-weight: bold;
+    font-size:26px;
+}
+#main_menu a{
+    color:#AEAEAE;
+    text-decoration: none;
+    margin-left : 58px;
+    font-size : 18px;
+}
+#lnb a{
+    font-size : 13px;
+    text-decoration: none;
+    color : black;
+}
+
+.contents{
+    padding : 37px;
+    font-size : 20px;
+}
+.star{
+    color: red;
+}
+.input{
+    border : none;
+    border-bottom: 1px solid #A8A8A8;
+    padding : 10px 15px;
+    font-size : 20px;
+    outline : none;
+}
+
+
+
+.photo_select{
+    display: none;
+
+}
+.photo_select + label img{
+    width : 700px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+}
+.selected_photobox{
+    display: flex;
+    margin-left: 50px;
+    margin-top : 25px;
+    margin-bottom : 25px;
+}
+.selected_photobox span{
+    margin-right : 25px;
+}
+.selected_photobox_img img{
+    width : 99px;
+    height : 99px;
+    /* object-fit : cover; */
+    
+}
+.photo_delete{
+    display:flex;
+    justify-content: flex-end;
+
+}
+.photo_delete_btn{
+    
+  
+    width: 170px;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4475;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    white-space: nowrap;
+    background-color: black;
+    border-radius: 2rem;
+    flex-shrink: 0;
+    border: none;
+    margin-right: 15px;
+}

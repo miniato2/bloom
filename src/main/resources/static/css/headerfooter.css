@@ -1,0 +1,145 @@
+body{
+    font-family : "Noto Sans KR", sans-serif;
+}
+button, input, select, a{
+    font-family: "Noto Sans KR", sans-serif;
+}
+.inner{
+    max-width : 1440px;
+   
+}
+/* header */
+header{
+    font-family : "Noto Sans KR", serif;
+    
+}
+header .inner {
+    /* position: absolute; */
+    height : 70px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+header a{
+    
+    font-family : "Noto Sans kr", serif;
+}
+#bloom{
+    font-weight: bold;
+    font-size:26px;
+}
+#main_menu a{
+    color:#AEAEAE;
+    text-decoration: none;
+    margin-left : 24px;
+    font-size : 18px;
+}
+#lnb a{
+    font-size : 13px;
+    text-decoration: none;
+    color : black;
+}
+
+/* 초록색 타이틀 */
+.green_title{
+    height : 283px;
+    background-color: #25432A;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.green_title_in{
+    width : 100%;
+    gap : 600px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.green_title .green_title_in .title{
+    display : block;
+    color : white;
+    font-size : 60px;
+    white-space: nowrap;
+}
+.green_title .green_title_in .vector img{
+    
+    width : 120px;    object-fit: cover;
+
+}
+
+
+/* footer */
+.page_bottom{
+    /* background: url(/bottomimage.png) no-repeat center center; */
+    /* background-size : cover; */
+    /* height: 550px; */
+    position: relative;
+}
+.page_bottom_bg{
+    display : block;
+    width : 100%;
+    object-fit: cover;
+}
+.page_bottom .inner{
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    color : white;
+}
+.page_bottom .inner strong{
+    display: block;
+    font-size : 56.73px;
+    
+    font-family : "noto sans kr", serif;
+}
+.page_bottom .inner span{
+    font-size : 26px;
+}
+footer{
+    background-color: #262626;
+    color : white;
+    font-size : 20px;
+    padding : 100px 0px;
+}
+.footer_inner_bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.footer_logo{
+    display: block;
+    font-size : 40px;
+    font-family : "noto sans kr", serif;
+    margin-bottom : 40px;
+}
+.policy a{
+    color : white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right : 20px;
+    font-size: 14px;
+
+}
+.footer_info{
+    margin-top: 30px;
+    color : #BDBDBD;
+    font-size : 12px;
+}
+.company_info{
+    max-width: 500px;
+    word-break : keep-all;
+}
+.company_info span{
+    margin-right : 10px;
+}
+.copyright{
+    margin-top: 0px;
+}
+.cs_info span{
+    display: block;
+    font-size: 12px;
+}
+.cs_info_time span {
+    display: block;
+}

@@ -1,0 +1,84 @@
+*{
+    font-family:  "zen old mincho" , sans-serif;
+}
+.result{
+    width: 1440px;
+    height: 2229px;
+}
+.main{
+    width: 1440px;
+    height: 1200px;
+}
+.top{
+    width: 1440px;
+    height: 60px;
+    background-color: rgba(37, 67, 42, 1);
+}
+.footer{
+    width: 1440px;
+    height: 60px;
+    background-color: rgba(37, 67, 42, 1);
+}
+.fail{
+    margin-top: 200px;
+    width: 1440px;
+    height: 531px;
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    margin-left: auto;
+    margin-right: auto;
+    font-size:40px;
+    font-weight:bold;
+    width: 428px;
+    text-align: center;
+}
+.detail{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #d6d6d6;
+    border-radius: 5px;
+    width: 428px;
+    height: 300px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.price{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.buttons{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 428px;
+}
+.btn{
+    width: 200px;
+    height: 35px;
+    background-color: #425345;
+    border-radius: 20px;
+    border-style: none;
+    box-shadow: 0px 2px 0px 0px #000000;
+    color: #ffffff;
+}
+.btn.gomain{
+    background-color: #878787;
+}
+.btn:active{
+    margin-top: 5px;
+    margin-bottom: 7px;
+    box-shadow: none;
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/portfolioRegist.css"/>
+    <title>Document</title>
+    
+        
+</head>
+<body>
+    <div>
+        <header>    <!-- header -->
+            <div class="inner">
+                <span id="bloom">Bloom</span>
+                <span id="main_menu">
+                    <a href="">MAIN</a>
+                    <a href="">NOTICE</a>
+                    <a href="">CONTACT</a>
+                </span>
+                <span id="lnb">
+                    <a href="">MESSAGE</a>
+                    &nbsp; |  &nbsp;
+                    <a href="">MY PAGE</a>
+                    &nbsp; |  &nbsp;
+                    <a href="">LOGIN</a>
+                    &nbsp; |  &nbsp;
+                    <a href="">JOIN</a>
+                </span>
+            </div>
+        </header>
+        <div>
+            <!-- 본문 + Bloom Your Room -->
+            <div>
+                <!-- 본문 -->
+                <div class="inner">
+                    <div class="title biggest">
+                        <!-- 타이틀 -->
+                        <strong >포트폴리오 등록</strong>
+                    </div>
+                    <div class="contents">
+                        <!-- 진짜본문 -->
+
+                        <div>
+                            <!-- 포트폴리오 제목 -->
+                            <div class="portfolio_contents title">
+                                <!-- 제목 -->
+                                <strong class="portfolio_contents_left">포트폴리오 제목 <span class="star">*</span></strong>
+                                <input type="text" name="title" class="input titleplaceholder portfolio_contents_right" placeholder="(최대 30자)">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <!-- 포트폴리오 설명 -->
+                            <div class="portfolio_contents">
+                            <!-- 설명 -->
+                            <strong class="portfolio_contents_left">포트폴리오 설명<span class="star">*</span></strong>
+                            <textarea class="portfolio_contents_right textarea portfolio_description_textarea portfolioplaceholder" maxlength="1000"  placeholder="(최대 1000자)"></textarea>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <!-- 포트폴리오 사진 -->
+                            <div class="portfolio_contents ">
+                                <!-- 사진 -->
+                                <span>
+                                    <strong class="portfolio_contents_left">포트폴리오 사진<span class="star">*</span></strong>
+                                    <p class="portfolio_contents_left photouploadtext">사진은 최대 5장까지 업로드<br>할 수 있습니다.</p>
+                                </span>
+                                <div class="portfolio_contents_right">
+                                    <input type="file" class="photo_select" id="photo_select" accept="image/*" onchange="previewFile()">
+                                    <!-- 사진 입력 -->
+                                    <label for="photo_select"><img src="/img/photo_select_img.png"></label>
+                                    <div class="selected_photobox" id="selected_photobox">
+                                        <span class="selected_photobox_img">
+                                            <img src="img/selected_photo.png">
+                                        </span>
+                                        <span class="selected_photobox_img">
+                                            <img src="img/selected_photo.png">
+
+                                        </span>
+                                        <span class="selected_photobox_img">
+                                            <img src="img/selected_photo.png">
+
+                                        </span>
+                                        <span class="selected_photobox_img">
+                                            <img src="img/selected_photo.png">
+
+                                        </span>
+                                        <span class="selected_photobox_img">
+                                            <img src="img/selected_photo.png">
+
+                                        </span>
+                                        
+                                    </div>
+                                    <div class="photo_delete">
+                                        <button class="photo_delete_btn" onclick="photoDelete()">전체 삭제하기</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <!-- 옵션 -->
+                            <div class="portfolio_contents">
+                                <!-- 옵션 내용 -->
+                                <strong class="portfolio_contents_left">옵션<span class="star">*</span></strong>
+                                <div class="portfolio_contents_right">
+                                    <div>
+                                        <div>
+                                            <!-- OPTION1 -->
+                                        </div>
+                                        <div class="portfolio_optionbox_wrap">
+                                            <div class="portfolio_optionbox">
+                                                <label class="portfolio_optionbox_title">가격</label>
+                                                <div class="input_group portfolio_optionbox_contents">
+                                                    <input type="number" class="input">
+                                                    <span class="input_suffix">원</span>
+                                                </div>
+                                            </div>
+                                            <div  class="portfolio_optionbox">
+                                                <label class="portfolio_optionbox_title">옵션 설명</label>
+                                                <input type="text" class="input portfolio_optionbox_contents">
+                                            </div>
+                                            <div class="portfolio_optionbox">
+                                                <label class="portfolio_optionbox_title">수정 횟수</label>
+                                                <input type="number" class="input portfolio_optionbox_contents">
+                                            </div>
+                                            <div class="portfolio_optionbox">
+                                                <label class="portfolio_optionbox_title">작업 소요 날짜</label>
+                                                <div class="input_group portfolio_optionbox_contents">
+                                                    <input type="number" class="input">
+                                                    <span class="input_suffix">일</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="portfolio_contents">
+                            <!-- 판매자 정보 -->
+
+                            <div class="portfolio_contents_left">
+                                <!-- 타이틀 -->
+                                <strong>판매자 정보</strong>
+                            </div>
+                            <div class="portfolio_contents_right">
+                                <!-- 판매자 내용 -->
+                                <div class="portfolio_optionbox">
+                                    <span class="portfolio_optionbox_title">연락 가능 시간</span>
+                                    <textarea class="portfolio_optionbox_contents textarea calltime"></textarea>
+                                </div>
+                                <div class="portfolio_optionbox">
+                                    <span class="portfolio_optionbox_title">소개</span>
+                                    <textarea class="portfolio_optionbox_contents textarea introduce"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio_button">
+                        <!-- 버튼 -->
+                        <button class="portfolio_btn regist">등록하기</button>
+                        <button class="portfolio_btn cancel">취소하기</button>
+                    </div>
+
+                </div>
+                    
+            </div>
+
+            
+            <div class="page_bottom">
+                <img src="img/bottomimage.png" class="page_bottom_bg">
+                <!-- Bloom Your Room -->
+                <div class="inner">
+                    <strong>Bloom Your Room</strong>
+                    <span>당신의 공간을 더 아름답게</span>
+                </div>
+
+            </div>
+        </div>
+        
+        <footer>    <!-- footer -->
+            <div class="inner">
+                <div class="footer_inner_top">
+                    <strong class="footer_logo">Bloom</strong>
+                </div>
+                <div class="footer_inner_bottom">
+                    <div>
+                        <div class="policy">
+                            <a href="">회사소개</a>
+                            <a href="">이용약관</a>
+                            <a href="">이용안내</a>
+                            <a href="">개인정보처리방침</a>
+                        </div>
+                        <div>
+                            <p class="footer_info company_info">
+                                <span>(주)코브이</span>
+                                <span>서울 종로구 인사동길 12 대일빌딩 7층 10강의실</span>
+                                <br>
+                                <span>사업자등록번호 : 001-01-00001 사업자정보확인</span>
+                                <span>통신판매업신고번호 : 2024-가나다라-0001</span>
+                                <br>
+                                <span>개인정보보호책임자 : 코브이</span>
+                                <span>팩스번호 : 02-001-0001</span>
+                                <span>이메일: cove@cove.com</span>
+
+                            </p>
+                            <p class="footer_info copyright">
+                                Copyright 2024. COVE All Rights Reserved.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="cs_info">
+                            <span>고객센터</span>
+                            <strong>1588-0710</strong>
+                        </div>
+                        <div>
+                            <p class="footer_info cs_info_time">
+                                <span>평일 09:30 ~ 18:20</span>
+                                <span>점심 13:20 ~ 14:30</span>
+                                <span>휴무 주말/공휴일</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="portfolioRegist.js"></script>
+</body>
+</html>

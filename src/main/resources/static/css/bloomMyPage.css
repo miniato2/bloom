@@ -1,0 +1,80 @@
+.container{
+  display: flex;
+  position: relative;
+  flex-direction: row;
+
+  
+ 
+}
+.containerButton{
+  margin-left: 25px;
+  margin-top: 150px;
+  width: 200px;
+
+}
+
+h1{
+  
+  border: solid 0.1rem #a2a2a2;
+  box-sizing: border-box;
+  border-width: 0 0 1px;
+  width: 844px;
+}
+p{
+  margin-left: 100px;
+  color: #878787;
+}
+.content{
+  margin-left: 400px;
+  
+  
+  
+  
+}
+.Button{
+width: 150px;
+
+  position: relative;
+  font-size: 18px;
+  color: #000000;
+  display: flex;
+
+  border: solid 0.1rem #878787;
+  box-sizing: border-box;
+ background-color: transparent;
+  text-align: center;
+  border-width: 0 0 1px;
+  outline: none;
+  cursor: pointer;
+  
+}
+.cancelButton{
+width: 150px;
+overflow: hidden;
+position: relative;
+font-size: 18px;
+color: #a2a2a2;
+display: flex;
+align-items: center;
+border: solid 0.1rem #a2a2a2;
+box-sizing: border-box;
+background-color: transparent;
+text-align: center;
+border-width: 0 0 1px;
+outline: none;
+cursor: pointer;
+}
+.modify{
+  border-color: #F5D14F;
+  width: 55px;
+  font-weight: 600;
+  background-color: #F5D14F;
+}
+hr {
+  margin-left: 275px;
+  width : 50%;
+  color: #a2a2a2;
+
+ 
+
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#textEditor").load("textEditor.html")
+            $("#fileRegist").load("fileRegist.html")
+            
+        });
+        
+    </script>
+    <title>신고게시판 (관리자)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700" />
+    <link rel="stylesheet" href="./styles/reportCreate.css" />
+   <link rel="stylesheet" href="./styles/headerfooter.css" />
+   <link rel="stylesheet" href="./styles/fileRegist.css" />
+   
+   <script src="fileRegist.js"></script>
+  
+   
+
+</head>
+
+<body>
+    <header> <!-- header -->
+        <div class="inner">
+            <span id="bloom">Bloom</span>
+            <span id="main_menu">
+                <a href="">MAIN</a>
+                <a href="">NOTICE</a>
+                <a href="">CONTACT</a>
+            </span>
+            <span id="lnb">
+                <a href="">MESSAGE</a>
+                &nbsp; | &nbsp;
+                <a href="">MY PAGE</a>
+                &nbsp; | &nbsp;
+                <a href="">LOGIN</a>
+                &nbsp; | &nbsp;
+                <a href="">JOIN</a>
+            </span>
+        </div>
+    </header>
+    <div> <!--  본문  -->
+        <div class="green_title"> <!--  초록색 타이틀 -->
+            <div class="green_title_in">
+                <span class="title">공지 게시판</span>
+                <span class="vector">
+                    <img src="/img/Vector.png">
+                </span>
+            </div>
+        </div>
+   
+    <div class="main">
+    <br>
+    <a style="margin-left: -810px;">신고자 :맴버1</a>
+    <a style="margin-left: -800px;">피신고자:맴버2</a>
+    <br>
+    
+
+    <div id="textEditor"></div>
+    <br><br>
+    
+    <div id="fileRegist"></div>
+    <br>
+    <div class="buttons">
+        <p style=" border-bottom: 1px solid #000000; ">피신고자2</p>
+        <select name="job" style="margin-left: 100px;">
+            <option value="">제재선택</option>
+            <option value="상품블라인드">상품블라인드</option>
+            <option value="회원정지">회원정지</option>
+            <option value="회원탈퇴">회원탈퇴</option>
+            <option value="제재없음">제재없음</option>
+        </select>
+        <button class="cancelButton">처리하기</button>
+        
+        </div>
+     </div>
+    
+
+
+
+
+
+</body>

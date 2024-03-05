@@ -1,0 +1,76 @@
+.main{
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title{
+    font-weight: 800;
+  margin-left: -500px;  
+  font-size: 25px;
+  line-height: 1.2575;
+  color: rgba(10, 10, 10, 0.5400000215);
+  font-family: Noto Sans KR, 'Source Sans Pro';
+ 
+ 
+}
+.password{
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+.textbox{
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+hr {
+    
+    width : 28%;
+    color: #a2a2a2;
+  
+   
+  
+  }
+  .sendButton{
+    
+  margin-left: 450px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-color: #25422a;
+    border-radius: 2rem;
+    border-color: transparent;
+  }
+  .findButton{
+    width: 30%;
+    height: 80px;
+    font-size: 40px;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    background-color: #25422a;
+    border-radius: 2rem;
+    border-color: transparent;
+    cursor: pointer;
+  }
+  input[type="checkbox"]{
+  
+    
+    width: 30px;
+    height: 30px;
+    border:3px
+    
+  }
+  
+	div#editor {
+    	padding: 16px 24px;
+        border: 1px solid #D6D6D6;
+        border-radius: 4px;
+}
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#texteditor").load("textEditor.html")
+            /* id 지정을 통해서도 가능합니다. 
+             $("#header").load("header.html #navbar")
+             */
+        });
+    </script>
+    <title>공지게시판 등록</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700" />
+    <link rel="stylesheet" href="./styles/noticeCreate.css" />
+   <link rel="stylesheet" href="./styles/headerfooter.css" />
+  
+        
+
+</head>
+
+<body>
+    <header> <!-- header -->
+        <div class="inner">
+            <span id="bloom">Bloom</span>
+            <span id="main_menu">
+                <a href="">MAIN</a>
+                <a href="">NOTICE</a>
+                <a href="">CONTACT</a>
+            </span>
+            <span id="lnb">
+                <a href="">MESSAGE</a>
+                &nbsp; | &nbsp;
+                <a href="">MY PAGE</a>
+                &nbsp; | &nbsp;
+                <a href="">LOGIN</a>
+                &nbsp; | &nbsp;
+                <a href="">JOIN</a>
+            </span>
+        </div>
+    </header>
+    <div> <!--  본문  -->
+        <div class="green_title"> <!--  초록색 타이틀 -->
+            <div class="green_title_in">
+                <span class="title">공지 게시판</span>
+                <span class="vector">
+                    <img src="/img/Vector.png">
+                </span>
+            </div>
+        </div>
+   
+    <div class="main">
+    <br>
+    <input type="text" class="noticetitle" placeholder="제목을 입력해주세요">
+    <br>
+    
+
+    <div id="texteditor"></div>
+        <br><br>
+    </div>
+    <div class="buttons">
+    <button class="cancelButton">취소하기</button>
+    <button class="registButton">등록하기</button>    
+    </div>
+      
+     
+
+        
+    
+       
+
+
+
+
+
+
+
+
+</body>

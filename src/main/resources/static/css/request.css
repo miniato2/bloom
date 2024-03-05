@@ -1,0 +1,195 @@
+*{
+    margin: 0; 
+    padding: 0; 
+    box-sizing: 
+    border-box;
+    font-family:  "zen old mincho" , sans-serif;
+}
+.request{
+    width:1440px;
+    display: flex;
+    flex-direction: column;
+    margin: auto; 
+    height: auto; 
+}
+.top{
+    width: auto;
+    height: 60px;
+    background-color: rgba(37, 67, 42, 1);
+}
+.reqtitle{
+    width: 250px;
+    height: 138px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    font-size: 26px;
+    font-weight: bold;
+    margin-left: 197px;
+    border-bottom: solid 1px rgb(167, 167, 167)
+}
+.container{
+    margin: auto;
+    margin-top: 38px;
+    width: 1046px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.main{
+    width: 623px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.main p{
+    font-size: 20px;
+}
+.pics{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 623px;
+    height: 250px;
+    border: solid 1px #d6d6d6;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.pic{
+    width: 120px;
+    height: 120px;
+    border: solid 1px #d6d6d6;
+    border-radius: 5px;
+}
+.text{
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 623px;
+    height: 294px;
+    font-size: 14px;
+    border: solid 1px #d6d6d6;
+    border-radius: 5px;
+}
+.side{
+    margin-top: 60px;
+    width: 335px;
+    height: fit-content;
+    border-radius: 5px;
+    border: solid 1px #d6d6d6;
+    display: flex;
+    flex-direction: column;
+}
+.sidetop{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    display: flex;
+}
+.userinfo{
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+}
+.potitle{
+    font-size: 16px;
+}
+.username{
+    font-size: 10px;
+
+}
+.thumb{
+    width: 136px;
+    height: 88px;
+}
+.sidemenu{
+    font-size: 16px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.option{
+    border: solid 1px #686767;
+    width: 70px;
+    height: 28px;
+}
+.option2{
+    border-bottom: solid 1px rgb(167, 167, 167);
+}
+.date{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.fix{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.price{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.totalprice{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.notice{
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 10px;
+    text-align: center;
+    width: 292px;
+    height: 48px;
+    border-radius: 5px;
+    border: solid 1px #d6d6d6;
+
+}
+.buttons{
+    height: 100px;
+    margin-bottom: 20px;
+}
+.accept{
+    line-height: 1.4475;
+    color: rgba(0, 0, 0, 0.400000006);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.btn{
+    color: #ffffff;
+    position: relative;
+    left: 20px;
+    margin-bottom: 12px;
+    width: 295px;
+    height: 44px;
+    background-color: #425345;
+    border-radius: 20px;
+    border-style: none;
+    box-shadow: 0px 2px 0px 0px #000000;
+}
+.btn.cancel{
+    background-color: #878787;
+}
+.btn:active{
+    margin-top: 5px;
+    margin-bottom: 7px;
+    box-shadow: none;
+}
