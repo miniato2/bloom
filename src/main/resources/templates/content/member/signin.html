@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>블룸 회원가입</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zen+Old+Mincho%3A400"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet"  th:href="@{/css/bloomSignIn.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+    <script th:src="@{/js/bloomSignIn.js}"></script>
+
+
+</head>
+<body>
+<header> <!-- header -->
+    <div class="inner">
+        <span id="bloom">Bloom</span>
+        <span id="main_menu">
+            <a href="">MAIN</a>
+            <a href="">NOTICE</a>
+            <a href="">CONTACT</a>
+        </span>
+        <span id="lnb">
+            <a href="">MESSAGE</a>
+            &nbsp; | &nbsp;
+            <a href="">MY PAGE</a>
+            &nbsp; | &nbsp;
+            <a href="">LOGIN</a>
+            &nbsp; | &nbsp;
+            <a href="">JOIN</a>
+        </span>
+    </div>
+</header>
+<!--  본문  -->
+<div class="green_title"> <!--  초록색 타이틀 -->
+    <div class="green_title_in">
+        <span class="title">회원가입</span>
+        <span class="vector">
+                <img src="/img/Vector.png">
+            </span>
+    </div>
+</div>
+
+<div class="main">
+    <br><br>
+    <!-- <div class="signInLogo">Sign in</div> -->
+
+    <div class="memberInput">
+        <form action="/member/signin" method="post">
+        <p class="emailTitle">이메일 입력</p>
+        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" >
+        <button onclick="validateEmail()">이메일유효성</button>
+        <button>인증메일발송</button>
+        <div id="result"></div>
+        <p>비밀번호</p>
+        <input type="password"  name="password" placeholder="영문자,숫자 12~15자" >
+        <p>비밀번호 확인</p>
+        <input type="password" name="password2" placeholder="한번더 입력해주세요" >
+        <p>이름</p>
+        <input type="text"  name="name" placeholder="한글,영문자 2~20자" >
+        <p>닉네임</p>
+        <input type="text"  name="nickname" placeholder="한글,영문자,숫자 3~20자" >
+        <p>전화번호</p>
+        <input type="text" id="phone" name="phone" placeholder=" ' - ' 를빼고 입력하세요" >
+        <button onclick="validatePhone()">전화번호유효성</button>
+
+
+    </div>
+
+
+
+    <br><br>
+
+    <fieldset class="fieldset">
+
+        <div>
+            <input type="checkbox" id="ageLimit" name="ageLimit" />
+            <label for="ageLimit">만 14세 이상입니다.<a style="color: red;">(필수)</a></label>
+        </div>
+
+
+
+        <div>
+            <input type="checkbox" id="serviceAgreement" name="serviceAgreement" />
+            <label for="serviceAgreement">서비스 이용약관에 동의합니다.<a style="color: red;">(필수)</a></label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="privateInfoAgreement" name="privateInfoAgreement" />
+            <label for="privateInfoAgreement">개인정보 수집/이용에 동의합니다. <a style="color: red;">(필수)</a></label>
+        </div>
+    </fieldset>
+    <input type="submit" class="submitButton" style="margin-bottom: 20px;margin-top: 20px" value="가입하기">
+    </form>
+
+</div>
+</div>
+<footer>    <!-- footer -->
+    <div class="inner">
+        <div class="footer_inner_top">
+            <strong class="footer_logo">Bloom</strong>
+        </div>
+        <div class="footer_inner_bottom">
+            <div>
+                <div class="policy">
+                    <a href="">회사소개</a>
+                    <a href="">이용약관</a>
+                    <a href="">이용안내</a>
+                    <a href="">개인정보처리방침</a>
+                </div>
+                <div>
+                    <p class="footer_info company_info">
+                        <span>(주)코브이</span>
+                        <span>서울 종로구 인사동길 12 대일빌딩 7층 10강의실</span>
+                        <br>
+                        <span>사업자등록번호 : 001-01-00001 사업자정보확인</span>
+                        <span>통신판매업신고번호 : 2024-가나다라-0001</span>
+                        <br>
+                        <span>개인정보보호책임자 : 코브이</span>
+                        <span>팩스번호 : 02-001-0001</span>
+                        <span>이메일: cove@cove.com</span>
+
+                    </p>
+                    <p class="footer_info copyright">
+                        Copyright 2024. COVE All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="cs_info">
+                    <span>고객센터</span>
+                    <strong>1588-0710</strong>
+                </div>
+                <div>
+                    <p class="footer_info cs_info_time">
+                        <span>평일 09:30 ~ 18:20</span>
+                        <span>점심 13:20 ~ 14:30</span>
+                        <span>휴무 주말/공휴일</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
