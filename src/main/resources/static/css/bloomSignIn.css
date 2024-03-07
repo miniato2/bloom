@@ -1,13 +1,14 @@
 html {
     font-family: "Noto Sans KR", 'Source Sans Pro';
-   
+
 }
-body{
-   
+.main{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+
 }
 
 .memberInput input{
@@ -23,9 +24,9 @@ body{
     line-height: 1.2575;
     font-family: "Noto Sans KR", 'Source Sans Pro';
     border: solid 0.1rem #9d9d9d;
-    
-   
-    
+
+
+
 }
 
 .signInLogo{
@@ -44,40 +45,56 @@ body{
 }
 .fieldset{
     box-sizing: border-box;
-  padding: 2.3rem 3.8rem 2.6rem 3.8rem;
-  width: 500px;
-  overflow: hidden;
-  position: relative;
-  row-gap: 3.6rem;
-  display: flex;
-  flex-direction: column;
-  border: solid 0.1rem rgba(0, 0, 0, 0.3000000119);
-  border-radius: 2rem;
+    padding: 2.3rem 3.8rem 2.6rem 3.8rem;
+    width: 500px;
+    overflow: hidden;
+    position: relative;
+    row-gap: 3.6rem;
+    display: flex;
+    flex-direction: column;
+    border: solid 0.1rem rgba(0, 0, 0, 0.3000000119);
+    border-radius: 2rem;
 }
 
 p{
     margin-bottom: 1.8rem;
-  width: 100%;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 1.2575;
-  color: rgba(0, 0, 0, 0.75);
-  font-family: "Noto Sans KR", 'Source Sans Pro';
-  white-space: nowrap;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2575;
+    color: rgba(0, 0, 0, 0.75);
+    font-family: "Noto Sans KR", 'Source Sans Pro';
+    white-space: nowrap;
 }
 button{
     width: 7.9rem;
-  height: 100%;
-  overflow: hidden;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #ffffff;
-  font-family: "Noto Sans KR", 'Source Sans Pro';
-  background-color: #25422a;
-  border-radius: 2rem;
-  justify-content: center;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    font-family: "Noto Sans KR", 'Source Sans Pro';
+    background-color: #25422a;
+    border-radius: 2rem;
+    justify-content: center;
+}
+
+.submitButton{
+    width: 7.9rem;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    font-family: "Noto Sans KR", 'Source Sans Pro';
+    background-color: #25422a;
+    border-radius: 2rem;
+    justify-content: center;
+
+
 }
 
 

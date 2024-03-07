@@ -1,10 +1,10 @@
 html{
-    font-size:62.5%;
-    margin: 0;
-	padding: 0;
+  font-size:62.5%;
+  margin: 0;
+  padding: 0;
 }
-body{
-    width: 148.2rem;
+.main{
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +12,7 @@ body{
 }
 
 .logInLogo{
-    margin-bottom: 9.1rem;
+  margin-bottom: 9.1rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ body{
   flex-shrink: 0;
 }
 .emailTitle{
-  width: 100%;
+  margin-left: -500px;
   font-size: 15px;
   line-height: 1.2575;
   color: rgba(10, 10, 10, 0.5400000215);
@@ -36,7 +36,7 @@ body{
   flex-shrink: 0;
 }
 .email{
-    margin: 0rem 0rem 1.2rem 1.95rem;
+  margin: 0rem 0rem 1.2rem 1.95rem;
   width: 492px;
   height: 70px;
   overflow: hidden;
@@ -56,7 +56,7 @@ body{
   outline: none;
 }
 .passwordTitle{
-  width: 100%;
+  margin-left: -500px;
   font-size: 15px;
   line-height: 1.2575;
   color: rgba(10, 10, 10, 0.5400000215);
@@ -65,7 +65,7 @@ body{
   flex-shrink: 0;
 }
 .password{
-    margin: 0rem 0rem 1.2rem 1.95rem;
+  margin: 0rem 0rem 1.2rem 1.95rem;
   width: 492px;
   height: 70px;
   overflow: hidden;
@@ -85,39 +85,41 @@ body{
   outline: none;
 }
 .logInButton {
-    margin: 0rem 0rem 4.7rem 1.95rem;
-    width: 49.2rem;
-    height: 6rem;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 1.4475;
-    color: #ffffff;
-    font-family: Noto Sans KR, 'Source Sans Pro';
-    white-space: nowrap;
-    background-color: #25422a;
-    border-radius: 2rem;
-    flex-shrink: 0;
-    border: none;
-  }
-  .buttonGroup{
-    margin: 0rem 3.1rem 0rem 5.05rem;
-    width: calc(100% - 8.15rem);
-    height: 4.2rem;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    justify-content: center;
-  }
-  .findButton{
-    width: 21.5rem;
-  height: 100%;
+  margin: 0rem 0rem 4.7rem 1.95rem;
+  width: 49.2rem;
+  height: 6rem;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.4475;
+  color: #ffffff;
+  font-family: Noto Sans KR, 'Source Sans Pro';
+  white-space: nowrap;
+  background-color: #25422a;
+  border-radius: 2rem;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+}
+.buttonGroup{
+  margin-bottom: 100px;
+  width: calc(100% - 8.15rem);
+  height: 4.2rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: center;
+
+}
+.findButton{
+  width: 21.5rem;
+  height: 100%;
+  overflow: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,22 +132,24 @@ body{
   border: solid 0 rgba(10, 10, 10, 0.2700000107);
   justify-content: center;
   flex-shrink: 0;
-  }
-  .signInButton{
-    width: 21.5rem;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 400;
-    line-height: 1.2575;
-    color: #878787;
-    font-family: Noto Sans KR, 'Source Sans Pro';
-    white-space: nowrap;
-    border: solid 0 rgba(10, 10, 10, 0.2700000107);
-    justify-content: center;
-    flex-shrink: 0;
-  }
+  cursor: pointer;
+}
+.signInButton{
+  width: 21.5rem;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2575;
+  color: #878787;
+  font-family: Noto Sans KR, 'Source Sans Pro';
+  white-space: nowrap;
+  border: solid 0 rgba(10, 10, 10, 0.2700000107);
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
