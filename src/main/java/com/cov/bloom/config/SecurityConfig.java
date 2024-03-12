@@ -42,6 +42,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("auth/login","/","main","member/signin","/member/email","/member/verify").permitAll();
             auth.requestMatchers("/auth/success").hasAnyAuthority(MemberRole.c.getRole());
+            auth.anyRequest().permitAll(); //권한 전부줌
 
 
 

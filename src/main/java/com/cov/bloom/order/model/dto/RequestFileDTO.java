@@ -1,7 +1,7 @@
 package com.cov.bloom.order.model.dto;
 
 public class RequestFileDTO implements java.io.Serializable{
-    private String fileNo;
+    private int fileNo;
     private String filePath;
     private String fileName;
     private String orderNo;
@@ -15,18 +15,18 @@ public class RequestFileDTO implements java.io.Serializable{
         this.orderNo = orderNo;
     }
 
-    public RequestFileDTO(String fileNo, String filePath, String fileName, String orderNo) {
+    public RequestFileDTO(int fileNo, String filePath, String fileName, String orderNo) {
         this.fileNo = fileNo;
         this.filePath = filePath;
         this.fileName = fileName;
         this.orderNo = orderNo;
     }
 
-    public String getFileNo() {
+    public int getFileNo() {
         return fileNo;
     }
 
-    public void setFileNo(String fileNo) {
+    public void setFileNo(int fileNo) {
         this.fileNo = fileNo;
     }
 
@@ -57,10 +57,10 @@ public class RequestFileDTO implements java.io.Serializable{
     @Override
     public String toString() {
         return "RequestFileDTO{" +
-                "fileNo='" + fileNo + '\'' +
+                "fileNo=" + fileNo +
                 ", filePath='" + filePath + '\'' +
                 ", fileName='" + fileName + '\'' +
-                ", orderNo=" + orderNo +
+                ", orderNo='" + orderNo + '\'' +
                 '}';
     }
 }

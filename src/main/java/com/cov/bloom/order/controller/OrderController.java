@@ -28,7 +28,7 @@ public class OrderController {
 
         model.addAttribute("portNo", "p");
 
-        return "order/request";
+        return "content/order/request";
     }
 
     @GetMapping("/successOrder")
