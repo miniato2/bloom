@@ -1,101 +1,31 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/1111/request.css"/>
+    <link rel="stylesheet" th:href="@{/css/request.css}">
 
 </head>
 <body>
-    <script>
-        function checkForm(){
-            let text = document.querySelector(".text").value;
-            if(text.trim() === ''){
-                alert('신청서를 작성해 주세요');
-                return false;
-            }
-            
-            return true;
-        }
-        function goBack() {
-            window.history.back();
-            return true;
-        }
+<script th:src="@{/js/request.js}"></script>
+<div class="request">
 
-        
-    </script>
+    <header class="header">
 
-    <script>
-        let num = 1;
-        function viewImg(e){
+    </header>
 
-            if(num > 5){
-                alert('이미지는 최대 5장까지 첨부가능합니다. ');
-                return;
-            }
+    <div class="top"></div>
 
-            let label = document.getElementById('upload');
-            let inputId = 'file' + num;
-            let picId = 'pic' + num;
-            let nextId = 'file' + (num+1);
+    <div class="reqtitle">
+        <p>신청서</p>
+    </div>
 
-            let reader = new FileReader();
-
-            reader.onload = (e) => {
-                alert(inputId);
-                let img = document.createElement("img");
-                img.setAttribute("src", e.target.result);
-                img.style.width = "100%";
-                img.style.height = "100%";
-                
-                document.getElementById(picId).appendChild(img);
-
-            };
-            reader.readAsDataURL(e.target.files[0]);
-            label.setAttribute("for", nextId);
-            num += 1;
-            //마지막엔 라벨 for 속성을 바꿔서 다음 인풋에 연결되도록 만듦
-            
-        }
-
-        function deleteFile(){
-            let label = document.getElementById('upload');
-            let files = document.querySelectorAll('.file');
-            let pics = document.querySelectorAll('.pic');
-            
-            for(i = 0; i < files.length; i++){
-                if(files[i].value !== ''){
-                    files[i].value = '';
-                }
-            }
-            for(i = 0; i < pics.length; i++){
-                if(pics[i].firstChild !== null){
-                    pics[i].removeChild(pics[i].firstChild);
-                }
-            }
-            num = 1;
-            label.setAttribute("for", "file1");
-            
-        }
-        
-          
-    </script>
-
-    <div class="request">
-        <header class="header">
-
-        </header>
-
-        <div class="top"></div>
-
-        <div class="reqtitle">
-            <p>신청서</p>
-        </div>
-        
-        <form action="" id="order" onsubmit="return checkForm()" enctype="multipart/form-data">
+    <form th:action="@{/pay/ready}" id="order" method="post" onsubmit="return checkForm()" enctype="multipart/form-data">
+        <input th:value="${portNo}" id="portNo" name="portNo" style="display: none">
         <div class="container">
             <div class="main">
                 <div class="myroom">
@@ -109,103 +39,102 @@
                     </div>
                 </div>
                 <div class="btnlabel">
-                    <div id="label1"><label for="file1" id="upload">
-                        사진첨부
+                    <div class="btnlb upload"><label for="file1" id="upload">
+                        사진첨부하기
                     </label></div>
-                    <div id="label2"><label for="deletefile" id="deletelabel">
+                    <div class="btnlb delete"><label for="deletefile" id="deletelabel">
                         지우기
                     </label></div>
                     <input type="button" class="file" id="deletefile" style="display: none;" onclick="deleteFile()">
 
-                    <input type="file" class="file" id="file1" accept="image/*" style="display: none;" onchange="viewImg(event)">
-                    <input type="file" class="file" id="file2" accept="image/*" style="display: none;" onchange="viewImg(event)">
-                    <input type="file" class="file" id="file3" accept="image/*" style="display: none;" onchange="viewImg(event)">
-                    <input type="file" class="file" id="file4" accept="image/*" style="display: none;" onchange="viewImg(event)">
-                    <input type="file" class="file" id="file5" accept="image/*" style="display: none;" onchange="viewImg(event)">
+                    <input type="file" class="file" name="file[]" id="file1" accept="image/*" style="display: none;" onchange="viewImg(event)">
+                    <input type="file" class="file" name="file[]" id="file2" accept="image/*" style="display: none;" onchange="viewImg(event)">
+                    <input type="file" class="file" name="file[]" id="file3" accept="image/*" style="display: none;" onchange="viewImg(event)">
+                    <input type="file" class="file" name="file[]" id="file4" accept="image/*" style="display: none;" onchange="viewImg(event)">
+                    <input type="file" class="file" name="file[]" id="file5" accept="image/*" style="display: none;" onchange="viewImg(event)">
                     <!-- 경고용 -->
                     <input type="file" class="file" id="file6" accept="image/*" style="display: none;" onchange="viewImg(event)">
                 </div>
                 <div class="need">
                     <p>요구 사항</p>
-                    <textarea class="text" maxlength="300" placeholder="내 방 평수는 필수 기재 사항입니다."></textarea>
+                    <textarea class="text" name="requestCon" maxlength="3000" placeholder="내 방 평수는 필수 기재 사항입니다."></textarea>
                 </div>
             </div>
-
             <div class="side">
                 <div class="sidetop">
-                    <img src="" class="thumb">
                     <div class="userinfo">
                         <div class="potitle">제목</div>
                         <div class="username">닉네임</div>
                     </div>
                 </div>
-                
                 <div class="sidemenu">
-                    <select class="option" onchange="">
-                        <option>옵션1</option>
-                        <option>옵션2</option>
-                        <option>옵션3</option>
+                    <select class="option"  id="option" name="optionNo" onchange="selectOption()">
+                        <option>선택</option>
+                        <option value="1">
+                            옵션 1
+                        </option>
+                        <option value="2">
+                            옵션 2
+                        </option>
+                        <option value="3">
+                            옵션 3
+                        </option>
                     </select>
                     <div class="option2">
                         <div class="date">
-                            <div class="date1" >
-                                작업일
+                            <div class="date1">
+                                <p>작업일</p>
                             </div>
                             <div class="date2">
-                                11일
+                                <input class="optioninput" name="optionDt" id="date" value="" readonly>
                             </div>
                         </div>
                         <div class="fix">
                             <div class="fix1">
-                                수정횟수
+                                <p>수정횟수</p>
                             </div>
                             <div class="fix2">
-                                11회
+                                <input class="optioninput" name="optionFix" id="fix" value="" readonly>
                             </div>
                         </div>
                         <div class="price">
                             <div class="price1">
-                                가격
+                                <p>가격</p>
                             </div>
                             <div class="price2">
-                                100000원
+                                <input class="optioninput" name="optionPrice" id="price" value="" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="totalprice">
                     <div class="totalprice1">
-                        결제금액
+                        <p>결제금액</p>
                     </div>
                     <div class="totalprice2">
-                        100000원
                     </div>
                 </div>
-
                 <div class="notice">
                     <a href="">결제 전 안내사항</a>
                     <a href="">개인정보 제3자 제공</a>
                 </div>
-                
                 <div class="accept">
-                <p>위 내용을 확인하였고, 결제에 동의합니다.</p>
+                    <p>위 내용을 확인하였고, 결제에 동의합니다.</p>
                 </div>
-                
+
                 <div class="buttons">
                     <button class="btn pay" type="submit">결제하기</button><br>
                     <button class="btn cancel" type="button" onclick="goBack()">취소하기</button>
-                    
                 </div>
             </div>
         </div>
-        </form>
+    </form>
 
-        <footer class="footer">
+    <footer class="footer">
 
-        </footer>
-        
-    </div>
-    
+    </footer>
+
+
+</div>
 </body>
 </html>
