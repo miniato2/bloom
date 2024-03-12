@@ -5,5 +5,24 @@ spring:
     username: ohgiraffers
     password: ohgiraffers
 
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: covbloomail@gmail.com
+    password: terxdxpukxjodxus
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+
+
+
+
 mybatis:
   mapper-locations: mybatis/mappers/**/*.xml

@@ -14,6 +14,10 @@
     <link rel="stylesheet"  th:href="@{/css/bloomSignIn.css}"/>
     <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
     <script th:src="@{/js/bloomSignIn.js}"></script>
+    <script th:src="@{/js/ajax.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
 
 
 </head>
@@ -50,14 +54,32 @@
 <div class="main">
     <br><br>
     <!-- <div class="signInLogo">Sign in</div> -->
-
+    <form action="/member/signin" method="post">
     <div class="memberInput">
-        <form action="/member/signin" method="post">
+
+
+
+
         <p class="emailTitle">이메일 입력</p>
-        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요" >
-        <button onclick="validateEmail()">이메일유효성</button>
-        <button>인증메일발송</button>
-        <div id="result"></div>
+        <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요">
+        <br>
+        <button type="button"  onclick="dataSend()">인증번호 발송</button>
+        <br>
+
+
+
+        <input type="text" id="authCode" name="authCode" placeholder="인증번호를 입력해주세요."><br>
+        <button type="button" onclick="codeSend()">인증하기</button>
+
+        <br>
+
+
+
+
+
+
+<!--        <button onclick="validateEmail()">이메일유효성</button>-->
+
         <p>비밀번호</p>
         <input type="password"  name="password" placeholder="영문자,숫자 12~15자" >
         <p>비밀번호 확인</p>
@@ -68,10 +90,9 @@
         <input type="text"  name="nickname" placeholder="한글,영문자,숫자 3~20자" >
         <p>전화번호</p>
         <input type="text" id="phone" name="phone" placeholder=" ' - ' 를빼고 입력하세요" >
-        <button onclick="validatePhone()">전화번호유효성</button>
-
-
+        <button type="button" onclick="validatePhone()">전화번호유효성</button>
     </div>
+
 
 
 
@@ -96,8 +117,22 @@
             <label for="privateInfoAgreement">개인정보 수집/이용에 동의합니다. <a style="color: red;">(필수)</a></label>
         </div>
     </fieldset>
-    <input type="submit" class="submitButton" style="margin-bottom: 20px;margin-top: 20px" value="가입하기">
+        <input type="submit" id="signinButton" class="submitButton" value="가입하기" disabled>
     </form>
+
+
+
+
+
+<!--        <input type="text" id="certifyEmail" name="certifyEmail" placeholder="이메일을 입력해주세요" >-->
+<!--        <button onclick="dataSend()">인증번호 발송</button>-->
+
+
+
+<!--        <input type="text" id="authCode" name="authCode" placeholder="인증번호를 입력해주세요."><br>-->
+<!--        <button onclick="codeSend()">인증하기</button>-->
+
+
 
 </div>
 </div>
