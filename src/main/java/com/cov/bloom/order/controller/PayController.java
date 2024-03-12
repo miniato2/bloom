@@ -43,7 +43,7 @@ public class PayController {
 
 
         //파일업로드
-        fileUpload(multipartFiles);
+//        fileUpload(multipartFiles);
 
         this.option.setOptionNo(option.getOptionNo());
         this.option.setPortNo(option.getPortNo());
@@ -134,8 +134,6 @@ public class PayController {
                 file.transferTo(new File(filepath + "/" + savedFileName));
 
                 saveFiles.add("static/img/multi/" + savedFileName);
-
-                System.out.println();
 
             }
         }catch (Exception e){
