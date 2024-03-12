@@ -1,16 +1,16 @@
 *{
-    margin: 0; 
-    padding: 0; 
-    box-sizing: 
-    border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing:
+            border-box;
     font-family:  "zen old mincho" , sans-serif;
 }
 .request{
     width:1440px;
     display: flex;
     flex-direction: column;
-    margin: auto; 
-    height: auto; 
+    margin: auto;
+    height: auto;
 }
 .top{
     width: auto;
@@ -48,8 +48,9 @@
     font-size: 20px;
 }
 .pics{
+    padding-top: 10%;
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     width: 623px;
     height: 250px;
     border: solid 1px #d6d6d6;
@@ -64,6 +65,48 @@
     border: solid 1px #d6d6d6;
     border-radius: 5px;
 }
+.btnlabel{
+    margin-left: 10px;
+    display: flex;
+
+}
+.btnlb{
+    width: 100px;
+    height: 30px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+    background-color: #425345;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border-style: none;
+    text-align: center;
+    box-shadow: 0px 2px 0px 0px #000000;
+    margin-bottom: 50px;
+}
+.btnlb.delete{
+    background-color: #878787;
+}
+.btnlb:active{
+    width: 100px;
+    height: 30px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+    border-radius: 20px;
+    box-sizing: border-box;
+    border-style: none;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 45px;
+    box-shadow: none;
+
+}
+
 .text{
     padding: 20px;
     margin-top: 20px;
@@ -73,6 +116,7 @@
     font-size: 14px;
     border: solid 1px #d6d6d6;
     border-radius: 5px;
+    resize: none;
 }
 .side{
     margin-top: 60px;
@@ -92,18 +136,13 @@
 .userinfo{
     display: flex;
     flex-direction: column;
-    margin-left: 12px;
 }
 .potitle{
     font-size: 16px;
 }
 .username{
+    margin-top: 5px;
     font-size: 10px;
-
-}
-.thumb{
-    width: 136px;
-    height: 88px;
 }
 .sidemenu{
     font-size: 16px;
@@ -114,8 +153,10 @@
 }
 .option{
     border: solid 1px #686767;
+    border-radius: 5px;
     width: 70px;
     height: 28px;
+    margin-bottom: 10px;
 }
 .option2{
     border-bottom: solid 1px rgb(167, 167, 167);
@@ -135,6 +176,9 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+}
+.optioninput{
+    text-align: right;
 }
 .totalprice{
     font-size: 20px;

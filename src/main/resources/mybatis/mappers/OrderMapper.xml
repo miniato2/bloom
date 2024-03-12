@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cove.bloom.seung.model.dao.OrderDAO">
+    <resultMap id="optionResultMap" type="com.cov.bloom.order.model.dto.OptionDTO">
+        <id property="optionNo" column="option_no"/>
+        <result property="portNo" column="port_no"/>
+        <result property="optionPrice" column="option_price"/>
+        <result property="optionDt" column="option_dt"/>
+        <result property="optionFix" column="option_fix"/>
+        <result property="optionInfo" column="option_info"/>
+    </resultMap>
+
+    <insert id="registOrder" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
+        INSERT INTO ORDERS(
+        order_no
+        ,order_dt
+        ,request_con
+        ,request_status
+        ,order_final
+        ,option_no
+        ,port_no
+        ,member_no
+        )
+        VALUES(
+        #{ orderNo }
+        ,#{ orderDt }
+        ,#{ requestCon }
+        ,#{ requestStatus }
+        ,#{ orderFinal }
+        ,#{ optionNo }
+        ,#{ portNo }
+        ,#{ memberNo }
+        )
+    </insert>
+
+    <select id="getOption" parameterType="hashmap" resultMap="optionResultMap">
+        select option_no,
+        port_no,
+        option_price,
+        option_dt,
+        option_fix,
+        option_info
+        from  port_option
+        where option_no = #{ optionNo } AND port_no = #{ portNo }
+    </select>
+</mapper>
