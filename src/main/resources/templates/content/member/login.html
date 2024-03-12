@@ -49,11 +49,14 @@
 
 <div class="main">
     <br><br>
+    <form th:action="@{/auth/login}" th:method="post">
     <p class="emailTitle">이메일</p>
-    <input type="text" class="email" placeholder="이메일을 입력하세요">
+    <input type="text" class="email" name="email" placeholder="이메일을 입력하세요">
     <p class="passwordTitle">비밀번호</p>
-    <input type="password" class="password" placeholder="비밀번호를 입력하세요">
-    <button class="logInButton">로그인 하기</button>
+    <input type="password" class="password" name="password" placeholder="비밀번호를 입력하세요">
+    <input type="submit" class="logInButton" value="로그인 하기">
+    </form>
+
     <div class="buttonGroup">
         <button class="findButton">아이디/비밀번호 찾기</button>
 
