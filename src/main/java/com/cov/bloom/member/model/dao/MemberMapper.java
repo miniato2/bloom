@@ -16,4 +16,6 @@ public interface MemberMapper {
 
 
     int duplicationEmail(String email);
+
+
 }
