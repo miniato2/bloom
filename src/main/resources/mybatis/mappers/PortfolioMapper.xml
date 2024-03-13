@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cov.bloom.portfolio.model.dao.PortfolioMapper">
+    <insert id="insertPortfolio">
+        INSERT
+        INTO PORTFOLIO (
+                        PORT_NO
+                        , PORT_TITLE
+                        , PORT_CON
+                        , PORT_CONTACTDT
+                        , MEMBER_INFO
+                        , MEMBER_NO
+                        , WRITE_DT
+        )
+        VALUES (
+                #{ portNo }
+                , #{ portTitle }
+                , #{ portCon }
+                , #{ portContactDt }
+                , #{ memberInfo }
+                , #{ memberNo }
+                , now()
+        )
+
+    </insert>
+
+    <insert id="insertAttachment">
+        INSERT
+        INTO PORT_FILE (
+                        FILE_NO
+                        , PORT_NO
+                        , FILE_PATH
+                        , FILE_NAME
+                        , FILE_TYPE
+                        , THUMB_PATH
+        )
+        VALUES (
+                 #{ fileNo }
+                , #{ refPortNo }
+                , #{ filePath }
+                , #{ fileName }
+                , #{ fileType }
+                , #{ thumbnailPath }
+        )
+    </insert>
+
+</mapper>

@@ -1,0 +1,412 @@
+* {
+    margin : 0;
+    padding : 0;
+    box-sizing : border-box;
+}
+
+body{
+    font-family : "Noto Sans KR", sans-serif;
+}
+button, input, select, a{
+    font-family: "Noto Sans KR", sans-serif;
+}
+.inner{
+    max-width : 1047px;
+    margin: 0 auto;
+}
+/* header */
+header{
+    font-family : "Zen Old Mincho", serif;
+    
+}
+header .inner {
+    /* position: absolute; */
+    height : 70px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+header a{
+    
+    font-family : "Zen Old Mincho", serif;
+}
+#bloom a{
+    font-weight: bold;
+    font-size:26px;
+    text-decoration: none;
+    color : black;
+}
+#main_menu a{
+    color:#AEAEAE;
+    text-decoration: none;
+    margin-left : 58px;
+    font-size : 18px;
+}
+#lnb a{
+    font-size : 13px;
+    text-decoration: none;
+    color : black;
+}
+.whole_main{
+    width : 100%;
+    
+    
+}
+/* 메인 타이틀 */
+.main_title_banner{
+    position : relative;
+    font-family : "Zen Old Mincho", serif;
+    width : 100%;
+}
+
+.main_title_banner img{
+    display : block;
+    width : 100%;
+    height : auto;
+    object-fit: cover;
+}
+.main_title_banner .main_title{
+    
+    position : absolute;
+    top : 40%;
+    left : 20%;
+    transform: translate(-55%,-20%);
+    text-align: left;
+    color : white;
+    
+    white-space: nowrap;
+}
+.main_title_logo{
+    font-size : 75px;
+    font-weight : bold;
+
+}
+.main_title_subtitle{
+    font-family: "Noto Sans KR", sans-serif;
+    font-size : 25px;
+    font-weight: bold;
+}
+
+
+
+
+/*  첫번째 본문  */
+.whole_main .inner{
+    /* display: flex; */
+    font-family: "Noto Sans KR", sans-serif;
+    max-width : 1047px;
+    /* align-items:center;
+    justify-content: center; */
+    
+}
+
+.main_content_top{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    gap : 100px;
+    width : 100%;
+    height : 670px;
+}
+.content_top_left{
+    width : 300px;
+    font-size : 30px;
+    word-break: keep-all;
+
+}
+.content_top_left .title{
+    font-weight: bold;
+    width : 380px;
+    margin-bottom : 10px;
+}
+.desciption{
+    font-size : 15px;
+}
+.content_top_right{
+    width : 405px;
+    height : 325px;
+
+}
+.content_top_right img{
+    border-radius: 20px;
+    width : 405px;
+    height : 325px;
+    object-fit : cover;
+
+}
+
+/* 초록 배너 */
+.main_green_title{
+    height : 283px;
+    background-color: #25432A;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.main_green_title .green_title_in{
+    width : 100%;
+    gap : 300px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.green_title_description{
+    color : white;
+    
+    white-space : nowrap;
+}
+.green_title_description .title{
+    font-weight: bold;
+    font-size :30px;
+}
+
+.green_logo{
+    display : block;
+    margin-top : 10px;
+}
+.green_title .green_title_in .vector img{
+
+    width : 120px;
+    object-fit: cover;
+}
+
+/* 두번째 본문 */
+.main_content_bottom{
+    height : 1500px;
+    
+}
+.portfolio_page{
+    margin-top : 150px;
+    /* border: 1px solid red; */
+    /* display : flex;
+    justify-content : center; */
+}
+.main_portfolio_bigtitle{
+    /* display : flex; */
+    justify-content: center;
+    text-align: center;
+    margin-bottom : 100px;
+}
+.main_portfolio_bigtitle .title{
+    font-size : 40px;
+    font-weight: bold;
+}
+.title_description{
+    font-size : 20px;
+    margin-top : 10px;
+}
+
+.portfoilo_top{
+    height : 60px;
+    display : flex;
+    justify-content: space-between;
+    margin-bottom : 50px;
+}
+
+.portfolio_top_option{
+    width : 450px;
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#sort{
+    width : 140px;
+    border : none;
+    font-size: 20px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight : bold;
+    color : #25432A;
+    background-color: white;
+    padding : 2px 1px;
+    cursor : pointer;
+}
+.portfoilo_bookmark{
+    
+    cursor: pointer;
+}
+
+
+.bookmark_list{
+    width : 200px;
+    height : 50px;
+    border : none;
+    border-radius: 20px;
+    font-size : 20px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+
+.portfolio_search img{
+    width : 28px;
+    height : 28px; 
+    object-fit: cover;
+    text-align: center;
+    align-items: center;
+}
+#portfolio_search_input{
+    margin-left : 10px;
+    width : 200px;
+    height : 40px;
+    outline : none;
+    border : none;
+    border-bottom : 1px solid black;
+    font-size : 20px;
+    padding : 5px;
+}
+
+/* 포트폴리오 상품 목록 */
+
+.portfolio_list{
+    margin-top : 130px;
+    width : 1100px;
+    display : flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap : 20px
+}
+.first, .second{
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap : 30px;
+}
+.portfolio_product{
+    width : 33.3%;
+    padding : 20px;
+}
+
+.product_photo{
+    width : 287px;
+    margin-bottom : 1cqmin;
+
+}
+.product_photo img{
+    /* display : block; */
+    width : 287px;
+    height : 287px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.product_title_bookmark{
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+    gap : 40px;
+}
+.product_title{
+    margin-left : 20px;
+    font-weight: bold;
+    font-size : 15px;
+}
+.product_bookmark img{
+    width : 25px;
+    height : 25px;
+    object-fit: cover;
+    margin-left : 80px;
+}
+
+.product_writer{
+    margin-left : 25px;
+    font-size : 13px;
+    color : #858585;
+}
+.product_price{
+    font-size : 25px;
+    font-weight: bold;
+    margin-left : 20px;
+    margin-top : 15px;
+}
+
+.avg_star{
+    margin-left : 20px;
+    font-size : 20px;
+    color : rgb(255, 230, 0);
+}
+.avg_star_num{
+    font-size : 15px;
+    color : #858585;
+}
+
+
+/* footer */
+.page_bottom{
+    /* background: url(/bottomimage.png) no-repeat center center; */
+    /* background-size : cover; */
+    /* height: 550px; */
+    position: relative;
+}
+.page_bottom_bg{
+    display : block;
+    width : 100%;
+    object-fit: cover;
+}
+.page_bottom .inner{
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    color : white;
+    white-space: nowrap;
+}
+.page_bottom .inner strong{
+    display: block;
+    font-size : 56.73px;
+    
+    font-family : "Zen Old Mincho", serif;
+}
+.page_bottom .inner span{
+    font-size : 26px;
+}
+footer{
+    background-color: #262626;
+    color : white;
+    font-size : 20px;
+    padding : 100px 0px;
+}
+.footer_inner_bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.footer_logo{
+    display: block;
+    font-size : 40px;
+    font-family : "Zen Old Mincho", serif;
+    margin-bottom : 40px;
+}
+.policy a{
+    color : white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right : 20px;
+    font-size: 14px;
+
+}
+.footer_info{
+    margin-top: 30px;
+    color : #BDBDBD;
+    font-size : 12px;
+}
+.company_info{
+    max-width: 500px;
+    word-break : keep-all;
+}
+.company_info span{
+    margin-right : 10px;
+}
+.copyright{
+    margin-top: 0px;
+}
+.cs_info span{
+    display: block;
+    font-size: 12px;
+}
+.cs_info_time span {
+    display: block;
+}
