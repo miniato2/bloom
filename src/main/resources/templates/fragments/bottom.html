@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/header-footer.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<!--
+    하단 로고입니다.
+    붙이고 싶은 html에
+    <div th:replace="fragments/bottom :: bottomFragment"></div>
+    라고 붙이면 됩니다.(단 <body>, </body>를 없애야 한번만 나옵니다.)
+-->
+
+
+
+<div th:fragment="bottomFragment">
+    <!-- 하단 로고  -->
+    <div class="bottom-content">
+        <div class="page_bottom">
+            <img src="img/bottomimage.png" class="page_bottom_bg">
+            <!-- Bloom Your Room -->
+            <div class="inner">
+                <strong>Bloom Your Room</strong>
+                <span>당신의 공간을 더 아름답게</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</html>

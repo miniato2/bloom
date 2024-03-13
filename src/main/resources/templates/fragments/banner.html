@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/header-footer.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<div th:fragment="bannerFragment">
+    <!-- 배너의 내용 -->
+    <div class="banner-content">
+        <div class="green_title">   <!--  초록색 타이틀 -->
+            <div class="green_title_in">
+                <span class="title">마이 페이지</span>
+                <span class="vector">
+                    <img src="/img/Vector.png">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
