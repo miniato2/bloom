@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<header th:fragment="headerFragment" class="header">
+
+    <div class="inner">
+        <span id="bloom">Bloom</span>
+        <span id="main_menu">
+                <a href="">MAIN</a>
+                <a href="">NOTICE</a>
+                <a href="">CONTACT</a>
+            </span>
+        <span id="lnb">
+                <a href="">MESSAGE</a>
+                &nbsp; |  &nbsp;
+                <a th:href="@{/portfolio/regist}">MY PAGE</a>
+                &nbsp; |  &nbsp;
+                <a th:href="@{/member/login}">LOGIN</a>
+                &nbsp; |  &nbsp;
+                <a th:href="@{/member/signin}">JOIN</a>
+            </span>
+    </div>
+</header>
+</html>
