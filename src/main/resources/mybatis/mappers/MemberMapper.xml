@@ -50,8 +50,8 @@
     </select>
 
 
-    <select id="duplicationEmail" parameterType="string" resultMap="memberResultMap">
-        SELECT *
+    <select id="duplicationEmail" parameterType="string" resultType="int">
+        SELECT count(*)
         FROM member
         WHERE member_email = #{ email }
     </select>

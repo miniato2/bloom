@@ -49,6 +49,7 @@ public class MemberController {
 
         return "content/member/login";
     }
+
     @PostMapping("/duplicationEmail")
     @ResponseBody
     public Map<String, Object> duplication(@RequestParam("email") String email){

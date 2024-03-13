@@ -40,9 +40,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->{
-            auth.requestMatchers("auth/login","/","main","member/signin","/member/email","/member/verify", "/portfolio/regist","/img/**").permitAll();
+            auth.requestMatchers("auth/login","/","main","member/signin","/member/email","/member/verify",
+                    "/portfolio/regist","/img/**","/auth/mypage").permitAll();
             auth.requestMatchers("/auth/success").hasAnyAuthority(MemberRole.c.getRole());
-//            auth.anyRequest().permitAll(); //권한 전부줌
+            auth.anyRequest().permitAll(); //권한 전부줌
+
+
 
 
 

@@ -1,7 +1,7 @@
 package com.cov.bloom.member.model.service;
 
 
-import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,7 +23,7 @@ public class MailService {
 
         SimpleMailMessage simpleMessage = new SimpleMailMessage();
 
-        System.out.println(email);
+
         
 
         simpleMessage.setTo(email);

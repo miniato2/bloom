@@ -63,7 +63,7 @@
         <p class="emailTitle">이메일 입력</p>
         <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요">
         <br>
-        <button type="button"  onclick="dataSend()">인증번호 발송</button>
+        <button type="button"  onclick="duplEmail()">인증번호 발송</button>
         <br>
 
 
@@ -74,23 +74,27 @@
         <br>
 
 
-
-
-
-
 <!--        <button onclick="validateEmail()">이메일유효성</button>-->
 
         <p>비밀번호</p>
-        <input type="password"  name="password" placeholder="영문자,숫자 12~15자" >
+        <input type="password" id="pw" name="password" placeholder="영문자,숫자 12~15자" oninput="validatePW()">
+        <div id="pwResult"></div>
+
         <p>비밀번호 확인</p>
-        <input type="password" name="password2" placeholder="한번더 입력해주세요" >
+        <input type="password" id="pw2"  name="password2" placeholder="한번더 입력해주세요" oninput="validatePW2()">
+        <div id="pw2Result"></div>
+
         <p>이름</p>
-        <input type="text"  name="name" placeholder="한글,영문자 2~20자" >
+        <input type="text" id="name" name="name" placeholder="한글,영문자 2~20자" oninput="validateName()">
+        <div id="nameResult"></div>
+
         <p>닉네임</p>
-        <input type="text"  name="nickname" placeholder="한글,영문자,숫자 3~20자" >
+        <input type="text" id="nickname" name="nickname" placeholder="한글,영문자,숫자 3~20자" oninput="validateNickname()">
+        <div id="nicknameResult"></div>
         <p>전화번호</p>
-        <input type="text" id="phone" name="phone" placeholder=" ' - ' 를빼고 입력하세요" >
-        <button type="button" onclick="validatePhone()">전화번호유효성</button>
+        <input type="text" id="phone" name="phone" placeholder=" ' - ' 를빼고 입력하세요" oninput="validatePhone()">
+        <div id="phoneResult"></div>
+
     </div>
 
 
@@ -101,24 +105,25 @@
     <fieldset class="fieldset">
 
         <div>
-            <input type="checkbox" id="ageLimit" name="ageLimit" />
+            <input type="checkbox" id="ageLimit" name="ageLimit" onclick="age()"/>
             <label for="ageLimit">만 14세 이상입니다.<a style="color: red;">(필수)</a></label>
         </div>
 
 
 
         <div>
-            <input type="checkbox" id="serviceAgreement" name="serviceAgreement" />
+            <input type="checkbox" id="serviceAgreement" name="serviceAgreement" onclick="service()"/>
             <label for="serviceAgreement">서비스 이용약관에 동의합니다.<a style="color: red;">(필수)</a></label>
         </div>
 
         <div>
-            <input type="checkbox" id="privateInfoAgreement" name="privateInfoAgreement" />
+            <input type="checkbox" id="privateInfoAgreement" name="privateInfoAgreement" onclick="privateInfo()"/>
             <label for="privateInfoAgreement">개인정보 수집/이용에 동의합니다. <a style="color: red;">(필수)</a></label>
         </div>
     </fieldset>
         <input type="submit" id="signinButton" class="submitButton" value="가입하기" disabled>
     </form>
+
 
 
 
@@ -184,3 +189,5 @@
     </div>
 </footer>
 </body>
+
+</html>

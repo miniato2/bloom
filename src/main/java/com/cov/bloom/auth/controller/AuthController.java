@@ -26,4 +26,10 @@ public class AuthController {
 
         return mv;
     }
+    @GetMapping("/mypage")
+    public String myPage(){
+        return "content/mypage/MyPage";
+    }
+
+
 }
