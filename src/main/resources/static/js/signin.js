@@ -269,6 +269,7 @@ function validateNickname() {
     }
 }
 
+
 function age() {
     if(verifyage===true){
         verifyage=false;

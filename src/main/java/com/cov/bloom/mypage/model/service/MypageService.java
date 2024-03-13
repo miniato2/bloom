@@ -1,10 +1,10 @@
-package com.cov.bloom.member.model.service;
+package com.cov.bloom.mypage.model.service;
 
 import com.cov.bloom.member.model.dao.MemberMapper;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.dto.MemberDTO;
+import com.cov.bloom.mypage.model.dao.MypageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,30 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 
 @Service
-public class MemberService {
+public class MypageService {
 
     @Autowired
-    private final MemberMapper memberMapper;
+    private final MypageMapper mypageMapper;
 
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberMapper memberMapper){
-        this.memberMapper=memberMapper;
-    }
-
-    @Transactional
-    public void signinMember(MemberDTO newMember){
-        newMember.setPassword(passwordEncoder.encode(newMember.getPassword()));
-
-        memberMapper.signinMember(newMember);
+    public MypageService(MypageMapper mypageMapper){
+        this.mypageMapper=mypageMapper;
     }
 
 
 
     public LoginMemberDTO findByUsername(String email){
-        LoginMemberDTO login = memberMapper.findByUsername(email);
+        LoginMemberDTO login = mypageMapper.findByUsername(email);
 
         System.out.println("aaa: " + passwordEncoder.encode(login.getPassword()));
 
@@ -48,14 +41,18 @@ public class MemberService {
         }
     }
 
-    public int duplicationEmail(String email) {
 
 
-       int result= memberMapper.duplicationEmail(email);
-        System.out.println("결과값은 ?" + result);
+    @Transactional
+    public int updateNickname(String memberName, String nickname) {
+        int result = mypageMapper.updateNickname(memberName,nickname);
 
         return result;
     }
 
-
+    @Transactional
+    public int updatePhone(String memberName, String phone) {
+        int result = mypageMapper.updatePhone(memberName,phone);
+        return result;
+    }
 }

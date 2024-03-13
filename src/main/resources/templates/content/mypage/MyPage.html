@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
 
   <meta charset="utf-8" />
@@ -17,30 +20,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
     <link rel="stylesheet" th:href="@{/css/bloomMyPage.css}"/>
     <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
-  
+    <script th:src="@{/js/myPage.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<body>
 
-        <header>    <!-- header -->
-            <div class="inner">
-                <span id="bloom">Bloom</span>
-                <span id="main_menu">
-                    <a href="">MAIN</a>
-                    <a href="">NOTICE</a>
-                    <a href="">CONTACT</a>
-                </span>
-                <span id="lnb">
-                    <a href="">MESSAGE</a>
-                    &nbsp; |  &nbsp;
-                    <a href="">MY PAGE</a>
-                    &nbsp; |  &nbsp;
-                    <a href="">LOGIN</a>
-                    &nbsp; |  &nbsp;
-                    <a href="">JOIN</a>
-                </span>
-            </div>
-        </header>
-        <div>   <!--  본문  -->
+
+<div layout:fragment="content">
+        <!--  본문  -->
             <div class="green_title">   <!--  초록색 타이틀 -->
                 <div class="green_title_in">
                     <span class="title">마이 페이지</span>
@@ -49,7 +35,6 @@
                     </span>
                 </div>
             </div>
-    
     <div class="container">
         <div class="containerButton">
           <button class="Button">내 정보</button><br>
@@ -62,70 +47,28 @@
         <div class="main">
             <h1>내 정보</h1><br>
             <p class="emailTitle">이메일</p><br>
-            <a class="content">gndud3158@naver.com</a><br>
+            <input type="text" class="content" th:value="${member.email}"disabled><br>
             <hr/>
             <p class="passwordTitle">닉네임</p><br>
-            <a class="content">후뿌뿡</a>&nbsp&nbsp&nbsp
-            <button class="modify" onclick="alert('hi')">수정</button><br>
+            <input type="text"  id="nickname" class="content" th:value="${member.nickname}" onblur="updateNickname()"  disabled><br>&nbsp&nbsp&nbsp
+            <button class="modify" onclick="activateNickname()" >수정</button><br>
+            <div id="nicknameResult"></div>
+
             <hr/>
             <p class="emailTitle">이름</p><br>
-            <a class="content">이후영</a><br>
+            <input type="text" class="content" th:value="${member.name}"disabled><br><br>
             <hr/>
             <p class="passwordTitle">전화번호</p><br>
-            <a class="content">01032283158</a>&nbsp&nbsp&nbsp<button class="modify" onclick="alert('hi')">수정</button><br>
+            <input type="text" class="content" id="phone" th:value="${member.phone}"disabled onblur="updatePhone()"><br>&nbsp&nbsp&nbsp
+            <button class="modify" onclick="activatePhone()">수정</button><br>
+            <div id="phoneResult"></div>
             <hr/>
             <p class="emailTitle">비밀번호</p><br>
-            <a class="content">●●●●●●●●●●●●</a>&nbsp&nbsp&nbsp<button class="modify" onclick="alert('hi')">수정</button><br>
+            <input type="password" class="content" th:value="${member.password}"disabled><br>&nbsp&nbsp&nbsp<button class="modify" onclick="">수정</button><br>
             <hr/>
             <br><br>
         </div>
     </div>
 
-        <footer>    <!-- footer -->
-            <div class="inner">
-                <div class="footer_inner_top">
-                    <strong class="footer_logo">Bloom</strong>
-                </div>
-                <div class="footer_inner_bottom">
-                    <div>
-                        <div class="policy">
-                            <a href="">회사소개</a>
-                            <a href="">이용약관</a>
-                            <a href="">이용안내</a>
-                            <a href="">개인정보처리방침</a>
-                        </div>
-                        <div>
-                            <p class="footer_info company_info">
-                                <span>(주)코브이</span>
-                                <span>서울 종로구 인사동길 12 대일빌딩 7층 10강의실</span>
-                                <br>
-                                <span>사업자등록번호 : 001-01-00001 사업자정보확인</span>
-                                <span>통신판매업신고번호 : 2024-가나다라-0001</span>
-                                <br>
-                                <span>개인정보보호책임자 : 코브이</span>
-                                <span>팩스번호 : 02-001-0001</span>
-                                <span>이메일: cove@cove.com</span>
-    
-                            </p>
-                            <p class="footer_info copyright">
-                                Copyright 2024. COVE All Rights Reserved.
-                            </p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="cs_info">
-                            <span>고객센터</span>
-                            <strong>1588-0710</strong>
-                        </div>
-                        <div>
-                            <p class="footer_info cs_info_time">
-                                <span>평일 09:30 ~ 18:20</span>
-                                <span>점심 13:20 ~ 14:30</span>
-                                <span>휴무 주말/공휴일</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-</body>
+</div>
+</html>

@@ -31,4 +31,11 @@ public class AuthService implements UserDetailsService {
 
         return new AuthDetails(login);
     }
+    public LoginMemberDTO getMember(String email) {
+
+        LoginMemberDTO member = memberService.findByUsername(email);
+
+        return member;
+
+    }
 }

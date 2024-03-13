@@ -1,14 +1,32 @@
 package com.cov.bloom.auth.controller;
 
+import com.cov.bloom.auth.model.service.AuthService;
+import com.cov.bloom.member.model.dto.LoginMemberDTO;
+import com.cov.bloom.member.model.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+
+
+
+    private final AuthService authService;
+    private final MemberService memberService;
+
+    public AuthController(AuthService authService, MemberService memberService){
+        this.authService = authService;
+        this.memberService=memberService;
+    }
+
 
     @GetMapping("/login")
     public String login(){
@@ -26,10 +44,8 @@ public class AuthController {
 
         return mv;
     }
-    @GetMapping("/mypage")
-    public String myPage(){
-        return "content/mypage/MyPage";
-    }
+
+
 
 
 }
