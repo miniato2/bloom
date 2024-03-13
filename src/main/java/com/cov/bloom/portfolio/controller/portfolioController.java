@@ -144,8 +144,6 @@ public class portfolioController {
 
             portfolioService.registThumbnail(portfolio);
 
-
-
             System.out.println("서비스 다녀왔대요");
 
             rttr.addFlashAttribute("message", "사진 게시판 등록에 성공하셨습니다.");
