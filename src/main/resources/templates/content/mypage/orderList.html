@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>마이페이지 판매자 내정보</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
+    <link rel="stylesheet" href="./styles/headerfooter.css"/>
+    <link rel="stylesheet" th:href="@{/css/orderList.css}">
+    <div>
+        <header>    <!-- header -->
+            <div class="inner">
+                <span id="bloom">Bloom</span>
+                <span id="main_menu">
+                <a href="">MAIN</a>
+                <a href="">NOTICE</a>
+                <a href="">CONTACT</a>
+                </span>
+                <span id="lnb">
+                <a href="">MESSAGE</a>
+                &nbsp; |  &nbsp;
+                <a href="">MY PAGE</a>
+                &nbsp; |  &nbsp;
+                <a href="">LOGIN</a>
+                &nbsp; |  &nbsp;
+                <a href="">JOIN</a>
+            </span>
+            </div>
+        </header>
+        <div>   <!--  본문  -->
+            <div class="green_title">   <!--  초록색 타이틀 -->
+                <div class="green_title_in">
+                    <span class="title">마이 페이지</span>
+                    <span class="vector">
+                    <img src="/img/Vector.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</head>
+
+<body>
+<div class="container">
+    <div class="containerButton">
+        <button class="Button">내 정보</button><br>
+        <button class="Button">포트폴리오</button><br>
+        <button class="Button">판매내역</button><br>
+        <button class="Button">정산</button><br>
+        <button class="Button">의뢰인 전환</button><br><br><br><br><br><br><br>
+        <button class="cancelButton">회원탈퇴</button><br>
+    </div>
+    <div class="main">
+        <h1>주문내역</h1>
+        <div class="orderCon">
+            <table class="orderList">
+                <thead>
+                <tr id="tablehead">
+                    <th scope="col" style="width: 10%">번호</th>
+                    <th scope="col" style="width: 25%">제목</th>
+                    <th scope="col" style="width: 10%">판매자</th>
+                    <th scope="col" style="width: 15%">신청일</th>
+                    <th scope="col" style="width: 15%">마감일</th>
+                    <th scope="col" style="width: 15%">결제금액</th>
+                    <th scope="col" style="width: 10%">상태</th>
+                </tr>
+                </thead>
+                <tbody th:each="order:${orderlist}">
+                <tr>
+                    <td>번호1</td>
+                    <td><a th:href="@{/}" th:text="${order.portTitle}"></a></td>
+                    <td th:text="${order.memberNick}"></td>
+                    <td th:text="${order.orderDt}"></td>
+                    <td th:text="${order.orderFinalDt}"></td>
+                    <td th:text="${order.price}"></td>
+                    <td th:text="${order.orderStatus}"></td>
+                </tr>
+                </tbody>
+                <!--                <tbody>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>번호1</td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                        <td></td>-->
+                <!--                    </tr>-->
+                <!--                </tbody>-->
+            </table>
+            <div class="area">ddd</div>
+        </div>
+    </div>
+</div>
+
+<footer>    <!-- footer -->
+    <div class="inner">
+        <div class="footer_inner_top">
+            <strong class="footer_logo">Bloom</strong>
+        </div>
+        <div class="footer_inner_bottom">
+            <div>
+                <div class="policy">
+                    <a href="">회사소개</a>
+                    <a href="">이용약관</a>
+                    <a href="">이용안내</a>
+                    <a href="">개인정보처리방침</a>
+                </div>
+                <div>
+                    <p class="footer_info company_info">
+                        <span>(주)코브이</span>
+                        <span>서울 종로구 인사동길 12 대일빌딩 7층 10강의실</span>
+                        <br>
+                        <span>사업자등록번호 : 001-01-00001 사업자정보확인</span>
+                        <span>통신판매업신고번호 : 2024-가나다라-0001</span>
+                        <br>
+                        <span>개인정보보호책임자 : 코브이</span>
+                        <span>팩스번호 : 02-001-0001</span>
+                        <span>이메일: cove@cove.com</span>
+
+                    </p>
+                    <p class="footer_info copyright">
+                        Copyright 2024. COVE All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="cs_info">
+                    <span>고객센터</span>
+                    <strong>1588-0710</strong>
+                </div>
+                <div>
+                    <p class="footer_info cs_info_time">
+                        <span>평일 09:30 ~ 18:20</span>
+                        <span>점심 13:20 ~ 14:30</span>
+                        <span>휴무 주말/공휴일</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
