@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Massage.css">
+
+    <title>쪽지함</title>
+</head>
+
+    <div layout:fragment="content">
+
+        <div>
+            <div class="green_title">
+                <div class="green_title_in">
+                    <span class="title">쪽지함</span>
+                    <span class="vector">
+                    <img src="/img/message.png" style="width: 150px; height: auto;">
+                </span>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="main-container">
+                    <div class="sidebar">
+                        <div class="inbox-button" onclick="showMessages('inbox', 1); toggleActive(this);">받은 쪽지함</div>
+                        <div class="sent-button" onclick="showMessages('sent', 1); toggleActive(this);">보낸 쪽지함</div>
+
+                    </div>
+                    <div class="message-container" id="inbox">
+
+                        <style>
+                            table {
+                                border-collapse: collapse;
+                            }
+
+                            th, td {
+                                padding: 10px;
+                                text-align: center;
+                            }
+
+                            .message-row {
+                                border-bottom: 2px solid #B7B7B7;
+                            }
+                        </style>
+
+                        <table>
+                            <tr>
+                                <th>보낸 사람</th>
+                                <th>내용</th>
+                                <th>날짜</th>
+                            </tr>
+
+                            <tr th:each="message : ${messageDTOList}" class="message-row">
+                                <td th:text="${message.senderMemberEmail}"></td>
+                                <td th:text="${message.msgContent}"></td>
+                                <td th:text="${message.msgDate}"></td>
+                            </tr>
+                        </table>
+
+
+
+
+
+                    </div>
+                    <div class="message-container" id="sent" style="display:none;"></div>
+                </div>
+                <div class="footer">
+                    <button onclick="changePage(currentBoxType, -1)">이전 페이지</button>
+                    <button onclick="changePage(currentBoxType, 1)">다음 페이지</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            var currentBoxType = '';
+
+            function truncateText(text, maxLength) {
+                return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+            }
+
+            // function showMessages(boxType, page) {
+            //     console.log("showMessages called with", boxType, "and page", page);
+            //
+            //     currentBoxType = boxType;
+            //     var messagesContainer = document.getElementById(boxType);
+            //     messagesContainer.innerHTML = '';
+            //
+            //     var dummyMessages = getDummyMessages(boxType);
+            //     var startIndex = (page - 1) * 5;
+            //     var endIndex = Math.min(startIndex + 5, dummyMessages.length);
+            //     var totalPages = Math.ceil(dummyMessages.length / 5);
+            //
+            //     var headerHTML = `
+            //     <div class="message">
+            //         <div class="message-details">
+            //             <p>이름</p>
+            //             <p>내용</p>
+            //             <p>날짜</p>
+            //         </div>
+            //     </div>
+            // `;
+            //     messagesContainer.insertAdjacentHTML('beforeend', headerHTML);
+            //
+            //     for (var i = startIndex; i < endIndex; i++) {
+            //         var message = dummyMessages[i];
+            //         var truncatedContent = truncateText(message.content, 10);
+            //         var messageHTML = `
+            //         <div class="message">
+            //             <div class="message-details">
+            //                 <p>${(boxType === 'inbox') ? message.sender : message.recipient}</p>
+            //                 <p>${truncatedContent}</p>
+            //                 <p>${message.date}</p>
+            //             </div>
+            //         </div>
+            //     `;
+            //         messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
+            //     }
+            //
+            //     updatePageButtons(boxType, page, totalPages);
+            // }
+
+            function updatePageButtons(boxType, currentPage, totalPages) {
+                console.log("updatePageButtons called with", boxType, "current page", currentPage, "total pages", totalPages);
+
+                var pageButtonsHTML = '<button onclick="changePage(\'' + boxType + '\', ' + (currentPage - 1) + ')">&#60;</button>';
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var activeClass = (i === currentPage) ? 'active' : '';
+                    pageButtonsHTML += '<button class="' + activeClass + '" onclick="changePage(\'' + boxType + '\', ' + i + ')">' + i + '</button>';
+                }
+
+                pageButtonsHTML += '<button onclick="changePage(\'' + boxType + '\', ' + (currentPage + 1) + ')">&#62;</button>';
+
+                var footer = document.querySelector('.footer');
+                footer.innerHTML = pageButtonsHTML;
+            }
+
+            function changePage(boxType, page) {
+                if (boxType === 'inbox' || boxType === 'sent') {
+                    showMessages(boxType, page);
+                }
+            }
+
+            function toggleActive(button) {
+                var buttons = document.querySelectorAll('.sidebar div');
+                buttons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+            }
+
+            // function getDummyMessages(boxType) {
+            //     var dummyReceivedMessages = [
+            //         { sender: '크샤흐레와르 학부', content: '네 가능합니다.', date: '2024-02-29' },
+            //         { sender: '독립 디자인 공방', content: '어떠한 방식으로 인테리어를 원하시나요?', date: '2024-02-29' },
+            //         { sender: '마리아나', content: '원룸 관련 신청서로 보내주시면 확인 하겠습니다.', date: '2024-02-29' },
+            //         { sender: '지안트', content: '어떠한 특이한걸 말씀하시나요?', date: '2024-02-29' },
+            //         { sender: '스티브', content: '네 가능합니다.', date: '2024-02-29' },
+            //         { sender: '다이달로스', content: '날개가 들어간 인테리어 말씀이십니까?', date: '2024-02-29' },
+            //     ];
+            //
+            //     var dummySentMessages = [
+            //         { recipient: '봄감자', content: '한옥집 느낌 나는 스타일도 가능하신가요', date: '2024-02-29' },
+            //         { recipient: '전기맛장아찌', content: '포폴맛집 연락 드려요', date: '2024-02-29' },
+            //         { recipient: '힉힉호무리', content: '원룸 셀프 인테리어로 연락 드려요', date: '2024-02-29' },
+            //         { recipient: '구와아아악', content: '약간 특이한 인테리어도 가능하십니까?', date: '2024-02-29' },
+            //         { recipient: '탄산붐붐', content: '힙한 느낌 인테리어 가능?', date: '2024-02-29' },
+            //         { recipient: '이카로스', content: '날개를 이용한 인테리어도 가능한가요?', date: '2024-02-29' },
+            //     ];
+            //
+            //     return (boxType === 'inbox') ? dummyReceivedMessages : dummySentMessages;
+            // }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                showMessages('inbox', 1);
+            });
+        </script>
+
+    </div>
+
+
+
+
+</html>
