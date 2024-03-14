@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cov.bloom.message.model.dao.MessageMapper">
+
+    <resultMap id="messageMap" type="com.cov.bloom.message.model.dto.MessageDTO">
+        <id property="msgNo" column="msg_no"/>
+        <result property="msgDate" column="msg_day"/>
+        <result property="msgContent" column="msg_content"/>
+        <result property="senderMemberEmail" column="sender_member_email"/>
+        <result property="recipientMemberEmail" column="recipient_member_email"/>
+    </resultMap>
+    <select id="selectTotalCount" resultType="_int" >
+        SELECT
+        COUNT(*)
+        FROM MESSAGE
+        WHERE RECIPIENT_MEMBER_EMAIL = "qwer@dddd.com"
+    </select>
+
+    <select id="selectMessageList" resultMap="messageMap">
+        SELECT *
+        FROM MESSAGE
+        WHERE RECIPIENT_MEMBER_EMAIL = "qwer@dddd.com"
+    </select>
+
+</mapper>
