@@ -11,4 +11,8 @@ public interface MypageMapper {
     int updatePhone(String memberName, String phone);
 
     LoginMemberDTO findByUsername(String email);
+
+    int updatePW(String memberName, String encpw);
+
+    int deleteMember(String memberName);
 }

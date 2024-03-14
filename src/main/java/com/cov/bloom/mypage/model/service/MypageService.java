@@ -30,7 +30,7 @@ public class MypageService {
     public LoginMemberDTO findByUsername(String email){
         LoginMemberDTO login = mypageMapper.findByUsername(email);
 
-        System.out.println("aaa: " + passwordEncoder.encode(login.getPassword()));
+//        System.out.println("aaa: " + passwordEncoder.encode(login.getPassword()));
 
 
         if(!Objects.isNull((login))){
@@ -53,6 +53,16 @@ public class MypageService {
     @Transactional
     public int updatePhone(String memberName, String phone) {
         int result = mypageMapper.updatePhone(memberName,phone);
+        return result;
+    }
+
+    public int updatePW(String memberName, String encpw) {
+        int result = mypageMapper.updatePW(memberName,encpw);
+        return result;
+    }
+
+    public int deleteMember(String memberName) {
+        int result = mypageMapper.deleteMember(memberName);
         return result;
     }
 }

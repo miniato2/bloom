@@ -20,7 +20,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
     <link rel="stylesheet" th:href="@{/css/bloomMyPage.css}"/>
     <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+    <link rel="stylesheet" th:href="@{/css/modal.css}"/>
     <script th:src="@{/js/myPage.js}"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
@@ -42,7 +44,7 @@
           <button class="Button">판매내역</button><br>
           <button class="Button">정산</button><br>
           <button class="Button">의뢰인 전환</button><br><br><br><br><br><br><br>
-          <button class="cancelButton">회원탈퇴</button><br>
+          <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
         </div>
         <div class="main">
             <h1>내 정보</h1><br>
@@ -50,7 +52,7 @@
             <input type="text" class="content" th:value="${member.email}"disabled><br>
             <hr/>
             <p class="passwordTitle">닉네임</p><br>
-            <input type="text"  id="nickname" class="content" th:value="${member.nickname}" onblur="updateNickname()"  disabled><br>&nbsp&nbsp&nbsp
+            <input type="text"  id="nickname" class="content" th:value="${member.nickname}" onblur="updateNickname()"  disabled><br>
             <button class="modify" onclick="activateNickname()" >수정</button><br>
             <div id="nicknameResult"></div>
 
@@ -59,12 +61,32 @@
             <input type="text" class="content" th:value="${member.name}"disabled><br><br>
             <hr/>
             <p class="passwordTitle">전화번호</p><br>
-            <input type="text" class="content" id="phone" th:value="${member.phone}"disabled onblur="updatePhone()"><br>&nbsp&nbsp&nbsp
+            <input type="text" class="content" id="phone" th:value="${member.phone}"disabled onblur="updatePhone()"><br>
             <button class="modify" onclick="activatePhone()">수정</button><br>
             <div id="phoneResult"></div>
             <hr/>
             <p class="emailTitle">비밀번호</p><br>
-            <input type="password" class="content" th:value="${member.password}"disabled><br>&nbsp&nbsp&nbsp<button class="modify" onclick="">수정</button><br>
+            <input type="password" id="pw" class="content" th:value="${member.password}"disabled onblur="updatePW()"><br>
+            <div id="pwResult"></div>
+
+
+
+
+            <!-- 모달 버튼 -->
+            <button class="modify" id="modalBtn">수정</button>
+
+            <!-- 모달 창 -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeBtn">&times;</span>
+                    <p>로그인메일로 인증번호 발송되었습니다.</p>
+                    <input type="text" id="authCode" placeholder="인증번호를 입력해주세요">
+                    <button onclick="codeSend()">인증하기</button>
+
+                </div>
+            </div>
+
+            <br>
             <hr/>
             <br><br>
         </div>
