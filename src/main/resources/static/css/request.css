@@ -177,9 +177,6 @@
     display: flex;
     justify-content: space-between;
 }
-.optioninput{
-    text-align: right;
-}
 .totalprice{
     font-size: 20px;
     font-weight: bold;

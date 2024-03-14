@@ -5,16 +5,19 @@ import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.service.MailService;
 
 import com.cov.bloom.mypage.model.service.MypageService;
+import com.cov.bloom.order.model.dto.MyOrder;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -216,13 +219,22 @@ public class MypageController {
         return "/main";
     }
 
-
-
-
     public String createAuthCode() {
 
         return String.valueOf((int)(Math.random() * 900000) + 100000);
     }
 
+    //주문내역
+    @GetMapping("/orderlist")
+    public String orderlist(Model model){
+
+        int memberNo = 1;
+        List<MyOrder> orderlist = mypageService.findAllOrderList(memberNo);
+
+
+        model.addAttribute("myorder", orderlist);
+
+        return "content/mypage/orderList";
+    }
 
 }

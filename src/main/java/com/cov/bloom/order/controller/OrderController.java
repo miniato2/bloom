@@ -24,23 +24,22 @@ public class OrderController {
     }
 
     @GetMapping("/request")
-    public String request(Model model){
+    public String request(Model model, String portNo){
+        portNo = "p";
 
-        model.addAttribute("portNo", "p");
+        model.addAttribute("portNo", portNo);
 
         return "content/order/request";
     }
 
     @GetMapping("/successOrder")
     public String success(){
-        return "order/successOrder";
+        return "content/order/successOrder";
     }
-
-
 
     @GetMapping("/failOrder")
     public String fail(){
-        return "order/failOrder";
+        return "content/order/failOrder";
     }
 
 

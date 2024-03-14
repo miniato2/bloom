@@ -2,8 +2,8 @@ package com.cov.bloom.order.model.dto;
 
 import java.sql.Date;
 
-public class OrderDTO {
-    private String orderNo;         //주문번호
+public class OrderDTO implements java.io.Serializable {
+    private int orderNo;         //주문번호
     private Date orderDt;           //주문일시
     private Date orderFinalDt;      //작업완료일시
     private String requestCon;      //주문요구사항
@@ -16,7 +16,7 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(String orderNo, Date orderDt, Date orderFinalDt, String requestCon, String requestStatus, String orderFinal, String optionNo, String portNo, int memberNo) {
+    public OrderDTO(int orderNo, Date orderDt, Date orderFinalDt, String requestCon, String requestStatus, String orderFinal, String optionNo, String portNo, int memberNo) {
         this.orderNo = orderNo;
         this.orderDt = orderDt;
         this.orderFinalDt = orderFinalDt;
@@ -28,11 +28,11 @@ public class OrderDTO {
         this.memberNo = memberNo;
     }
 
-    public String getOrderNo() {
+    public int getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(String orderNo) {
+    public void setOrderNo(int orderNo) {
         this.orderNo = orderNo;
     }
 
@@ -103,7 +103,7 @@ public class OrderDTO {
     @Override
     public String toString() {
         return "OrderDTO{" +
-                "orderNo='" + orderNo + '\'' +
+                "orderNo=" + orderNo +
                 ", orderDt=" + orderDt +
                 ", orderFinalDt=" + orderFinalDt +
                 ", requestCon='" + requestCon + '\'' +

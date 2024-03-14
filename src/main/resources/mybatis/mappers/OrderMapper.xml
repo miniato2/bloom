@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cov.bloom.order.model.dao.OrderDAO">
+
     <resultMap id="optionResultMap" type="com.cov.bloom.order.model.dto.OptionDTO">
         <id property="optionNo" column="option_no"/>
         <result property="portNo" column="port_no"/>
@@ -11,6 +12,23 @@
         <result property="optionFix" column="option_fix"/>
         <result property="optionInfo" column="option_info"/>
     </resultMap>
+
+    <!--    <resultMap id="orderResultMap" type="com.cov.bloom.order.model.dto.OrderDTO">-->
+    <!--        <id property="orderNo" column="order_no"/>-->
+    <!--        <result property="orderDt" column="order_dt"/>-->
+    <!--        <result property="orderFinalDt" column="order_finaldt"/>-->
+    <!--        <result property="requestCon" column="request_con"/>-->
+    <!--        <result property="requestStatus" column="request_status"/>-->
+    <!--        <result property="orderFinal" column="option_final"/>-->
+    <!--        <result property="optionNo" column="option_no"/>-->
+    <!--        <result property="portNo" column="port_no"/>-->
+    <!--        <result property="memberNo" column="member_no"/>-->
+    <!--    </resultMap>-->
+
+    <select id="checkOrderNo">
+        select count(*)
+        from orders
+    </select>
 
     <insert id="registOrder" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
         INSERT INTO ORDERS(
@@ -33,6 +51,22 @@
         ,#{ portNo }
         ,#{ memberNo }
         )
+    </insert>
+
+    <insert id="registOrderFile" parameterType="java.util.List">
+        INSERT INTO request_file(
+        file_path
+        ,file_name
+        ,order_no
+        )
+        VALUES
+        <foreach collection="list" separator="," item="item">
+            (
+            #{ item.filePath }
+            ,#{ item.fileName }
+            ,#{ item.orderNo }
+            )
+        </foreach>
     </insert>
 
     <select id="getOption" parameterType="hashmap" resultMap="optionResultMap">
