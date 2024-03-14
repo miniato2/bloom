@@ -8,46 +8,46 @@
     <link rel="stylesheet" th:href="@{/css/successOrder.css}">
 </head>
 <body>
-    <div class="result">
-        <div class="header">
+<div class="result">
+    <div class="header">
 
-        </div>
-        <div class="main">
-            <div class="top"></div>
-            <div class="success">
-                <div class="title">
-                    결제 완료
-                </div>
-                <div class="detail">
-                    <div class="price">
-                        <div class="price1">
-                            결제 금액
-                        </div>
-                        <div class="price2">
-                            110,000원
-                        </div>
+    </div>
+    <div class="main">
+        <div class="top"></div>
+        <div class="success">
+            <div class="title">
+                결제 완료
+            </div>
+            <div class="detail">
+                <div class="price">
+                    <div class="price1">
+                        <p>결제 금액</p>
                     </div>
-                    <div class="text1">
-                        결제가 완료되었습니다.
-                    </div>
-                    <div class="text2">
-                        주문내역은 마이페이지에서 조회 하실 수 있습니다.
+                    <div class="price2">
+                        <p th:text="${price}"></p>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button class="btn golist">
-                        구매 내역 보기
-                    </button>
-                    <button class="btn gomain">
-                        메인으로 가기
-                    </button>
+                <div class="text1">
+                    결제가 완료되었습니다.
+                </div>
+                <div class="text2">
+                    주문내역은 마이페이지에서 조회 하실 수 있습니다.
                 </div>
             </div>
-        </div>
-        <div class="footer">
-
+            <div class="buttons">
+                <button class="btn golist">
+                    구매 내역 보기
+                </button>
+                <button type='button' class="btn gomain" onclick="location.href='/main'">
+                    메인으로 가기
+                </button>
+            </div>
         </div>
     </div>
-    
+    <div class="footer">
+
+    </div>
+</div>
+
 </body>
 </html>

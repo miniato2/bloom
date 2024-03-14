@@ -4,18 +4,18 @@ public class RequestFileDTO implements java.io.Serializable{
     private int fileNo;
     private String filePath;
     private String fileName;
-    private String orderNo;
+    private int orderNo;
 
     public RequestFileDTO() {
     }
 
-    public RequestFileDTO(String filePath, String fileName, String orderNo) {
+    public RequestFileDTO(String filePath, String fileName, int orderNo) {
         this.filePath = filePath;
         this.fileName = fileName;
         this.orderNo = orderNo;
     }
 
-    public RequestFileDTO(int fileNo, String filePath, String fileName, String orderNo) {
+    public RequestFileDTO(int fileNo, String filePath, String fileName, int orderNo) {
         this.fileNo = fileNo;
         this.filePath = filePath;
         this.fileName = fileName;
@@ -46,11 +46,11 @@ public class RequestFileDTO implements java.io.Serializable{
         this.fileName = fileName;
     }
 
-    public String getOrderNo() {
+    public int getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(String orderNo) {
+    public void setOrderNo(int orderNo) {
         this.orderNo = orderNo;
     }
 
@@ -60,7 +60,7 @@ public class RequestFileDTO implements java.io.Serializable{
                 "fileNo=" + fileNo +
                 ", filePath='" + filePath + '\'' +
                 ", fileName='" + fileName + '\'' +
-                ", orderNo='" + orderNo + '\'' +
+                ", orderNo=" + orderNo +
                 '}';
     }
 }

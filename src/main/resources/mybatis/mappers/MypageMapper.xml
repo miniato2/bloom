@@ -15,7 +15,15 @@
         <result property="status" column="member_status"/>
     </resultMap>
 
-
+    <resultMap id="myorderlist" type="com.cov.bloom.order.model.dto.MyOrder">
+        <id property="orderNo" column="order_no"></id>
+        <result property="portTitle" column="port_title"/>
+        <result property="memberNick" column="member_nickname"/>
+        <result property="orderDt" column="order_dt"/>
+        <result property="orderFinalDt" column="order_finaldt"/>
+        <result property="price" column="option_price"/>
+        <result property="requestStatus" column="request_status"/>
+    </resultMap>
 
     <update id="updateNickname" parameterType="string">
         UPDATE MEMBER
@@ -26,13 +34,6 @@
     <update id="updatePhone" parameterType="string">
         UPDATE MEMBER
         SET MEMBER_PHONE = #{ phone }
-        WHERE MEMBER_EMAIL = #{ memberName }
-
-    </update>
-
-    <update id="updatePW" parameterType="string">
-        UPDATE MEMBER
-        SET MEMBER_PASSWORD = #{ encpw }
         WHERE MEMBER_EMAIL = #{ memberName }
 
     </update>
@@ -51,12 +52,33 @@
         WHERE member_email = #{ email }
     </select>
 
-    <delete id="deleteMember" parameterType="string">
-        DELETE
-        FROM MEMBER
-        WHERE MEMBER_EMAIL = #{ memberName }
-
-    </delete>
+    <!--주문내역 조회-->
+    <select id="findAllOrderList" parameterType="_int" resultType="java.util.List" resultMap="myorderlist">
+        select
+        order_no
+        ,port_title
+        ,member_nickname
+        ,order_dt
+        ,order_finaldt
+        ,option_price
+        ,request_status
+        from (
+        select
+        od.order_no
+        ,por.port_title
+        ,por.member_no
+        ,od.order_dt
+        ,od.order_finaldt
+        ,op.option_price
+        ,od.request_status
+        from(
+        select * from orders where member_no = #{ memberNo }
+        ) as od
+        join port_option op on od.option_no = op.option_no
+        join portfolio por on por.port_no = od.port_no
+        ) as a
+        join member m on a.member_no = m.member_no;
+    </select>
 
 
 

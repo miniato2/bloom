@@ -2,9 +2,9 @@ package com.cov.bloom.order.controller;
 
 import com.cov.bloom.order.model.dto.*;
 import com.cov.bloom.order.model.service.PayService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +20,15 @@ import java.util.UUID;
 @RequestMapping("/pay")
 public class PayController {
 
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
+
+    @Value("${spring.servlet.multipart.location}")
+    private String ROOT_LOCATION;
+
     private final PayService payservice;
 
-    @Autowired
-    private ResourceLoader resourceLoader;
+    private List<RequestFileDTO> files;
 
     private OptionDTO option;
 
@@ -32,6 +37,7 @@ public class PayController {
 
     public PayController(PayService payservice){
         this.payservice = payservice;
+        this.files = new ArrayList<>();
         this.option = new OptionDTO();
         this.order = new OrderDTO();
     }
@@ -39,11 +45,8 @@ public class PayController {
     @PostMapping("/ready")
     public String kakaoPay(@ModelAttribute("order") OrderDTO order,
                            @ModelAttribute("option") OptionDTO option,
-                           @RequestParam("file[]") List<MultipartFile> multipartFiles) throws IOException {
-
-
-        //파일업로드
-//        fileUpload(multipartFiles);
+                           @RequestParam("file[]") List<MultipartFile> multipartFiles,
+                           HttpSession session) throws IOException {
 
         this.option.setOptionNo(option.getOptionNo());
         this.option.setPortNo(option.getPortNo());
@@ -58,9 +61,19 @@ public class PayController {
         this.order.setOrderFinal("N");
         this.order.setMemberNo(1);
         this.order.setOptionNo(this.option.getOptionNo());
-        this.order.setOrderNo("a123456");
 
+        //db조회해서 주문번호 확인하는 로직
+        int result = payservice.checkOrderNo();
+        System.out.println(result);
+        //현재 등록된 주문번호중 마지막 주문번호+1 = 현재 주문번호가된다.
+        this.order.setOrderNo(result+1);
 
+        fileUpload(multipartFiles); //파일 업로드
+        session.setAttribute("files", files);
+
+        session.setAttribute("multi", multipartFiles);
+
+        //체크
         System.out.println(this.option);
         System.out.println(this.order);
 
@@ -74,72 +87,76 @@ public class PayController {
     }
 
     @GetMapping("/success")
-    public String paySuccess(@RequestParam("pg_token") String pgToken, Model model){
-        System.out.println("dddd");
+    public String paySuccess(@RequestParam("pg_token") String pgToken, Model model, HttpSession session){
+
+
+        //세션 체크
+        System.out.println(session.getAttribute("files").toString());
+
+        System.out.println("이미지 세션 저장 확인");
+        System.out.println(session.getAttribute("multi").toString());
+
 
         //결제요청
         ApproveResponse approveResponse = payservice.approvePay(pgToken, order);
 
         order.setOrderDt(approveResponse.getApproved_at());
 
-        // 거래완료 주문db에 저장
-        int result = payservice.registOrder(order);
+        // 거래완료 주문db에 저장, + 사진
+        payservice.registOrder(order, files);
 
-        if(result>0){
-            System.out.println("성공");
-        }
         model.addAttribute("price", option.getOptionPrice());
 
-        return "/order/successOrder";
+        return "content/order/successOrder";
     }
 
     @GetMapping("/fail")
     public String payFail(){
-        return "redirect:";
+        return "content/order/failOrder";
     }
 
     @GetMapping("/cancel")
     public String payCancel(){
-        System.out.println("2");
-
-        return "";
+        return "content/order/failOrder";
     }
 
+
+
+    //파일 업로드
     public void fileUpload(List<MultipartFile> multipartFiles) throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:static/img/multi");
-        String filepath = null;
 
-        if(!resource.exists()){
-            String root = "src/main/resources/static/img/multi";
+        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
 
-            File file = new File(root);
-            file.mkdirs();
+        String fileUploadDirectory = rootLocation + "/upload/request/original";
 
-            filepath = file.getAbsolutePath();
+        File directory = new File(fileUploadDirectory);
 
-        }else{
-            filepath = resource.getFile().getAbsolutePath();
+        if(!directory.exists()){
+            directory.mkdirs();
         }
-
-        List<RequestFileDTO> files = new ArrayList<>();
-        List<String> saveFiles = new ArrayList<>();
         try{
-            for(MultipartFile file : multipartFiles){
-                String originFileName = file.getOriginalFilename();
+            for(MultipartFile multipartFile : multipartFiles){
+
+                String originFileName = multipartFile.getOriginalFilename();
                 String ext = originFileName.substring(originFileName.lastIndexOf("."));
                 String savedFileName = UUID.randomUUID().toString().replace("-","") + ext;
 
-                files.add(new RequestFileDTO(filepath, savedFileName, order.getOrderNo()));
+                //저장
+                multipartFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
 
-                file.transferTo(new File(filepath + "/" + savedFileName));
-
-                saveFiles.add("static/img/multi/" + savedFileName);
-
+                //저장한 파일 dto 리스트에 담기
+                files.add(new RequestFileDTO(fileUploadDirectory, savedFileName, order.getOrderNo()));
             }
-        }catch (Exception e){
-            for(RequestFileDTO file : files) {
-                new File(filepath + "/" + file.getFileName()).delete();
+
+
+        }catch (IllegalStateException | IOException e){
+            // Exception 발생시 파일 삭제
+            for(int i = 0; i < files.size(); i++){
+                File deleteFile = new File(fileUploadDirectory + "/" + files.get(i).getFileName());
+
+                boolean isDeleted = deleteFile.delete();
             }
         }
+        System.out.println(files);
     }
 }

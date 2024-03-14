@@ -79,20 +79,26 @@ function selectOption() {
     let optionValue = $("#option").val();
     let portNo = $("#portNo").val();
 
-    // let date = document.querySelector(".date2");
-    // let fix = document.querySelector(".fix2");
-    // let price = document.querySelector(".price2");
     let totalprice = document.querySelector(".totalprice2");
 
-    let date = document.getElementById("date");
-    let fix = document.getElementById("fix");
-    let price = document.getElementById("price");
-    console.log(optionValue);
+    let dateinput = document.getElementById("date");
+    let fixinput = document.getElementById("fix");
+    let priceinput = document.getElementById("price");
+
+    let date = document.querySelector('.date2');
+    let fix = document.querySelector('.fix2');
+    let price = document.querySelector('.price2');
 
     if(optionValue === '선택'){
-        date.value='';
-        fix.value='';
-        price.value='';
+        dateinput.value='';
+        fixinput.value='';
+        priceinput.value='';
+
+        date.innerHTML='';
+        fix.innerHTML='';
+        price.innerHTML='';
+
+        totalprice.innerHTML='';
     }else {
         $.ajax({
             url: "/order/getOption",
@@ -103,13 +109,14 @@ function selectOption() {
             },
             success: function(data) {
                 let selected = JSON.parse(data.option);
-                // date.innerHTML=selected.optionDt;
-                // fix.innerHTML=selected.optionFix;
-                // price.innerHTML=selected.optionPrice;
 
-                date.value=selected.optionDt;
-                fix.value=selected.optionFix;
-                price.value=selected.optionPrice;
+                date.innerHTML=selected.optionDt;
+                fix.innerHTML=selected.optionFix;
+                price.innerHTML=selected.optionPrice;
+
+                dateinput.value=selected.optionDt;
+                fixinput.value=selected.optionFix;
+                priceinput.value=selected.optionPrice;
 
                 totalprice.innerHTML=selected.optionPrice+'원';
             },

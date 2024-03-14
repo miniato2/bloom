@@ -1,10 +1,7 @@
 package com.cov.bloom.order.model.service;
 
 import com.cov.bloom.order.model.dao.OrderDAO;
-import com.cov.bloom.order.model.dto.ApproveResponse;
-import com.cov.bloom.order.model.dto.OptionDTO;
-import com.cov.bloom.order.model.dto.OrderDTO;
-import com.cov.bloom.order.model.dto.ReadyResponse;
+import com.cov.bloom.order.model.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
@@ -14,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -47,13 +45,13 @@ public class PayService {
 
         Map<String, Object> parameter = new LinkedHashMap<>();
 
-        parameter.put("cid", this.cid);
-        parameter.put("partner_order_id", order.getOptionNo());
-        parameter.put("partner_user_id", order.getMemberNo() + "");
-        parameter.put("item_name", order.getPortNo());
-        parameter.put("quantity", 1); //int
-        parameter.put("total_amount", option.getOptionPrice());//int
-        parameter.put("tax_free_amount", 0);//int
+        parameter.put("cid", this.cid);                                 //가맹점코드
+        parameter.put("partner_order_id", order.getOrderNo());         //주문번호
+        parameter.put("partner_user_id", order.getMemberNo() + "");     //회원번호
+        parameter.put("item_name", order.getPortNo());                  //상품명
+        parameter.put("quantity", 1); //int                             //수량
+        parameter.put("total_amount", option.getOptionPrice());//int    //가격
+        parameter.put("tax_free_amount", 0);//int                       //비과세금액
         parameter.put("approval_url", "http://localhost:8080/pay/success");
         parameter.put("cancel_url", "http://localhost:8080/main");
         parameter.put("fail_url", "http://localhost:8080/pay/fail");
@@ -85,8 +83,8 @@ public class PayService {
 
         parameter.put("cid", this.cid);
         parameter.put("tid", readyResponse.getTid());               //결제 고유번호 준비api 응답에 포함되어있음
-        parameter.put("partner_order_id", order.getOptionNo());  //
-        parameter.put("partner_user_id", order.getMemberNo() + "");
+        parameter.put("partner_order_id", order.getOrderNo());      //주문번호
+        parameter.put("partner_user_id", order.getMemberNo() + ""); //회원 id
         parameter.put("pg_token", pgToken);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -95,8 +93,6 @@ public class PayService {
 
         try {
             body = mapper.writeValueAsString(parameter);
-
-            System.out.println(body);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -114,13 +110,24 @@ public class PayService {
         System.out.println(approveResponse);
 
         return approveResponse;
-
     }
 
     @Transactional
-    public int registOrder(OrderDTO order) {
-        int result = orderDAO.registOrder(order);
+    public void registOrder(OrderDTO order, List<RequestFileDTO> files) {
+        int result = orderDAO.registOrder(order); //주문 등록
 
-        return result;
+        int result2 = orderDAO.registOrderFile(files); //파일 저장
+
+
+        if(result > 0 && result2 >0){
+            System.out.println("성공");
+        }else{
+            System.out.println("실패");
+        }
+
+    }
+
+    public int checkOrderNo() {
+        return orderDAO.checkOrderNo();
     }
 }
