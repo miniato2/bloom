@@ -29,10 +29,10 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
         }else if(exception instanceof InternalAuthenticationServiceException){
             errorMessage = "서버에서 오류가 발생하였습니다. 관리자에게 문의해 주세요";
         }else if(exception instanceof UsernameNotFoundException){
-            errorMessage = "인증 요청이 거부되었습니다.";
+            errorMessage = "존재하지 않는 ID입니다.";
         }
         else if(exception instanceof AuthenticationFailureHandler){
-            errorMessage = "마지막 에러 .";
+            errorMessage = "인증요청이 거부 되었습니다 .";
         }
         else {
             errorMessage="알 수 없는 오류로 로그인 요청을 처리할 수 없습니다. 관리자에게 문의해 주세요.";

@@ -1,3 +1,110 @@
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // elements
+    var modalBtn = document.getElementById("modalBtn");
+    var modal = document.getElementById("myModal");
+    var closeBtn = document.getElementById("closeBtn");
+
+
+    function toggleModal() {
+        modal.classList.toggle("show");
+    }
+
+    // functions
+
+
+    // events
+    modalBtn.addEventListener("click", toggleModal);
+    modalBtn.addEventListener("click",sendEmail);
+    closeBtn.addEventListener("click", toggleModal);
+
+    // window.addEventListener("click", function (event) {
+    //     // 모달의 검은색 배경 부분이 클릭된 경우 닫히도록 하는 코드
+    //     if (event.target === modal) {
+    //         toggleModal();
+    //     }
+    // });
+});
+
+function sendEmail(){
+    $.ajax({
+        url: "/mypage/email",
+        type: 'GET',
+        data : {
+
+        },
+        success:function(data,status,xhr){
+          console.log('인증번호 발송 완료');
+
+        },
+        error: function(xhr,status,error) {
+            console(error);
+        }
+    });
+
+}
+
+function codeSend(){
+    var modal = document.getElementById("myModal");
+
+    const code =$("#authCode").val();
+
+    $.ajax({
+        url: "/mypage/verify",
+        type: 'POST',
+        data : {
+            code : code,
+        },
+        success:function(data,status,xhr){
+            if(data.status==="success"){
+
+                alert(data.message);
+                activatePW();
+                modal.classList.toggle("show");
+
+
+
+
+            }else{
+                alert(data.message);
+            }
+
+        },
+        error: function(xhr,status,error) {
+            alert("입력코드 발송 실패")
+            console(error);
+        }
+    });
+}
+
+function activatePW(){
+    // 'nickname' id를 가진 요소를 찾습니다.
+    var passwordInput = document.getElementById('pw');
+
+    // 해당 요소의 disabled 속성을 false로 설정해 활성화합니다.
+    passwordInput.disabled = false;
+
+    // 선택적으로, 사용자가 입력을 시작할 수 있도록 해당 필드에 포커스를 줍니다.
+    passwordInput.focus();
+
+}
+function sleepPW(){
+
+    var passwordInput = document.getElementById('pw');
+
+
+    passwordInput.disabled = true;
+
+
+}
+
+
+
+
+
+
+
 function activateNickname(){
     // 'nickname' id를 가진 요소를 찾습니다.
     var nicknameInput = document.getElementById('nickname');
@@ -97,10 +204,9 @@ function sleepPhone(){
 
     var phoneInput = document.getElementById('phone');
 
-    // 해당 요소의 disabled 속성을 false로 설정해 활성화합니다.
+
     phoneInput.disabled = true;
 
-    // 선택적으로, 사용자가 입력을 시작할 수 있도록 해당 필드에 포커스를 줍니다.
 
 
 }
@@ -152,16 +258,68 @@ function updatePhone() {
 
         });
 
+    } else {
+
+        phoneResult.innerHTML='사용불가 전화번호 입니다.';
+    }
+}
+
+function PWCheck(pw){
+    pw_regex =  /^[0-9a-zA-Z]{12,15}$/;
+
+
+
+    if(pw_regex.test(pw)){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+function updatePW() {
+    let pwInput = document.getElementById('pw');
+    let pwResult = document.getElementById('pwResult')
+
+
+    let pw = pwInput.value;
+
+    if (PWCheck(pw)) {
+
+        pwResult.innerHTML = '유효한 비밀번호 입니다.';
+
+        $.ajax({
+            url: "/mypage/updatePW",
+            type: 'POST',
+            data: {
+                pw : pw
+            },
+            success: function (data, status, xhr) {
+                console.log(data);
+                if (data.status === "success") {
+                    pwResult.innerHTML='비밀번호 수정 완료';
+                    sleepPW();
+
+
+
+                } else {
+                    pwResult.innerHTML='전화번호 수정 실패';
+                    return;
+                }
+
+            },
+            error: function (xhr, status, error) {
+                console(error);
+            }
+
+        });
 
 
     } else {
 
-        phoneResult.innerHTML='사용불가 전화번호 입니다.';
-
+        pwResult.innerHTML = '유효하지 않은 비밀번호입니다.';
 
     }
 }
-
-
 
 
