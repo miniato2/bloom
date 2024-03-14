@@ -3,6 +3,105 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cov.bloom.portfolio.model.dao.PortfolioMapper">
+    <resultMap id="PortfolioResultMap" type="com.cov.bloom.portfolio.model.dto.PortfolioDTO">
+        <id property="portNo" column="PORT_NO"/>
+        <result property="portTitle" column="PORT_TITLE"/>
+        <result property="portCon" column="PORT_CON"/>
+        <result property="portContactDt" column="PORT_CONTACTDT"/>
+        <result property="memberInfo" column="MEMBER_INFO"/>
+        <result property="memberNo" column="MEMBER_NO"/>
+        <result property="writeDt" column="WRITE_DT"/>
+        <result property="minOptionPrice" column="MIN_OPTION_PRICE"/>
+        <association property="memberNickname" resultMap="memberResult" column="MEMBER_NICKNAME"/>
+        <collection property="optionList" resultMap="optionResultMap"/>
+        <collection property="attachmentDTOList" resultMap="attachmentResultMap"/>
+    </resultMap>
+
+    <resultMap id="attachmentResultMap" type="com.cov.bloom.portfolio.model.dto.AttachmentDTO">
+        <id property="fileNo" column="FILE_NO"/>
+        <result property="filePath" column="FILE_PATH"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="refPortNo" column="PORT_NO"/>
+        <result property="fileType" column="FILE_TYPE"/>
+        <result property="thumbnailPath" column="THUMB_PATH"/>
+    </resultMap>
+
+    <resultMap id="memberResult" type="com.cov.bloom.member.model.dto.MemberDTO">
+        <id property="no" column="member_no"/>
+        <result property="email" column="member_email"/>
+        <result property="password" column="member_password"/>
+        <result property="nickname" column="member_nickname"/>
+        <result property="name" column="member_name"/>
+        <result property="phone" column="member_phone"/>
+        <result property="auth" column="member_auth"/>
+        <result property="status" column="member_status"/>
+    </resultMap>
+
+    <resultMap id="optionResultMap" type="com.cov.bloom.portfolio.model.dto.OptionDTO">
+        <id property="optionNo" column="OPTION_NO"/>
+        <result property="portNo" column="PORT_NO"/>
+        <result property="optionPrice" column="OPTION_PRICE"/>
+        <result property="optionInfo" column="OPTION_INFO"/>
+        <result property="optionFix" column="OPTION_FIX"/>
+        <result property="optionDt" column="OPTION_DT"/>
+    </resultMap>
+
+
+    <!-- 포트폴리오 전체 수 -->
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT
+        COUNT(*)
+        FROM PORTFOLIO P
+        <if test="searchValue != ''">
+            JOIN MEMBER M ON(P.MEMBER_NO = M.MEMBER_NO)
+        </if>
+        <where>
+            <if test="searchValue != ''">
+                M.MEMBER_NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 포트폴리오 조회 -->
+    <select id="selectPortfolioList" resultMap="PortfolioResultMap">
+        SELECT
+                F.THUMB_PATH
+                , P.PORT_TITLE
+                , M.MEMBER_NICKNAME
+                , MIN_O.MIN_OPTION_PRICE
+                , P.WRITE_DT
+                , P.PORT_NO
+                , P.PORT_CON
+                , P.PORT_CONTACTDT
+                , P.MEMBER_INFO
+                , P.MEMBER_NO
+                , F.FILE_NO
+                , F.PORT_NO
+                , F.FILE_NAME
+                , F.FILE_PATH
+                , F.FILE_TYPE
+                , M.MEMBER_EMAIL
+                , M.MEMBER_PASSWORD
+                , M.MEMBER_NAME
+                , M.MEMBER_PHONE
+        FROM PORTFOLIO P
+            JOIN PORT_FILE F ON (F.PORT_NO = P.PORT_NO)
+            JOIN MEMBER M ON (M.MEMBER_NO = P.MEMBER_NO)
+            JOIN ( SELECT PORT_NO, MIN(OPTION_PRICE) AS MIN_OPTION_PRICE
+                    FROM PORT_OPTION O
+                    GROUP BY PORT_NO) MIN_O ON(MIN_O.PORT_NO = P.PORT_NO)
+        WHERE F.FILE_TYPE = 'TITLE'
+        <if test="sort == 'latest_regist'">
+            ORDER BY P.WRITE_DT DESC
+        </if>
+        <if test="sort == 'past_regist'">
+            ORDER BY P.WRITE_DT ASC
+        </if>
+
+    </select>
+
+
+    <!-- 포트폴리오 등록-->
     <insert id="insertPortfolio">
         INSERT
         INTO PORTFOLIO (
@@ -26,6 +125,8 @@
 
     </insert>
 
+
+    <!-- 파일 등록 -->
     <insert id="insertAttachment">
         INSERT
         INTO PORT_FILE (
@@ -45,5 +146,33 @@
                 , #{ thumbnailPath }
         )
     </insert>
+
+    <!-- 옵션 등록 -->
+    <insert id="registOption">
+        INSERT
+        INTO PORT_OPTION (
+                            OPTION_NO
+                            , PORT_NO
+                            , OPTION_PRICE
+                            , OPTION_INFO
+                            , OPTION_FIX
+                            , OPTION_DT
+        )
+        VALUES (
+                #{ optionNo }
+                , #{ portNo }
+                , #{ optionPrice }
+                , #{ optionInfo }
+                , #{ optionFix }
+                , #{ optionDt }
+        )
+
+    </insert>
+
+    <select id="findMemberId" parameterType="string" resultMap="memberResult">
+        SELECT MEMBER_NO
+        FROM MEMBER
+        WHERE MEMBER_EMAIL = "${ email }"
+    </select>
 
 </mapper>

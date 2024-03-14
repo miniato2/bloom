@@ -1,5 +1,7 @@
 package com.cov.bloom.portfolio.model.dto;
 
+import com.cov.bloom.member.model.dto.MemberDTO;
+
 import java.util.List;
 
 public class PortfolioDTO implements java.io.Serializable {
@@ -11,7 +13,15 @@ public class PortfolioDTO implements java.io.Serializable {
     private String memberInfo;      //판매자 소개 / DB : member_info
     private int memberNo;           //회원번호 / DB : member_no
     private String writeDt;         // 작성일시 / DB : write_dt
-    private List<AttachmentDTO> attachmentDTOList;
+    private List<AttachmentDTO> attachmentDTOList;  // 사진 리스트
+
+    private MemberDTO memberNickname;   // 회원 - 회원 닉네임
+    private List<OptionDTO> optionList;      // 옵션 - 옵션 가격
+
+    private int minOptionPrice;         // 가장 낮은 가격의 옵션 가격
+
+
+
 
     public PortfolioDTO() {
     }
@@ -25,6 +35,20 @@ public class PortfolioDTO implements java.io.Serializable {
         this.memberNo = memberNo;
         this.writeDt = writeDt;
         this.attachmentDTOList = attachmentDTOList;
+    }
+
+    public PortfolioDTO(String portNo, String portTitle, String portCon, String portContactDt, String memberInfo, int memberNo, String writeDt, List<AttachmentDTO> attachmentDTOList, MemberDTO memberNickname, List<OptionDTO> optionList, int minOptionPrice) {
+        this.portNo = portNo;
+        this.portTitle = portTitle;
+        this.portCon = portCon;
+        this.portContactDt = portContactDt;
+        this.memberInfo = memberInfo;
+        this.memberNo = memberNo;
+        this.writeDt = writeDt;
+        this.attachmentDTOList = attachmentDTOList;
+        this.memberNickname = memberNickname;
+        this.optionList = optionList;
+        this.minOptionPrice = minOptionPrice;
     }
 
     public String getPortNo() {
@@ -91,6 +115,38 @@ public class PortfolioDTO implements java.io.Serializable {
         this.attachmentDTOList = attachmentDTOList;
     }
 
+    public MemberDTO getMemberNickname() {
+        return memberNickname;
+    }
+
+    public void setMemberNickname(MemberDTO memberNickname) {
+        this.memberNickname = memberNickname;
+    }
+
+    public List<OptionDTO> getOptionPrice() {
+        return optionList;
+    }
+
+    public void setOptionPrice(List<OptionDTO> optionPrice) {
+        this.optionList = optionPrice;
+    }
+
+    public List<OptionDTO> getOptionList() {
+        return optionList;
+    }
+
+    public void setOptionList(List<OptionDTO> optionList) {
+        this.optionList = optionList;
+    }
+
+    public int getMinOptionPrice() {
+        return minOptionPrice;
+    }
+
+    public void setMinOptionPrice(int minOptionPrice) {
+        this.minOptionPrice = minOptionPrice;
+    }
+
     @Override
     public String toString() {
         return "PortfolioDTO{" +
@@ -102,6 +158,9 @@ public class PortfolioDTO implements java.io.Serializable {
                 ", memberNo=" + memberNo +
                 ", writeDt='" + writeDt + '\'' +
                 ", attachmentDTOList=" + attachmentDTOList +
+                ", memberNickname=" + memberNickname +
+                ", optionList=" + optionList +
+                ", minOptionPrice=" + minOptionPrice +
                 '}';
     }
 }

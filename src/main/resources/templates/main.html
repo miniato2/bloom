@@ -86,9 +86,9 @@
                                         <div class="portfolio_sort"> <!-- 포트폴리오 정렬 -->
 
                                             <select id="sort" name="sort">
-                                                <option value="low_price">낮은 가격 순</option>
                                                 <option value="latest_regist">신규 등록 순</option>
                                                 <option value="past_regist">과거 등록 순</option>
+                                                <option value="low_price">낮은 가격 순</option>
                                             </select>
                                         </div>
                                         <div class="portfoilo_bookmark"> <!-- 포트폴리오 북마크만 보기 -->
@@ -97,94 +97,96 @@
                                     </div>
 
                                     <div class="portfolio_search"> <!-- 포트폴리오 검색 -->
+
+                                        <input type="text" id="portfolio_search_input" name="searchValue">
                                         <label for="portfolio_search_input"><img src="img/search.png"></label>
-                                        <input type="text" id="portfolio_search_input">
                                     </div>
 
                                 </div>
-                                <div class="portfolio_list"> <!-- 포트폴리오 목록 -->
+                                <div th:each="portfolio : ${ portList }" class="portfolio_list"> <!-- 포트폴리오 목록 -->
                                     <!-- 첫번째 줄 -->
-                                    <div class="first">
-                                        <div class="portfolio_product">
+<!--                                    <div class="first">-->
+                                        <div th:each="data : ${ portfolio }" class="portfolio_product">
                                             <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
-                                                <img src="img/image01.png">
+                                                <img th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}" width="353px" height="353px">
                                             </div>
                                             <div class="product_info"> <!-- 포트폴리오 제목 & 북마크 -->
                                                 <div class="product_title_bookmark">
-                                                    <div class="product_title"> <!--  포트폴리오 제목 -->
-                                                        포트폴리오 제목
+                                                    <div class="product_title" th:text="${ portfolio.portTitle }"> <!--  포트폴리오 제목 -->
                                                     </div>
                                                     <div class="product_bookmark"> <!-- 포트폴리오 북마크 -->
                                                         <img src="img/bookmark_on.png">
                                                     </div>
                                                 </div>
 
-                                                <div class="product_writer"> <!-- 작성자 -->
-                                                    작성자
+                                                <div class="product_writer" th:text="${ portfolio.memberNickname.nickname }"> <!-- 작성자 -->
+
                                                 </div>
                                             </div>
 
                                             <div class="product_price_star"> <!-- 포트폴리오 가격 & 별점 -->
-                                                <div class="product_price"> <!-- 포트폴리오 가격 -->
-                                                    30,000원~
+                                                <div class="product_price" th:text="${ portfolio.minOptionPrice } + '원~'"> <!-- 포트폴리오 가격 -->
+                                                    ~
                                                 </div>
                                                 <div class="product_starpoint"> <!-- 포트폴리오 별점 -->
                                                     <div class="avg_star">★ <span class="avg_star_num">4.5</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="portfolio_product">
-                                            <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
+
+
+                                        <!--<div class="portfolio_product">
+                                            <div class="product_photo"> &lt;!&ndash; 포트폴리오 썸네일 사진 &ndash;&gt;
                                                 <img src="img/image01.png">
                                             </div>
-                                            <div class="product_info"> <!-- 포트폴리오 제목 & 북마크 -->
+                                            <div class="product_info"> &lt;!&ndash; 포트폴리오 제목 & 북마크 &ndash;&gt;
                                                 <div class="product_title_bookmark">
-                                                    <div class="product_title"> <!--  포트폴리오 제목 -->
+                                                    <div class="product_title"> &lt;!&ndash;  포트폴리오 제목 &ndash;&gt;
                                                         포트폴리오 제목
                                                     </div>
-                                                    <div class="product_bookmark"> <!-- 포트폴리오 북마크 -->
+                                                    <div class="product_bookmark"> &lt;!&ndash; 포트폴리오 북마크 &ndash;&gt;
                                                         <img src="img/bookmark_on.png">
                                                     </div>
                                                 </div>
 
-                                                <div class="product_writer"> <!-- 작성자 -->
+                                                <div class="product_writer"> &lt;!&ndash; 작성자 &ndash;&gt;
                                                     작성자
                                                 </div>
                                             </div>
 
-                                            <div class="product_price_star"> <!-- 포트폴리오 가격 & 별점 -->
-                                                <div class="product_price"> <!-- 포트폴리오 가격 -->
+                                            <div class="product_price_star"> &lt;!&ndash; 포트폴리오 가격 & 별점 &ndash;&gt;
+                                                <div class="product_price"> &lt;!&ndash; 포트폴리오 가격 &ndash;&gt;
                                                     30,000원~
                                                 </div>
-                                                <div class="product_starpoint"> <!-- 포트폴리오 별점 -->
+                                                <div class="product_starpoint"> &lt;!&ndash; 포트폴리오 별점 &ndash;&gt;
                                                     <div class="avg_star">★ <span class="avg_star_num">4.5</span></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="portfolio_product">
-                                            <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
+                                            <div class="product_photo"> &lt;!&ndash; 포트폴리오 썸네일 사진 &ndash;&gt;
                                                 <img src="img/image01.png">
                                             </div>
-                                            <div class="product_info"> <!-- 포트폴리오 제목 & 북마크 -->
+                                            <div class="product_info"> &lt;!&ndash; 포트폴리오 제목 & 북마크 &ndash;&gt;
                                                 <div class="product_title_bookmark">
-                                                    <div class="product_title"> <!--  포트폴리오 제목 -->
+                                                    <div class="product_title"> &lt;!&ndash;  포트폴리오 제목 &ndash;&gt;
                                                         포트폴리오 제목
                                                     </div>
-                                                    <div class="product_bookmark"> <!-- 포트폴리오 북마크 -->
+                                                    <div class="product_bookmark"> &lt;!&ndash; 포트폴리오 북마크 &ndash;&gt;
                                                         <img src="img/bookmark_off.png">
                                                     </div>
                                                 </div>
 
-                                                <div class="product_writer"> <!-- 작성자 -->
+                                                <div class="product_writer"> &lt;!&ndash; 작성자 &ndash;&gt;
                                                     작성자
                                                 </div>
                                             </div>
 
-                                            <div class="product_price_star"> <!-- 포트폴리오 가격 & 별점 -->
-                                                <div class="product_price"> <!-- 포트폴리오 가격 -->
+                                            <div class="product_price_star"> &lt;!&ndash; 포트폴리오 가격 & 별점 &ndash;&gt;
+                                                <div class="product_price"> &lt;!&ndash; 포트폴리오 가격 &ndash;&gt;
                                                     30,000원~
                                                 </div>
-                                                <div class="product_starpoint"> <!-- 포트폴리오 별점 -->
+                                                <div class="product_starpoint"> &lt;!&ndash; 포트폴리오 별점 &ndash;&gt;
                                                     <div class="avg_star">★ <span class="avg_star_num">4.5</span></div>
                                                 </div>
                                             </div>
@@ -192,94 +194,94 @@
                                     </div>
 
                                     <div class="second">
-                                        <!-- 두번째 줄 -->
+                                        &lt;!&ndash; 두번째 줄 &ndash;&gt;
                                         <div class="portfolio_product">
-                                            <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
+                                            <div class="product_photo"> &lt;!&ndash; 포트폴리오 썸네일 사진 &ndash;&gt;
                                                 <img src="img/image01.png">
                                             </div>
-                                            <div class="product_info"> <!-- 포트폴리오 제목 & 북마크 -->
+                                            <div class="product_info"> &lt;!&ndash; 포트폴리오 제목 & 북마크 &ndash;&gt;
                                                 <div class="product_title_bookmark">
-                                                    <div class="product_title"> <!--  포트폴리오 제목 -->
+                                                    <div class="product_title"> &lt;!&ndash;  포트폴리오 제목 &ndash;&gt;
                                                         포트폴리오 제목
                                                     </div>
-                                                    <div class="product_bookmark"> <!-- 포트폴리오 북마크 -->
+                                                    <div class="product_bookmark"> &lt;!&ndash; 포트폴리오 북마크 &ndash;&gt;
                                                         <img src="img/bookmark_off.png">
                                                     </div>
                                                 </div>
 
-                                                <div class="product_writer"> <!-- 작성자 -->
+                                                <div class="product_writer"> &lt;!&ndash; 작성자 &ndash;&gt;
                                                     작성자
                                                 </div>
                                             </div>
 
-                                            <div class="product_price_star"> <!-- 포트폴리오 가격 & 별점 -->
-                                                <div class="product_price"> <!-- 포트폴리오 가격 -->
+                                            <div class="product_price_star"> &lt;!&ndash; 포트폴리오 가격 & 별점 &ndash;&gt;
+                                                <div class="product_price"> &lt;!&ndash; 포트폴리오 가격 &ndash;&gt;
                                                     30,000원~
                                                 </div>
-                                                <div class="product_starpoint"> <!-- 포트폴리오 별점 -->
+                                                <div class="product_starpoint"> &lt;!&ndash; 포트폴리오 별점 &ndash;&gt;
                                                     <div class="avg_star">★ <span class="avg_star_num">4.5</span></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="portfolio_product">
-                                            <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
+                                            <div class="product_photo"> &lt;!&ndash; 포트폴리오 썸네일 사진 &ndash;&gt;
                                                 <img src="img/image01.png">
                                             </div>
-                                            <div class="product_info"> <!-- 포트폴리오 제목 & 북마크 -->
+                                            <div class="product_info"> &lt;!&ndash; 포트폴리오 제목 & 북마크 &ndash;&gt;
                                                 <div class="product_title_bookmark">
-                                                    <div class="product_title"> <!--  포트폴리오 제목 -->
+                                                    <div class="product_title"> &lt;!&ndash;  포트폴리오 제목 &ndash;&gt;
                                                         포트폴리오 제목
                                                     </div>
-                                                    <div class="product_bookmark"> <!-- 포트폴리오 북마크 -->
+                                                    <div class="product_bookmark"> &lt;!&ndash; 포트폴리오 북마크 &ndash;&gt;
                                                         <img src="img/bookmark_off.png">
                                                     </div>
                                                 </div>
 
-                                                <div class="product_writer"> <!-- 작성자 -->
+                                                <div class="product_writer"> &lt;!&ndash; 작성자 &ndash;&gt;
                                                     작성자
                                                 </div>
                                             </div>
 
-                                            <div class="product_price_star"> <!-- 포트폴리오 가격 & 별점 -->
-                                                <div class="product_price"> <!-- 포트폴리오 가격 -->
+                                            <div class="product_price_star"> &lt;!&ndash; 포트폴리오 가격 & 별점 &ndash;&gt;
+                                                <div class="product_price"> &lt;!&ndash; 포트폴리오 가격 &ndash;&gt;
                                                     30,000원~
                                                 </div>
-                                                <div class="product_starpoint"> <!-- 포트폴리오 별점 -->
+                                                <div class="product_starpoint"> &lt;!&ndash; 포트폴리오 별점 &ndash;&gt;
                                                     <div class="avg_star">★ <span class="avg_star_num">4.5</span></div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="portfolio_product">
-                                            <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
+                                            <div class="product_photo"> &lt;!&ndash; 포트폴리오 썸네일 사진 &ndash;&gt;
                                                 <img src="img/image01.png">
                                             </div>
-                                            <div class="product_info"> <!-- 포트폴리오 제목 & 북마크 -->
+                                            <div class="product_info"> &lt;!&ndash; 포트폴리오 제목 & 북마크 &ndash;&gt;
                                                 <div class="product_title_bookmark">
-                                                    <div class="product_title"> <!--  포트폴리오 제목 -->
+                                                    <div class="product_title"> &lt;!&ndash;  포트폴리오 제목 &ndash;&gt;
                                                         포트폴리오 제목
                                                     </div>
-                                                    <div class="product_bookmark"> <!-- 포트폴리오 북마크 -->
+                                                    <div class="product_bookmark"> &lt;!&ndash; 포트폴리오 북마크 &ndash;&gt;
                                                         <img src="img/bookmark_on.png">
                                                     </div>
                                                 </div>
 
-                                                <div class="product_writer"> <!-- 작성자 -->
+                                                <div class="product_writer"> &lt;!&ndash; 작성자 &ndash;&gt;
                                                     작성자
                                                 </div>
                                             </div>
 
-                                            <div class="product_price_star"> <!-- 포트폴리오 가격 & 별점 -->
-                                                <div class="product_price"> <!-- 포트폴리오 가격 -->
+                                            <div class="product_price_star"> &lt;!&ndash; 포트폴리오 가격 & 별점 &ndash;&gt;
+                                                <div class="product_price"> &lt;!&ndash; 포트폴리오 가격 &ndash;&gt;
                                                     30,000원~
                                                 </div>
-                                                <div class="product_starpoint"> <!-- 포트폴리오 별점 -->
+                                                <div class="product_starpoint"> &lt;!&ndash; 포트폴리오 별점 &ndash;&gt;
                                                     <div class="avg_star">★ <span class="avg_star_num">4.5</span></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
+-->
                                 </div>
                             </div>
 

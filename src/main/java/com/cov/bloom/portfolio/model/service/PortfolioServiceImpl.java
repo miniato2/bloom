@@ -1,14 +1,19 @@
 package com.cov.bloom.portfolio.model.service;
 
+import com.cov.bloom.common.exception.OptionRegistException;
 import com.cov.bloom.common.exception.PortfolioRegistException;
 import com.cov.bloom.common.exception.ThumbnailRegistException;
+import com.cov.bloom.common.paging.SelectCriteria;
+import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.portfolio.model.dao.PortfolioMapper;
 import com.cov.bloom.portfolio.model.dto.AttachmentDTO;
+import com.cov.bloom.portfolio.model.dto.OptionDTO;
 import com.cov.bloom.portfolio.model.dto.PortfolioDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
@@ -19,15 +24,44 @@ public class PortfolioServiceImpl implements PortfolioService {
         this.mapper = mapper;
     }
 
+
+    @Override
+    public int selectTotalCount(Map<String, String> searchMap) {
+
+        int result = mapper.selectTotalCount(searchMap);
+
+        return result;
+    }
+
+    // 포트폴리오 전체 조회
+    @Override
+    public List<PortfolioDTO> selectPortList(SelectCriteria selectCriteria) {
+        List<PortfolioDTO> portfolioList = mapper.selectPortfolioList(selectCriteria);
+
+        return portfolioList;
+    }
+
+    @Override
+    public int findMemberId(String email) {
+       int result = 0;
+        MemberDTO member = mapper.findMemberId(email);
+       result = member.getNo();
+
+       return result;
+    }
+
     @Override
     @Transactional
     public void registThumbnail(PortfolioDTO thumbnail) throws ThumbnailRegistException {
-        System.out.println("PortfolioServiceImpl : registThumbnail");
+        System.out.println("***** PortfolioServiceImpl : registThumbnail 들어왔대요");
         int result = 0;
 
+        // 포트폴리오 등록
         int boardResult = mapper.insertPortfolio(thumbnail);
-        System.out.println("mapper.insertPortfolio 다녀왔대요");
+        System.out.println("***** mapper.insertPortfolio 다녀왔대요");
 
+
+        // 파일 등록
         List<AttachmentDTO> attachmentList = thumbnail.getAttachmentDTOList();
 
         for(int i = 0; i < attachmentList.size(); i++){
@@ -39,9 +73,11 @@ public class PortfolioServiceImpl implements PortfolioService {
         for(int i = 0; i < attachmentList.size(); i++){
             attachmentResult += mapper.insertAttachment(attachmentList.get(i));
         }
+        System.out.println("***** mapper.insertAttachment 다녀왔대요");
+
 
         if(!(boardResult > 0 && attachmentResult == attachmentList.size())) {
-            throw new ThumbnailRegistException("사진 게시판 등록에 실패하였습니다.");
+            throw new ThumbnailRegistException("포트폴리오 등록에 실패하였습니다.");
         }
     }
 
@@ -51,8 +87,28 @@ public class PortfolioServiceImpl implements PortfolioService {
         int result = mapper.insertPortfolio(portfolio);
 
         if(!(result >0)){
+
             throw new PortfolioRegistException("게시글 등록에 실패하였습니다.");
         }
     }
+
+    @Override
+    @Transactional
+    public void registOption(List<OptionDTO> optionDtoList) throws OptionRegistException {
+
+        int registOptionResult = 0;
+
+        for(int i = 0; i < optionDtoList.size(); i++){
+            registOptionResult += mapper.registOption(optionDtoList.get(i));
+        }
+        System.out.println("***** mapper.registOption 다녀왔대요");
+
+        if(registOptionResult != optionDtoList.size()){
+            throw new OptionRegistException("옵션 등록에 실패하였습니다.");
+        }
+
+    }
+
+
 
 }

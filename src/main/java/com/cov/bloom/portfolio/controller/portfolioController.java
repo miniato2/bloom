@@ -1,15 +1,21 @@
 package com.cov.bloom.portfolio.controller;
 
+import com.cov.bloom.common.exception.OptionRegistException;
 import com.cov.bloom.common.exception.ThumbnailRegistException;
+import com.cov.bloom.portfolio.model.dto.AllOptionDTO;
 import com.cov.bloom.portfolio.model.dto.AttachmentDTO;
+import com.cov.bloom.portfolio.model.dto.OptionDTO;
 import com.cov.bloom.portfolio.model.dto.PortfolioDTO;
 import com.cov.bloom.portfolio.model.service.PortfolioService;
 import com.cov.bloom.portfolio.model.service.PortfolioServiceImpl;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
@@ -33,7 +39,6 @@ public class portfolioController {
     }
 
 
-
     @GetMapping("/regist")
     public String goPortRegist(){
         return "content/portfolio/portfolioRegist";
@@ -45,7 +50,8 @@ public class portfolioController {
                              @RequestParam("file2") MultipartFile file2,
                              @RequestParam("file3") MultipartFile file3,
                              @RequestParam("file4") MultipartFile file4,
-                             RedirectAttributes rttr) throws ThumbnailRegistException {
+                             @ModelAttribute AllOptionDTO allOption,
+                             RedirectAttributes rttr) throws ThumbnailRegistException, OptionRegistException {
         System.out.println("***** PracticeController : registBoard 들어옴");
 
         String rootLocation = ROOT_LOCATION + IMAGE_DIR;
@@ -71,6 +77,7 @@ public class portfolioController {
         paramFileList.add(file2);
         paramFileList.add(file3);
         paramFileList.add(file4);
+
 
         try {
             for(MultipartFile paramFile : paramFileList){
@@ -123,8 +130,33 @@ public class portfolioController {
             }
 
             portfolio.setAttachmentDTOList(new ArrayList<AttachmentDTO>());
-            portfolio.setMemberNo(2525);
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            String memberName= authentication.getName();
+            int memberNo = portfolioService.findMemberId(memberName);
+
+            portfolio.setMemberNo(memberNo);                               // 멤버번호
             portfolio.setPortNo(portfolio.getMemberNo() + "_P");
+
+            // 옵션 가져오기
+            String opNo = portfolio.getPortNo() + "_OP";
+
+//            List<OptionDTO> optionList = new ArrayList<>();
+            OptionDTO option1 = new OptionDTO(opNo + 1, portfolio.getPortNo(), allOption.getOptionPrice1(), allOption.getOptionInfo1(), allOption.getOptionFix1(), allOption.getOptionDt1());
+            OptionDTO option2 = new OptionDTO(opNo + 2, portfolio.getPortNo(), allOption.getOptionPrice2(), allOption.getOptionInfo2(), allOption.getOptionFix2(), allOption.getOptionDt2());
+            OptionDTO option3 = new OptionDTO(opNo + 3, portfolio.getPortNo(), allOption.getOptionPrice3(), allOption.getOptionInfo3(), allOption.getOptionFix3(), allOption.getOptionDt3());
+
+            System.out.println("option1 : " + option1.toString());
+            System.out.println("option2 : " + option2.toString());
+            System.out.println("option3 : " + option3.toString());
+
+            List<OptionDTO> optionDTOList = new ArrayList<>();
+            optionDTOList.add(option1);
+            optionDTOList.add(option2);
+            optionDTOList.add(option3);
+
+
             List<AttachmentDTO> list = portfolio.getAttachmentDTOList();
 
             for(int i = 0; i < fileList.size(); i++){
@@ -143,10 +175,12 @@ public class portfolioController {
             System.out.println("list : " + list);
 
             portfolioService.registThumbnail(portfolio);
+            portfolioService.registOption(optionDTOList);
 
-            System.out.println("서비스 다녀왔대요");
+            System.out.println("***** 서비스 다녀왔대요");
 
             rttr.addFlashAttribute("message", "사진 게시판 등록에 성공하셨습니다.");
+
 
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
@@ -174,4 +208,7 @@ public class portfolioController {
 
         return "redirect:/";
     }
+
+
+
 }
