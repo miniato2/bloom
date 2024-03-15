@@ -40,6 +40,11 @@ header a{
     text-decoration: none;
     color : black;
 }
+#lnb2 a{
+    font-size : 13px;
+    text-decoration: none;
+    color : black;
+}
 
 /* 초록색 타이틀 */
 .green_title{

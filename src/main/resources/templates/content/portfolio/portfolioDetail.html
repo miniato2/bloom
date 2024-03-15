@@ -28,26 +28,39 @@
                                 <div class="portfolio_photo_preview_list">  <!-- 미리보기 사진 목록 -->
 
                                     <span>
-                                        <div th:if="${ portfolio.attachmentDTOList.size() > 0 }">
+
+                                        <div th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null  }">
+                                            <img class="small_photo" src='/img/previewImg.png' >
+                                        </div>
+                                        <div th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}">
                                             <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}">
                                         </div>
                                     </span>
-                                    <span>
-                                        <div th:if="${ portfolio.attachmentDTOList.size() > 1 }">
-                                            <img class="small_photo" th:src="@{|/${ portfolio.attachmentDTOList[1].getFilePath()}|}" onerror="this.onerror=null; this.src='/img/previewImg.png'">
 
+                                    <span>
+
+                                        <div th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null  }">
+                                            <img class="small_photo" src='/img/previewImg.png'>
+                                        </div>
+                                        <div th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}">
+                                            <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[1].getThumbnailPath()}|}" >
                                         </div>
                                     </span>
                                     <span>
-                                        <div th:if="${ portfolio.attachmentDTOList.size() > 2 }">
-                                            <img class="small_photo" th:src="@{|/${ portfolio.attachmentDTOList[2].getFilePath()}|}"  onerror="this.onerror=null; this.src='/img/previewImg.png'">
-
+                                        <div th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null  }">
+                                            <img class="small_photo" src='/img/previewImg.png'>
+                                        </div>
+                                        <div th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}">
+                                            <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[2].getThumbnailPath()}|}" >
                                         </div>
                                     </span>
                                     <span>
-                                        <div th:if="${ portfolio.attachmentDTOList.size() > 3 }">
-                                            <img class="small_photo" th:src="@{|/${ portfolio.attachmentDTOList[3].getFilePath()}|}"  onerror="this.onerror=null; this.src='/img/previewImg.png'">
 
+                                        <div th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null  }">
+                                            <img class="small_photo" src='/img/previewImg.png'>
+                                        </div>
+                                        <div th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}">
+                                            <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[3].getThumbnailPath()}|}" >
                                         </div>
                                     </span>
 
@@ -76,7 +89,7 @@
                                     <div class="service_title"> <!-- 서비스 타이틀 -->
                                         서비스 설명
                                     </div>
-                                    <div class="service_contents">  <!-- 서비스 설명 -->
+                                    <div class="service_contents" th:text="${ portfolio.portCon }">  <!-- 서비스 설명 -->
                                         1. Thymeleaf(타임리프) 개요
                                         <br>&nbsp 1-1. Thymeleaf란
                                         <br>&nbsp&nbsp * Thymeleaf는 Spring Boot에서 공식적으로 지원하는 View 템플릿이다.
@@ -106,42 +119,42 @@
                                             <th></th>
                                             <th>
                                                 <div class="option_th">OPTION 1</div>
-                                                <div class="option_price">30,000원</div>
+                                                <div class="option_price" th:text="${portfolio.optionList.get(0).getOptionPrice()}">30,000원</div>
                                             </th>
                                             <th>
                                                 <div class="option_th">OPTION 2</div>
-                                                <div class="option_price">45,000원</div>
+                                                <div class="option_price" th:text="${portfolio.optionList.get(1).getOptionPrice()}">45,000원</div>
                                             </th>
                                             <th>
                                                 <div class="option_th">OPTION 3</div>
-                                                <div class="option_price">60,000원</div>
+                                                <div class="option_price" th:text="${portfolio.optionList.get(2).getOptionPrice()}">60,000원</div>
                                             </th>
                                             <tr>
                                                 <td class="option_title">옵션 설명</td>
                                                 <td>
                                                     <div class="options">옵션1</div>
-                                                    <div>짧고 강렬하게</div>
+                                                    <div th:text="${portfolio.optionList.get(0).optionInfo }">짧고 강렬하게</div>
                                                 </td>
                                                 <td>
                                                     <div class="options">옵션2</div>
-                                                    <div>적당하고 예쁘게</div>
+                                                    <div th:text="${portfolio.optionList.get(1).optionInfo }">적당하고 예쁘게</div>
                                                 </td>
                                                 <td>
                                                     <div class="options">옵션3</div>
-                                                    <div>전문적인 변화</div>
+                                                    <div th:text="${portfolio.optionList.get(2).optionInfo }">전문적인 변화</div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="option_title">수정 횟수</td>
-                                                <td>0회</td>
-                                                <td>2회</td>
-                                                <td>3회</td>
+                                                <td th:text="${portfolio.optionList.get(0).getOptionFix() + '회'}">0회</td>
+                                                <td th:text="${portfolio.optionList.get(1).getOptionFix() + '회'}">2회</td>
+                                                <td th:text="${portfolio.optionList.get(2).getOptionFix() + '회'}">3회</td>
                                             </tr>
                                             <tr>
                                                 <td class="option_title">작업일</td>
-                                                <td>2일</td>
-                                                <td>4일</td>
-                                                <td>7일</td>
+                                                <td th:text="${portfolio.optionList.get(0).getOptionDt() + '일'}">2일</td>
+                                                <td th:text="${portfolio.optionList.get(1).getOptionDt()} + '일'">4일</td>
+                                                <td th:text="${portfolio.optionList.get(2).getOptionDt()} + '일'">7일</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -425,7 +438,7 @@
                         </div>
                         <div class="portfolio_right">   <!--  오른쪽 사이드 -->
                             <div class="portfolio_title_top"> <!-- 포트폴리오 제목 -->
-                                <span class="portfolio_title">
+                                <span class="portfolio_title" th:text="${portfolio.portTitle}">
                                 포트폴리오 제목
                             </span>
                                 <span class="portfolio_bookmark">     <!-- 북마크 표시 -->
@@ -435,14 +448,14 @@
                             <div class="portfolio_big_info"> <!-- 포트폴리오 정보 큰 틀 -->
                                 <div class="portfolio_middle_info"> <!-- 포트폴리오 정보 신고하기 뺀 틀 -->
                                     <div class="seller_nickname_info"> <!-- 판매자 닉네임 -->
-                                        <div class="seller_nickname">
+                                        <div class="seller_nickname" th:text="${portfolio.memberNickname.nickname}">
                                             판매자 닉네임
                                         </div>
                                     </div>
                                     <div class="portfolio_info"> <!-- 포트폴리오 정보 -->
                                         <div class="portfolio_small_info"> <!-- 연락가능시간 및 판매수 -->
                                             <div class="callable_time"> <!-- 연락 가능 시간 -->
-                                                <div class="callable_time_detail">
+                                                <div class="callable_time_detail" th:text="${portfolio.portContactDt}">
                                                     주중 : 18:30 ~ 22:00
                                                     <br>
                                                     주말 : 14:30 ~ 18:00
@@ -464,7 +477,7 @@
                                             <div class="seller_inrto_title">
                                                 소개
                                             </div>
-                                            <div class="seller_intro_content">
+                                            <div class="seller_intro_content" th:text="${portfolio.memberInfo}">
                                                 자기소개입니다.
                                             </div>
                                         </div>

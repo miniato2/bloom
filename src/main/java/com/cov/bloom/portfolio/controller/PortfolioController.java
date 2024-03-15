@@ -112,13 +112,13 @@ public class PortfolioController {
 
                     if("file1".equals(fieldName)){
                         fileMap.put("fileType", "TITLE");
-                        width = 300;
-                        height = 150;
+                        width = 1000;
+                        height = 1000;
                     }
                     else{
                         fileMap.put("fileType", "BODY");
-                        width = 120;
-                        height = 100;
+                        width = 1000;
+                        height = 1000;
                     }
 
                     Thumbnails.of(fileUploadDirectory + "/" + savedFileName).size(width, height)

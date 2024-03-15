@@ -74,7 +74,7 @@ header a{
     width : 140px;
     height : 140px;
 }
-.portfolio_photo_preview_list span img{
+.portfolio_photo_preview_list span div img{
     width : 140px;
     height : 140px;
     object-fit : cover;
