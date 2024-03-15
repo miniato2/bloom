@@ -8,4 +8,10 @@ public interface MessageService {
     int selectTotalCount();
 
     List<MessageDTO> selectMessageList();
+
+    MessageDTO selectMessagDetail(long no);
+
+    List<MessageDTO> selectAllThumbnailList();
+
+    MessageDTO selectThumbnailDetail(Long no);
 }

@@ -12,4 +12,10 @@ public interface MessageMapper {
     int selectTotalCount();
 
     List<MessageDTO> selectMessageList();
+
+    List<MessageDTO> selectAllThumbnailList();
+
+    int incrementMessageCount(Long no);
+
+    MessageDTO selectThumbnailDetail(Long no);
 }
