@@ -25,6 +25,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
 
+    /* 게시글 전체 수 조회 */
     @Override
     public int selectTotalCount(Map<String, String> searchMap) {
 
@@ -41,6 +42,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioList;
     }
 
+    /* 멤버ID 조회 */
     @Override
     public int findMemberId(String email) {
        int result = 0;
@@ -50,6 +52,17 @@ public class PortfolioServiceImpl implements PortfolioService {
        return result;
     }
 
+    /* 포트폴리오 상세 조회 */
+    @Override
+    public PortfolioDTO selectPortDetail(String portNo) {
+        PortfolioDTO portDetail = null;
+
+        portDetail = mapper.selectPortfolioDetail(portNo);
+
+        return portDetail;
+    }
+
+    /* 사진 등록 */
     @Override
     @Transactional
     public void registThumbnail(PortfolioDTO thumbnail) throws ThumbnailRegistException {
@@ -81,6 +94,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         }
     }
 
+    /* 포트폴리오 등록 */
     @Override
     @Transactional
     public void registPortfolio(PortfolioDTO portfolio) throws PortfolioRegistException {
@@ -92,6 +106,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         }
     }
 
+    /* 옵션 등록 */
     @Override
     @Transactional
     public void registOption(List<OptionDTO> optionDtoList) throws OptionRegistException {

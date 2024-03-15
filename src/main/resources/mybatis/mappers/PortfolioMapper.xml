@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cov.bloom.portfolio.model.dao.PortfolioMapper">
+    <!-- 포트폴리오 목록 조회 -->
     <resultMap id="PortfolioResultMap" type="com.cov.bloom.portfolio.model.dto.PortfolioDTO">
         <id property="portNo" column="PORT_NO"/>
         <result property="portTitle" column="PORT_TITLE"/>
@@ -17,6 +18,21 @@
         <collection property="attachmentDTOList" resultMap="attachmentResultMap"/>
     </resultMap>
 
+    <!-- 포트폴리오 상세 조회 -->
+    <resultMap id="PortfolioDetailResultMap" type="com.cov.bloom.portfolio.model.dto.PortfolioDTO">
+        <id property="portNo" column="PORT_NO"/>
+        <result property="portTitle" column="PORT_TITLE"/>
+        <result property="portCon" column="PORT_CON"/>
+        <result property="portContactDt" column="PORT_CONTACTDT"/>
+        <result property="memberInfo" column="MEMBER_INFO"/>
+        <result property="memberNo" column="MEMBER_NO"/>
+        <result property="writeDt" column="WRITE_DT"/>
+        <association property="memberNickname" resultMap="memberResult" column="MEMBER_NICKNAME"/>
+        <collection property="optionList" resultMap="optionResultMap"/>
+        <collection property="attachmentDTOList" resultMap="attachmentResultMap"/>
+    </resultMap>
+
+    <!-- 사진 -->
     <resultMap id="attachmentResultMap" type="com.cov.bloom.portfolio.model.dto.AttachmentDTO">
         <id property="fileNo" column="FILE_NO"/>
         <result property="filePath" column="FILE_PATH"/>
@@ -26,6 +42,7 @@
         <result property="thumbnailPath" column="THUMB_PATH"/>
     </resultMap>
 
+    <!-- 멤버 -->
     <resultMap id="memberResult" type="com.cov.bloom.member.model.dto.MemberDTO">
         <id property="no" column="member_no"/>
         <result property="email" column="member_email"/>
@@ -37,6 +54,7 @@
         <result property="status" column="member_status"/>
     </resultMap>
 
+    <!-- 옵션 -->
     <resultMap id="optionResultMap" type="com.cov.bloom.portfolio.model.dto.OptionDTO">
         <id property="optionNo" column="OPTION_NO"/>
         <result property="portNo" column="PORT_NO"/>
@@ -96,6 +114,9 @@
         </if>
         <if test="sort == 'past_regist'">
             ORDER BY P.WRITE_DT ASC
+        </if>
+        <if test="sort == 'low_price'">
+            ORDER BY MIN_O.MIN_OPTION_PRICE
         </if>
 
     </select>
@@ -169,10 +190,42 @@
 
     </insert>
 
+
+    <!-- 멤버 넘버 찾기 -->
     <select id="findMemberId" parameterType="string" resultMap="memberResult">
         SELECT MEMBER_NO
         FROM MEMBER
         WHERE MEMBER_EMAIL = "${ email }"
+    </select>
+
+
+    <!-- 포트폴리오 상세 조회-->
+    <select id="selectPortfolioDetail" parameterType="string" resultMap="PortfolioDetailResultMap">
+        SELECT
+            P.PORT_TITLE
+            , P.PORT_CON
+            , M.MEMBER_NICKNAME
+            , P.PORT_CONTACTDT
+            , P.MEMBER_INFO
+            , P.MEMBER_NO
+            , P.WRITE_DT
+            , F.FILE_NO
+            , F.FILE_PATH
+            , F.FILE_NAME
+            , F.PORT_NO
+            , F.FILE_TYPE
+            , F.THUMB_PATH
+            , O.OPTION_NO
+            , O.PORT_NO
+            , O.OPTION_PRICE
+            , O.OPTION_INFO
+            , O.OPTION_FIX
+            , O.OPTION_DT
+        FROM PORTFOLIO P
+        JOIN MEMBER M ON (P.MEMBER_NO = M.MEMBER_NO)
+        JOIN PORT_FILE F ON (P.PORT_NO = F.PORT_NO)
+        JOIN PORT_OPTION O ON (O.PORT_NO = P.PORT_NO)
+        WHERE P.PORT_NO = #{ portNo }
     </select>
 
 </mapper>

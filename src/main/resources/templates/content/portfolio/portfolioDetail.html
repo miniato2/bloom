@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/portfolioDetail.css}">
+
+    <title>포트폴리오 페이지</title>
+</head>
+<div>
+    <div layout:fragment="content">
+        <!-- ------------------------------------------------------------------------------- -->
+        <div>   <!--  본문 + BloomyourRoom  -->
+            <div>
+                <div class="inner"> <!--  본문  -->
+                    <div class="portfolio_smallsize">   <!-- 사이즈 맞춘 본문 -->
+                        <div class="portfolio_left">        <!--  왼쪽 사이드 -->
+                            <div class="portfolio_photo_list">  <!-- 사진 목록 -->
+                                <div class="big_photo" th:if="${ portfolio.attachmentDTOList[0].thumbnailPath != null}"> <!-- 미리보기 사진 -->
+                                    <img th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}" id="big_photo">
+                                </div>
+                                <div class="portfolio_photo_preview_list">  <!-- 미리보기 사진 목록 -->
+
+                                    <span>
+                                        <div th:if="${ portfolio.attachmentDTOList.size() > 0 }">
+                                            <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}">
+                                        </div>
+                                    </span>
+                                    <span>
+                                        <div th:if="${ portfolio.attachmentDTOList.size() > 1 }">
+                                            <img class="small_photo" th:src="@{|/${ portfolio.attachmentDTOList[1].getFilePath()}|}" onerror="this.onerror=null; this.src='/img/previewImg.png'">
+
+                                        </div>
+                                    </span>
+                                    <span>
+                                        <div th:if="${ portfolio.attachmentDTOList.size() > 2 }">
+                                            <img class="small_photo" th:src="@{|/${ portfolio.attachmentDTOList[2].getFilePath()}|}"  onerror="this.onerror=null; this.src='/img/previewImg.png'">
+
+                                        </div>
+                                    </span>
+                                    <span>
+                                        <div th:if="${ portfolio.attachmentDTOList.size() > 3 }">
+                                            <img class="small_photo" th:src="@{|/${ portfolio.attachmentDTOList[3].getFilePath()}|}"  onerror="this.onerror=null; this.src='/img/previewImg.png'">
+
+                                        </div>
+                                    </span>
+
+                                </div>
+
+                                <div class="porftfolio_top_starpoint">  <!--  미리보기 하단 평균 별점 및 리뷰 수 -->
+                                    <span class="portfolio_avg_star"> <!-- 상단 평균 별점 -->
+                                    <div class="avg_star_box">
+                                        <div class="avg">
+                                        <span class="avg_star">★★★★<span class="non_yellow_star">★</span></span>
+                                        <input type="range" value="1" step="1" min="0" max="10">
+                                        </div>
+                                    </div>
+                                    
+                                </span>
+                                    <span class="portfolio_avg_star_number"> <!-- 상단 평균 별점 숫자 -->
+                                    4.0
+                                </span>
+                                    <span class="portfolio_review_count"> <!-- 상단 리뷰 카운트 -->
+                                    리뷰 <span>5</span>건
+                                </span>
+                                </div>
+                            </div>
+                            <div class="portfolio_page_contents">   <!-- 본문 아랫단 -->
+                                <div class="info service">   <!-- 서비스 제목&설명 -->
+                                    <div class="service_title"> <!-- 서비스 타이틀 -->
+                                        서비스 설명
+                                    </div>
+                                    <div class="service_contents">  <!-- 서비스 설명 -->
+                                        1. Thymeleaf(타임리프) 개요
+                                        <br>&nbsp 1-1. Thymeleaf란
+                                        <br>&nbsp&nbsp * Thymeleaf는 Spring Boot에서 공식적으로 지원하는 View 템플릿이다.
+                                        <br>Thymeleaf는 웹 및 독립 실행형 환경 모두를 위한 최신 서버 측 Java 템플릿 엔진입니다.
+                                        <br>ThymeLeaf의 주요 목표는 귀하의 개발 워크플로에 우아하고 자연스러운 템플릿을 가져오는 것입니다.
+                                        <br>HTML은 브라우저에 올바르게 표시될 수 있고 정적 프로토타입으로도 작동하여 개발 팀에서 보다 강력한 협업을 가능하게 합니다.
+                                        <br>Spring Framework용 모듈, 선호하는 도구와의 통합 호스트 및 고유한 기능을 플러그인할 수 있는 기능을 갖춘
+                                        Thymeleaf는 할 수 있는 것이 훨씬 더 많지만 현대 HTML5 JVM 웹 개발에 이상적입니다.
+                                        <br> 출처 : 타임리프 공식 홈
+                                        <br>
+                                        <br>1-2. Thymeleaf의 특징
+                                        <br>- Thymeleaf 문서는 html 확장자를 갖고 있어 JSP처럼 Servlet이 문서를 표현하는 방식이 아니므로, 서버 없이도 동작
+                                        가능하다.
+                                        <br>- SSR 템플릿으로 백엔드에서 HTML을 동적으로 생성한다.
+                                        <br>Thymeleaf는 Spring Boot에서 사용할 것을 권장하고 있고, Spring Boot에서 JSP는별도의 설정이 필요한 반면
+                                        Thymeleaf는 바로 적용될 만큼 Spring과 자연스럽게 통합할 수 있다.
+
+                                    </div>
+
+                                </div>
+                                <div class="info price">    <!--  가격 정보 -->
+                                    <div class="service_title"> <!-- 가격 정보 타이틀 -->
+                                        가격 정보
+                                    </div>
+                                    <div class="price_option"> <!-- 가격 옵션 표 -->
+                                        <table class="price_option_tb" width="100%">
+                                            <th></th>
+                                            <th>
+                                                <div class="option_th">OPTION 1</div>
+                                                <div class="option_price">30,000원</div>
+                                            </th>
+                                            <th>
+                                                <div class="option_th">OPTION 2</div>
+                                                <div class="option_price">45,000원</div>
+                                            </th>
+                                            <th>
+                                                <div class="option_th">OPTION 3</div>
+                                                <div class="option_price">60,000원</div>
+                                            </th>
+                                            <tr>
+                                                <td class="option_title">옵션 설명</td>
+                                                <td>
+                                                    <div class="options">옵션1</div>
+                                                    <div>짧고 강렬하게</div>
+                                                </td>
+                                                <td>
+                                                    <div class="options">옵션2</div>
+                                                    <div>적당하고 예쁘게</div>
+                                                </td>
+                                                <td>
+                                                    <div class="options">옵션3</div>
+                                                    <div>전문적인 변화</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option_title">수정 횟수</td>
+                                                <td>0회</td>
+                                                <td>2회</td>
+                                                <td>3회</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="option_title">작업일</td>
+                                                <td>2일</td>
+                                                <td>4일</td>
+                                                <td>7일</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="price_purchase"> <!--  구매하기 버튼 -->
+                                        <button>구매하기</button>
+                                    </div>
+
+                                </div>
+                                <div class="info policy"> <!--  취소 및 환불 규정 -->
+                                    <div class="service_title"> <!-- 취소 및 환불 규정 타이틀 -->
+                                        취소 및 환불 규정
+                                    </div>
+                                    <div class="cancel_policy_content"> <!-- 취소 및 환불 규정 내용 -->
+                                        <p>1. 전문가와 의뢰인 간의 상호 협의 후 청약철회가 가능합니다.</p>
+                                        <p>2. 전문가의 귀책사유로 디자인 작업을 시작하지 않았거나 혹은 이에 준하는 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체
+                                            환불이 가능합니다.</p>
+                                        <p>3. 전문가가 작업 기간 동안 지정된 서비스를 제공하지 못할 것이 확실한 경우 지급받은 서비스 비용을 환불합니다.</p>
+                                        <p>4. 서비스 받은 항목을 공제하여 환불하며, 공제 비용은 정가 처리됩니다.</p>
+
+                                        <ul>
+                                            <li>
+                                                가. 소비자 피해 보상 규정에 의거하여 작업물 원본의 멸실 및 작업 기간 미이행 및 이에 상응하는 전문가 책임으로 인한 피해 발생
+                                                시, 전액 환불
+                                            </li>
+                                            <li>
+                                                나. 시안 작업 진행된 상품 차감 환불
+                                                <ul>
+                                                    <li>
+                                                        ⓐ. '디자인'에 대한 금액이 서비스 내 별도 기재가 되지 않았거나, 디자인 상품 패키지 내 수정 횟수가 1회(1회
+                                                        포함) 이상인 서비스 상품의 시안 or 샘플이 제공된 경우
+                                                        <ul>
+                                                            <li>→ 구매금액의 10% 환불(디자인 비용이 별도 기재되어 있는 경우, 해당금액 차감 후 환불)</li>
+                                                            <li>※ 시안 제공 및 수정이 추가로 이뤄진 경우 환불 금액내 수정 횟수에 따라 분할하여 환불.</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+
+                                        <p>5. 주문 제작 상품 등 서비스 받은 항목이 없으며, 결제 후 1일 이내 작업이 진행되기 전 시점은 전액 환불 가능.</p>
+
+                                        <p>6. 다만, 환불이 불가능한 서비스에 대한 사실을 표시사항에 포함한 경우에는 의뢰인의 환불요청이 제한될 수 있습니다.</p>
+
+                                        <ul>
+                                            <li>
+                                                가. 고객의 요청에 따라 개별적으로 주문 제작되는 재판매가 불가능한 경우(인쇄, 이니셜 각인, 사이즈 맞춤 등)
+                                                <ul>
+                                                    <li>ⓐ. 주문 제작 상품 특성상 제작(인쇄 등) 진행된 경우.</li>
+                                                    <li>ⓑ. 인쇄 색상의 차이: 모니터의 종류에 따라 색상의 차이가 발생하며, 인쇄 시마다 합판 인쇄 방법의 특성상 색상
+                                                        표현의 오차가 발생함.
+                                                    </li>
+                                                    <li>ⓒ. 디자인 서비스이며 수정 횟수가 존재하지 않았던 상품일 경우 시안 수령 후 환불 불가</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="info review_list">   <!-- 리뷰 목록 -->
+                                    <div class="review_title">
+                                    <span class="service_title"> <!-- 리뷰 목록 제목  -->
+                                        리뷰
+                                    </span>
+                                        <span class="porftfolio_bottom_starpoint">
+                                        <span class="portfolio_avg_star"> <!-- 하단 평균 별점 -->
+                                            <span class="avg_star_box">
+                                                <div class="avg">
+                                                <span class="avg_star bottom">★★★★<span class="non_yellow_star">★</span></span>
+                                                <input type="range" value="1" step="1" min="0" max="10">
+                                                </div>
+                                            </span>
+                                            
+                                        </span>
+                                        <span class="portfolio_avg_star_number bottom"> <!-- 하단 평균 별점 숫자 -->
+                                            4.0
+                                        </span>
+                                        <span class="portfolio_review_count bottom"> <!-- 상단 리뷰 카운트 -->
+                                            <span>5</span>건
+                                        </span>
+                                    </span>
+                                    </div>
+                                    <div class="review_list_five">
+                                        <div class="review_onereview"> <!-- 각각의 리뷰 -->
+                                            <div class="reviewer_star"> <!-- 리뷰 쓴 사람 + 별점 + 날짜-->
+                                                <span class="reviewer"> <!-- 리뷰 쓴 사람 닉네임 -->
+                                                다람쥐
+                                            </span>
+                                                <span class="star_point"> <!-- 각 리뷰의 별점 -->
+                                                <span class="star_point_number"> <!-- 별점 숫자 -->
+                                                    <span class="porftfolio_bottom_starpoint review">
+                                                        <span class="portfolio_avg_star"> <!-- 하단 평균 별점 -->
+                                                            <span class="avg_star_box">
+                                                                <div class="avg">
+                                                                <span class="avg_star review">★★★<span
+                                                                        class="non_yellow_star">★★</span></span>
+                                                                <input type="range" value="1" step="1" min="0" max="10">
+                                                                </div>
+                                                            </span>
+                                                            
+                                                        </span>
+                                                        <span class="portfolio_avg_star_number bottom"> <!-- 하단 평균 별점 숫자 -->
+                                                            3.0
+                                                        </span>
+                                                        <span class="review_datetime"> <!-- 리뷰 단 날짜시간 -->
+                                                            24.02.27 15:55
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+
+                                            </div>
+                                            <div class="review_content"> <!--  리뷰내용 -->
+                                                20년만 ...힘내봐요
+                                            </div>
+                                        </div>
+                                        <div class="review_onereview"> <!-- 각각의 리뷰 -->
+                                            <div class="reviewer_star"> <!-- 리뷰 쓴 사람 + 별점 + 날짜-->
+                                                <span class="reviewer"> <!-- 리뷰 쓴 사람 닉네임 -->
+                                                YHY
+                                            </span>
+                                                <span class="star_point"> <!-- 각 리뷰의 별점 -->
+                                                <span class="star_point_number"> <!-- 별점 숫자 -->
+                                                    <span class="porftfolio_bottom_starpoint review">
+                                                        <span class="portfolio_avg_star"> <!-- 하단 평균 별점 -->
+                                                            <span class="avg_star_box">
+                                                                <div class="avg">
+                                                                <span class="avg_star review">★★★★★<span
+                                                                        class="non_yellow_star"></span></span>
+                                                                <input type="range" value="1" step="1" min="0" max="10">
+                                                                </div>
+                                                            </span>
+                                                            
+                                                        </span>
+                                                        <span class="portfolio_avg_star_number bottom"> <!-- 하단 평균 별점 숫자 -->
+                                                            5.0
+                                                        </span>
+                                                        <span class="review_datetime"> <!-- 리뷰 단 날짜시간 -->
+                                                            24.02.27 15:55
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+
+                                            </div>
+                                            <div class="review_content"> <!--  리뷰내용 -->
+                                                이 정도면 저희 괜찮죠
+                                            </div>
+                                        </div>
+                                        <div class="review_onereview"> <!-- 각각의 리뷰 -->
+                                            <div class="reviewer_star"> <!-- 리뷰 쓴 사람 + 별점 + 날짜-->
+                                                <span class="reviewer"> <!-- 리뷰 쓴 사람 닉네임 -->
+                                                CSW
+                                            </span>
+                                                <span class="star_point"> <!-- 각 리뷰의 별점 -->
+                                                <span class="star_point_number"> <!-- 별점 숫자 -->
+                                                    <span class="porftfolio_bottom_starpoint review">
+                                                        <span class="portfolio_avg_star"> <!-- 하단 평균 별점 -->
+                                                            <span class="avg_star_box">
+                                                                <div class="avg">
+                                                                <span class="avg_star review">★★★★<span
+                                                                        class="non_yellow_star">★</span></span>
+                                                                <input type="range" value="1" step="1" min="0" max="10">
+                                                                </div>
+                                                            </span>
+                                                            
+                                                        </span>
+                                                        <span class="portfolio_avg_star_number bottom"> <!-- 하단 평균 별점 숫자 -->
+                                                            4.0
+                                                        </span>
+                                                        <span class="review_datetime"> <!-- 리뷰 단 날짜시간 -->
+                                                            24.02.27 15:55
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+
+                                            </div>
+                                            <div class="review_content"> <!--  리뷰내용 -->
+                                                soso
+                                            </div>
+                                        </div>
+                                        <div class="review_onereview"> <!-- 각각의 리뷰 -->
+                                            <div class="reviewer_star"> <!-- 리뷰 쓴 사람 + 별점 + 날짜-->
+                                                <span class="reviewer"> <!-- 리뷰 쓴 사람 닉네임 -->
+                                                LJY
+                                            </span>
+                                                <span class="star_point"> <!-- 각 리뷰의 별점 -->
+                                                <span class="star_point_number"> <!-- 별점 숫자 -->
+                                                    <span class="porftfolio_bottom_starpoint review">
+                                                        <span class="portfolio_avg_star"> <!-- 하단 평균 별점 -->
+                                                            <span class="avg_star_box">
+                                                                <div class="avg">
+                                                                <span class="avg_star review">★★★★★<span
+                                                                        class="non_yellow_star"></span></span>
+                                                                <input type="range" value="1" step="1" min="0" max="10">
+                                                                </div>
+                                                            </span>
+                                                            
+                                                        </span>
+                                                        <span class="portfolio_avg_star_number bottom"> <!-- 하단 평균 별점 숫자 -->
+                                                            5.0
+                                                        </span>
+                                                        <span class="review_datetime"> <!-- 리뷰 단 날짜시간 -->
+                                                            24.02.27 15:55
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+
+                                            </div>
+                                            <div class="review_content"> <!--  리뷰내용 -->
+                                                아프지 말아요......건강이 자산...
+                                            </div>
+                                        </div>
+                                        <div class="review_onereview"> <!-- 각각의 리뷰 -->
+                                            <div class="reviewer_star"> <!-- 리뷰 쓴 사람 + 별점 + 날짜-->
+                                                <span class="reviewer"> <!-- 리뷰 쓴 사람 닉네임 -->
+                                                LJA
+                                            </span>
+                                                <span class="star_point"> <!-- 각 리뷰의 별점 -->
+                                                <span class="star_point_number"> <!-- 별점 숫자 -->
+                                                    <span class="porftfolio_bottom_starpoint review">
+                                                        <span class="portfolio_avg_star"> <!-- 하단 평균 별점 -->
+                                                            <span class="avg_star_box">
+                                                                <div class="avg">
+                                                                <span class="avg_star review">★★★<span
+                                                                        class="non_yellow_star">★★</span></span>
+                                                                <input type="range" value="1" step="1" min="0" max="10">
+                                                                </div>
+                                                            </span>
+                                                            
+                                                        </span>
+                                                        <span class="portfolio_avg_star_number bottom"> <!-- 하단 평균 별점 숫자 -->
+                                                            3.0
+                                                        </span>
+                                                        <span class="review_datetime"> <!-- 리뷰 단 날짜시간 -->
+                                                            24.02.27 15:55
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </span>
+
+                                            </div>
+                                            <div class="review_content"> <!--  리뷰내용 -->
+                                                HTML 너무머리아프다
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="info review_write">  <!--  리뷰 작성 -->
+                                        <div class="review_write_title"> <!-- 리뷰 작성 타이틀 + 별점 -->
+                                            <span class="service_title review"> <!-- 리뷰 작성 타이틀 -->
+                                        리뷰 작성 
+                                    </span>
+                                            <span class="review_givestar"> <!-- 별점 부과 -->
+                                        <span class="review_writestar">
+                                            <div class="rating_box">
+                                                <div class="rating">
+                                                  ★★★★★
+                                                  <span class="rating_star">★★★★★</span>
+                                                  <input type="range" value="1" step="1" min="0" max="10">
+                                                </div>
+                                              </div>
+                                        </span>
+                                        <span class="review_write_star_point_number" id="currentRating"> <!-- 별점 숫자 -->
+                                            0.0
+                                        </span>
+                                    </span>
+                                        </div>
+                                        <div class="write_review"> <!-- 리뷰 입력란 -->
+                                            <textarea class="review_area" maxlength="1000"></textarea>
+                                        </div>
+                                        <div class="submit_review"> <!-- 리뷰 등록하기 -->
+                                            <button type="submit">등록하기</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio_right">   <!--  오른쪽 사이드 -->
+                            <div class="portfolio_title_top"> <!-- 포트폴리오 제목 -->
+                                <span class="portfolio_title">
+                                포트폴리오 제목
+                            </span>
+                                <span class="portfolio_bookmark">     <!-- 북마크 표시 -->
+                                <img src="/img/bookmark_on.png">
+                            </span>
+                            </div>
+                            <div class="portfolio_big_info"> <!-- 포트폴리오 정보 큰 틀 -->
+                                <div class="portfolio_middle_info"> <!-- 포트폴리오 정보 신고하기 뺀 틀 -->
+                                    <div class="seller_nickname_info"> <!-- 판매자 닉네임 -->
+                                        <div class="seller_nickname">
+                                            판매자 닉네임
+                                        </div>
+                                    </div>
+                                    <div class="portfolio_info"> <!-- 포트폴리오 정보 -->
+                                        <div class="portfolio_small_info"> <!-- 연락가능시간 및 판매수 -->
+                                            <div class="callable_time"> <!-- 연락 가능 시간 -->
+                                                <div class="callable_time_detail">
+                                                    주중 : 18:30 ~ 22:00
+                                                    <br>
+                                                    주말 : 14:30 ~ 18:00
+                                                </div>
+                                                <div class="callable_time_title">
+                                                    연락 가능 시간
+                                                </div>
+                                            </div>
+                                            <div class="number_of_sales"> <!-- 판매수 -->
+                                                <div class="sales_number">
+                                                    250
+                                                </div>
+                                                <div class="sales_number_title">
+                                                    작업 수
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="seller_intro"> <!-- 판매자 소개 -->
+                                            <div class="seller_inrto_title">
+                                                소개
+                                            </div>
+                                            <div class="seller_intro_content">
+                                                자기소개입니다.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="purchase_message_btn"> <!-- 구매하기 및 문의하기 버튼 -->
+                                        <div class="purchase_btn"> <!-- 구매하기 버튼 -->
+                                            <label for="purchase_btn">구매하기</label>
+                                            <input type="submit" id="purchase_btn" name="purchase_btn">
+                                        </div>
+                                        <div class="message_btn"> <!-- 문의하기 버튼 -->
+                                            <label for="message_btn">문의하기</label>
+                                            <input type="submit" id="message_btn" name="message_btn">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portfolio_report"> <!-- 포트폴리오 신고하기 버튼 -->
+                                    <label for="portfolio_report_btn">신고하기</label>
+                                    <input type="submit" id="portfolio_report_btn" name="portfolio_report_btn">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------------------------- -->
+
+                <div th:replace="fragments/bottom :: bottomFragment"></div>
+
+
+            </div>
+
+        </div>
+        <script src="/js/portfolioDetail.js" type=""></script>
+    </div>
+</div>
+</html>

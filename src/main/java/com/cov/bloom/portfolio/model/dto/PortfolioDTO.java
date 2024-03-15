@@ -22,7 +22,6 @@ public class PortfolioDTO implements java.io.Serializable {
 
 
 
-
     public PortfolioDTO() {
     }
 

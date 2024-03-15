@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +25,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/portfolio")
-public class portfolioController {
+public class PortfolioController {
 
     @Value("img")
     private String IMAGE_DIR;
@@ -34,7 +35,7 @@ public class portfolioController {
 
     private final PortfolioService portfolioService;
 
-    public portfolioController(PortfolioServiceImpl portfolioService){
+    public PortfolioController(PortfolioServiceImpl portfolioService){
         this.portfolioService = portfolioService;
     }
 
@@ -207,6 +208,22 @@ public class portfolioController {
         }
 
         return "redirect:/";
+    }
+
+
+    @GetMapping("/detail")
+    public String portfolioDetail(@RequestParam String portNo, Model model){
+
+        PortfolioDTO portDetail = portfolioService.selectPortDetail(portNo);
+
+        System.out.println(portDetail);
+
+        model.addAttribute("portfolio", portDetail);
+
+
+
+        return "content/portfolio/portfolioDetail";
+
     }
 
 

@@ -30,8 +30,10 @@ public class MainController {
 
 
         Map<String, String> searchMap = new HashMap<>();
-        searchMap.put("sort", sort);    //정렬기준
+        searchMap.put("sort", sort);                //정렬기준
         searchMap.put("searchValue", searchValue);  //검색어
+
+        System.out.println("sort : " + searchMap.get("sort"));
 
         // 전체 포트폴리오 수
         int totalCount = portfolioService.selectTotalCount(searchMap);
@@ -59,6 +61,7 @@ public class MainController {
 
         mv.addObject("portList", portList);
         mv.addObject("selectCriteria", selectCriteria);
+
         mv.setViewName("main");
 
         return mv;

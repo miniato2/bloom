@@ -1,0 +1,658 @@
+body{
+    font-family : "Noto Sans KR", sans-serif;
+}
+button, input, select, a{
+    font-family: "Noto Sans KR", sans-serif;
+}
+.inner{
+    max-width : 1047px;
+    margin: 0 auto;
+}
+/* header */
+header{
+    font-family : "Zen Old Mincho", serif;
+    
+}
+header .inner {
+    /* position: absolute; */
+    height : 70px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+header a{
+    
+    font-family : "Zen Old Mincho", serif;
+}
+#bloom{
+    font-weight: bold;
+    font-size:26px;
+}
+#main_menu a{
+    color:#AEAEAE;
+    text-decoration: none;
+    margin-left : 58px;
+    font-size : 18px;
+}
+#lnb a{
+    font-size : 13px;
+    text-decoration: none;
+    color : black;
+}
+
+/* 본문 */
+.portfolio_smallsize{
+    margin-top : 100px;
+    display: flex;
+    justify-content: space-between;
+    gap : 30px;
+}
+.portfolio_left{
+    width : 630px;
+    margin-bottom : 100px;
+}
+.portfolio_right{
+    width : 100%;
+}
+.portfolio_photo_list{
+    height : 770px;
+}
+.big_photo img{
+    height : 530px;
+    width : 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.portfolio_photo_preview_list{
+    margin-top : 20px;
+    display: flex;
+    gap : 10px;
+    justify-content: space-between;
+    
+}
+.portfoilo_photo_preview_list span{
+    width : 140px;
+    height : 140px;
+}
+.portfolio_photo_preview_list span img{
+    width : 140px;
+    height : 140px;
+    object-fit : cover;
+    border-radius: 20px;
+    cursor : pointer;
+}
+.porftfolio_top_starpoint{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    gap : 20px;
+}
+.portfolio_avg_star{
+    display : flex;
+    justify-content: center;
+}
+.avg_star{
+    font-size : 30px;
+    color : rgb(255, 230, 0);
+}
+.avg input{
+    display : none;
+}
+.non_yellow_star{
+    color : #ddd;
+}
+.portfolio_avg_star_number{
+    text-align: center;
+    font-weight: bold;
+}
+.portfolio_review_count{
+    font-size: 13px;
+    color : gray;
+    text-align: center;
+}
+
+.portfolio_page_contents{
+    margin : 10px 5px;
+    padding : 10px;
+}
+.info{
+    min-height : 100px;
+    margin: 10px;
+    padding-bottom : 50px;
+    padding-top : 50px;
+    border-bottom : 0.5px solid #E6E6E6;
+    
+}
+.info.review_write{
+    border-bottom : none;
+}
+.info.review_list{
+    border-bottom : none;
+}
+.info.service{
+    padding-top : 10px;
+}
+.service_title{
+    font-size : 20px;
+    font-weight: bold;
+    margin-bottom : 50px;
+}
+.service_contents{
+    font-size : 14px;
+    word-break: keep-all;
+}
+
+.price_option_tb{
+    width : 100%;
+}
+.price_option_tb td{
+    width : 150px;
+}
+
+.option_price{
+    font-weight: bold;
+}
+table{
+    border-top: 2px solid black;
+    border-bottom : 2px solid black;
+    border-collapse: collapse;
+}
+th{
+    border : none;
+    background-color: #F3F3F3;
+    font-weight : normal;
+    font-size : 13px;
+    height : 85px;
+}
+.option_title{
+    font-weight: bold;
+}
+.option_th{
+    color : #7E7E7E;
+}
+td {
+    border : none;
+    font-size : 12px;
+    height : 50px;
+    text-align: center;
+    align-items: center;
+    
+    line-height: 40px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+}
+tr:not(:last-child) td{
+    border-bottom : 1px solid #F3F3F3;
+}
+.options{
+    font-weight: bold;
+    font-size : 12px;
+    display : flex;
+    justify-content: center;
+    
+}
+.price_purchase button{
+    margin-top : 30px;
+    width : 100%;
+    height : 60px;
+    border-radius: 20px;
+    border : none;
+    background-color: #25432A;
+    color : white;
+    font-weight: bold;
+    cursor : pointer;
+
+}
+.cancel_policy_content{
+    padding-left : 15px;
+    padding-right : 15px;
+}
+.cancel_policy_content *{
+    color : #929292;
+    font-size : 12px;
+    margin-right : 10px;
+    word-break: keep-all;
+}
+.review_title{
+    display : flex;
+    justify-content : left;
+    align-items: left;
+    gap : 30px;
+}
+.porftfolio_bottom_starpoint {
+    display : flex;
+    gap : 10px;
+    align-items:start;
+}
+
+.avg_star.bottom{
+    font-size: 20px;
+}
+.portfolio_avg_star_number.bottom{
+    font-size : 15px;
+    padding-top : 5px;
+}
+.portfolio_review_count.bottom{
+    font-size : 15px;
+    padding-top : 5px;
+    padding-left : 10px;
+}
+.review_list_five{
+    padding-left : 10px;
+}
+.review_onereview{
+    height : 100px;
+    width : 100%;
+    padding : 20px 10px;
+    border-bottom : 1px solid #CDCDCD;
+    margin-bottom : 10px;
+    display:grid;
+    align-items: center;
+}
+.reviewer_star {
+    display : flex;
+    gap : 20px;
+
+}
+.reviewer{
+    color : #7E7E7E;
+}
+.avg_star.review{
+    font-size : 15px;
+
+}
+.review_datetime{
+    font-size : 12px;
+    text-align: center;
+}
+
+.porftfolio_bottom_starpoint.review{
+    align-items: center;
+    display : flex;
+    gap : 10px;
+}
+.review_datetime{
+    margin-left : 20px;
+    color : #7E7E7E;
+
+}
+.review_content{
+    font-size : 13px;
+    margin-left : 10px;
+}
+.review_write_title{
+    display : flex;
+    justify-content: flex-start;
+    align-items:center;
+    gap : 30px;
+    margin-bottom : 20px;
+}
+.review_givestar{
+    display: flex;
+    align-items: center;
+    gap : 20px;
+}
+.review_write_title.service_title{
+    margin-bottom : 0px;
+}
+.service_title.review{
+    margin-bottom: 0px;
+}
+.review_write_star_point_number{
+    font-weight : bold;
+    font-size : 20px;
+}
+
+.review_area{
+    resize : none;
+    width : 100%;
+    height : 100px;
+    border-radius: 20px;
+    border : 1px solid #CDCDCD;
+    padding : 20px;
+    font-size : 15px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+.submit_review{
+    margin-top : 50px;
+    
+}
+.submit_review button{
+    width : 237px;
+    height : 60px;
+    background-color: #25432A;
+    border-radius: 20px;
+    color : white;
+    cursor : pointer;
+
+}
+
+
+
+    /*  별점 넣기 */
+    .rating_box {
+        display: flex;
+      }
+      
+      .rating {
+        position: relative;
+        color: #ddd;
+        font-size: 30px;
+        text-align: center;
+      }
+      
+      .rating input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        font-size : 13px;
+      }
+      
+      .rating_star {
+        width: 0;
+        
+        color: rgb(255, 230, 0);
+        position: absolute;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+
+
+.portfolio_title_top{
+    width : 357px;
+    height : 50px;
+    display : flex;
+    justify-content:center;
+    align-items: center;
+    gap : 220px;
+    margin-bottom : 10px;
+    margin-left : 30px;
+}
+.portfolio_title{
+    display : block;
+    font-size : 16px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.portfolio_bookmark img{
+    width : 30px;
+    height : 30px;
+    object-fit: cover;
+}
+
+.portfolio_big_info{
+    width : 100%;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portfolio_middle_info{
+    width : 100%;
+    border : 1px solid #D0D0D0;
+    border-radius: 20px;
+}
+.seller_nickname_info{
+    width :auto;
+    height : 78px;
+    background-color: #EFEFEF;
+    align-items: center;
+    display : flex;
+    justify-content: flex-start;
+    padding-left : 30px;
+    border-radius : 20px 20px 0px 0px;
+}
+.seller_nickname{
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.portfolio_info{
+    width : auto;
+
+    background-color: white;
+    padding-left : 30px; 
+    padding-right : 30px;
+    
+}
+.portfolio_small_info{
+
+    margin-top : 20px;
+    /* margin-left : 30px; */
+    /* margin-right : 30px; */
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    /* gap : 50px; */
+    border-radius: 20px;
+    background-color: #F8F6F6;
+    /* padding : 30px; */
+    padding-top : 35px;
+    padding-bottom : 35px;
+}
+.callable_time{
+    display: flex;
+    flex-direction: column;
+    gap : 10px;
+    text-align: center;
+    position: relative;
+    /* padding-right : 30px; */
+    font-size : 13px;
+    
+    border-right : 1px solid #C9C9C9;
+    flex : 1;
+    
+}
+
+.callable_time_detail{
+    font-weight: bold;
+    text-align: center;
+    /* margin-right : 10px; */
+    
+    white-space: nowrap;
+}
+.callable_time_title{
+    font-weight: normal;
+    text-align: center;
+    
+}
+.number_of_sales{
+    display: flex;
+    flex-direction: column;
+    gap : 10px;
+    text-align: center;
+    position: relative;
+    font-size : 13px;
+    justify-content: center;
+    flex: 1;
+}
+.sales_number{
+    display : flex;
+    font-weight: bold;
+    text-align: center;
+    /* margin-left : 5px; */
+    min-height : 38px;
+    align-items: center;
+    justify-content: center;
+   
+}
+.sales_number_title{
+    font-weight: normal;
+    text-align: center;
+}
+.seller_intro{
+    width : auto;
+     margin-top : 40px;
+    /* */
+
+}
+.seller_inrto_title{
+    font-weight: bold;
+    margin-top : 20px;
+    margin-bottom : 20px;
+}
+.seller_intro_content{
+    width : auto;
+    font-size : 13px;
+    color : #929292;
+    min-height : 300px;
+}
+.purchase_message_btn{
+    text-align: center;
+    justify-content: center;
+   align-items: center;
+   padding-left : 20px;
+}
+.purchase_btn{
+    height : 60px;
+    text-align: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor : pointer;
+    color : white;
+    margin-bottom : 10px;
+}
+.message_btn{
+    height : 60px;
+    text-align: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor : pointer;
+    color : white;
+    margin-bottom : 10px;
+}
+.purchase_btn label{
+    display : block;
+    border-radius: 20px;
+    width : 95%;
+   font-weight: bold;
+    height : 60px;
+    background-color: #25432A;
+    line-height: 60px;
+    margin-bottom : 10px;
+    cursor : pointer;
+}
+.message_btn label{
+    display : block;
+    border-radius: 20px;
+    width : 95%;
+    font-weight: bold;
+    height : 60px;
+    background-color: #000000;
+    line-height: 60px;
+    margin-bottom : 10px;
+    cursor: pointer;
+}
+.purchase_btn input, .message_btn input{
+    display : none;
+}
+
+
+
+.portfolio_report{
+    margin-top : 10px;
+    display : block;
+    width : 90%;
+    height : 60px;
+    text-align: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #AEAEAE;
+    color : white;
+    
+    cursor: pointer;
+}
+.portfolio_report label{
+    line-height: 60px;
+    font-weight: bold;
+    font-family: "Noto Sans KR", sans-serif;
+}
+.portfolio_report input{
+    
+    display: none;
+}
+
+/* footer */
+.page_bottom{
+    /* background: url(/bottomimage.png) no-repeat center center; */
+    /* background-size : cover; */
+    /* height: 550px; */
+    position: relative;
+}
+.page_bottom_bg{
+    display : block;
+    width : 100%;
+    object-fit: cover;
+}
+.page_bottom .inner{
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    color : white;
+    
+    white-space: nowrap;
+}
+.page_bottom .inner strong{
+    display: block;
+    font-size : 56.73px;
+    
+    font-family : "Zen Old Mincho", serif;
+}
+.page_bottom .inner span{
+    font-size : 26px;
+}
+footer{
+    background-color: #262626;
+    color : white;
+    font-size : 20px;
+    padding : 100px 0px;
+}
+.footer_inner_bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.footer_logo{
+    display: block;
+    font-size : 40px;
+    font-family : "Zen Old Mincho", serif;
+    margin-bottom : 40px;
+}
+.policy a{
+    color : white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right : 20px;
+    font-size: 14px;
+
+}
+.footer_info{
+    margin-top: 30px;
+    color : #BDBDBD;
+    font-size : 12px;
+}
+.company_info{
+    max-width: 500px;
+    word-break : keep-all;
+}
+.company_info span{
+    margin-right : 10px;
+}
+.copyright{
+    margin-top: 0px;
+}
+.cs_info span{
+    display: block;
+    font-size: 12px;
+}
+.cs_info_time span {
+    display: block;
+}
