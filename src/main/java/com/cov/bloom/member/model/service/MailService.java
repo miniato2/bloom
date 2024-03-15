@@ -34,6 +34,8 @@ public class MailService {
 
         simpleMessage.setText("인증번호는 " + authCode + " 입니다.");
 
+        System.out.println("콘솔확인 이메일 인증번호" + authCode);
+
 
         javaMailSender.send(simpleMessage);
     }
