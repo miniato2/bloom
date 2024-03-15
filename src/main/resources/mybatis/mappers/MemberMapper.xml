@@ -69,6 +69,19 @@
 
     </update>
 
+    <select id="findID" parameterType="string">
+        SELECT MEMBER_EMAIL
+        FROM MEMBER
+        WHERE MEMBER_NAME = #{ name } and MEMBER_PHONE = #{ phone }
+    </select>
+
+    <update id="findPW" parameterType="string">
+        UPDATE MEMBER
+        SET MEMBER_PASSWORD = #{ encpw }
+        WHERE MEMBER_EMAIL = #{ memberName }
+
+    </update>
+
 
 
 

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="/favicon.ico" />
@@ -14,32 +17,21 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
-  <link rel="stylesheet" href="./styles/common.css"/>
-  <link rel="stylesheet" href="./styles/headerfooter.css"/>
-  
+  <link rel="stylesheet" th:href="@{/css/findPW2.css}"/>
+  <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+    <script th:src="@{/js/findPW2.js}"></script>
+
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        if (message != null && message !== '') {
+            alert(message);
+        }
+    </script>
    
 </head>
-<body>
-    <header>    <!-- header -->
-        <div class="inner">
-            <span id="bloom">Bloom</span>
-            <span id="main_menu">
-                <a href="">MAIN</a>
-                <a href="">NOTICE</a>
-                <a href="">CONTACT</a>
-            </span>
-            <span id="lnb">
-                <a href="">MESSAGE</a>
-                &nbsp; |  &nbsp;
-                <a href="">MY PAGE</a>
-                &nbsp; |  &nbsp;
-                <a href="">LOGIN</a>
-                &nbsp; |  &nbsp;
-                <a href="">JOIN</a>
-            </span>
-        </div>
-    </header>
-    <div>   <!--  본문  -->
+
+
+    <div layout:fragment="content">   <!--  본문  -->
         <div class="green_title">   <!--  초록색 타이틀 -->
             <div class="green_title_in">
                 <span class="title">비밀번호 찾기</span>
@@ -51,17 +43,25 @@
 
     <div class="main">
         <br><br><br><br>
-    <p class="title">비밀번호</p><br>
-    <input type="password" class="textbox" placeholder="새로운 비밀번호를 입력해주세요">
+        <form th:action="@{/member/findPW2}" method="post">
+        <p>새로운 비밀번호</p>
+        <input type="password" id="findpw1" name="password" placeholder="영문자,숫자 12~15자" oninput="validatePW1()">
+        <div id="pwResult"></div>
+
+        <p>비밀번호 확인</p>
+        <input type="password" id="findpw2"  name="pw" placeholder="한번더 입력해주세요" oninput="validatePW2()">
+        <div id="pw2Result"></div>
     <hr/>
-    <p class="title">비밀번호 재입력</p><br>
-    <input type="password" class="textbox" placeholder="비밀번호를 한번 더 입력해주세요">
-    <hr/>
     <br>
     <br>
     <br>
-    <button class="findButton">수정하기</button>
+    <button class="findButton" id="findPWButton" disabled >수정하기</button>
+
+        </form>
+    </div>
     </div>
 
 
-</body>
+
+
+</html>

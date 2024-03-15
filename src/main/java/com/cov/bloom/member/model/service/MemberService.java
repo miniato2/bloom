@@ -58,4 +58,15 @@ public class MemberService {
     }
 
 
+    public String findID(String name, String phone) {
+
+        String result = memberMapper.findID(name,phone);
+
+        return result;
+    }
+
+    public int findPW(String memberName, String encpw) {
+        int result = memberMapper.findPW(memberName,encpw);
+        return result;
+    }
 }

@@ -18,4 +18,7 @@ public interface MemberMapper {
     int duplicationEmail(String email);
 
 
+    String findID(String name, String phone);
+
+    int findPW(String memberName, String encpw);
 }

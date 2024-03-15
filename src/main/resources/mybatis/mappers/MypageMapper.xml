@@ -38,6 +38,13 @@
 
     </update>
 
+    <update id="updatePW" parameterType="string">
+        UPDATE MEMBER
+        SET MEMBER_PASSWORD = #{ encpw }
+        WHERE MEMBER_EMAIL = #{ memberName }
+
+    </update>
+
     <select id="findByUsername" parameterType="string" resultMap="memberResultMap">
         SELECT
         MEMBER_NO
