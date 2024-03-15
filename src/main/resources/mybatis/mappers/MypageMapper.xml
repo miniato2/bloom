@@ -16,13 +16,39 @@
     </resultMap>
 
     <resultMap id="myorderlist" type="com.cov.bloom.order.model.dto.MyOrder">
-        <id property="orderNo" column="order_no"></id>
+        <id property="orderNo" column="order_no"/>
         <result property="portTitle" column="port_title"/>
         <result property="memberNick" column="member_nickname"/>
         <result property="orderDt" column="order_dt"/>
         <result property="orderFinalDt" column="order_finaldt"/>
         <result property="price" column="option_price"/>
         <result property="requestStatus" column="request_status"/>
+    </resultMap>
+
+    <resultMap id="orderDetail" type="com.cov.bloom.order.model.dto.OrderDetailDTO">
+        <id property="orderNo" column="order_no"/>
+        <result property="requestCon" column="request_con"/>
+        <result property="optionNo" column="option_no"/>
+        <result property="optionDt" column="option_dt"/>
+        <result property="optionFix" column="option_fix"/>
+        <result property="optionPrice" column="option_price"/>
+        <result property="requestStatus" column="request_status"/>
+        <collection property="requestFile" resultMap="requestFileResultMap"/>
+        <collection property="guideFile" resultMap="guideFileResultMap"/>
+    </resultMap>
+
+    <resultMap id="requestFileResultMap" type="com.cov.bloom.order.model.dto.RequestFileDTO">
+        <id property="fileNo" column="file_no"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+        <result property="orderNo" column="order_no"/>
+    </resultMap>
+
+    <resultMap id="guideFileResultMap" type="com.cov.bloom.order.model.dto.GuideFileDTO">
+        <id property="guideFileNo" column="g_file_no"/>
+        <result property="guideFilePath" column="g_file_path"/>
+        <result property="guideFileName" column="g_file_name"/>
+        <result property="orderNo" column="order_no"/>
     </resultMap>
 
     <update id="updateNickname" parameterType="string">
@@ -55,25 +81,23 @@
     <!--주문내역 조회-->
     <select id="findAllOrderList" parameterType="_int" resultType="java.util.List" resultMap="myorderlist">
         select
-        order_no
-        ,port_title
-        ,member_nickname
-        ,order_dt
-        ,order_finaldt
-        ,option_price
-        ,request_status
+                order_no
+                ,port_title
+                ,member_nickname
+                ,order_dt
+                ,order_finaldt
+                ,option_price
+                ,request_status
         from (
-        select
-        od.order_no
-        ,por.port_title
-        ,por.member_no
-        ,od.order_dt
-        ,od.order_finaldt
-        ,op.option_price
-        ,od.request_status
-        from(
-        select * from orders where member_no = #{ memberNo }
-        ) as od
+                select
+                        od.order_no
+                        ,por.port_title
+                        ,por.member_no
+                        ,od.order_dt
+                        ,od.order_finaldt
+                        ,op.option_price
+                        ,od.request_status
+                from(select * from orders where member_no = #{ memberNo }) as od
         join port_option op on od.option_no = op.option_no
         join portfolio por on por.port_no = od.port_no
         ) as a
@@ -92,8 +116,26 @@
         WHERE MEMBER_EMAIL = #{ memberName }
     </update>
 
-
-
-
-
+    <!--주문상세 조회-->
+    <select id="getOrderDetail" resultMap="orderDetail" parameterType="_int">
+        select
+                od.order_no
+                ,od.request_con
+                ,od.request_status
+                ,op.option_no
+                ,op.option_dt
+                ,op.option_fix
+                ,op.option_price
+                ,req.file_no
+                ,req.file_path
+                ,req.file_name
+                ,gd.g_file_no
+                ,gd.g_file_path
+                ,gd.g_file_name
+        from 	orders od
+        join port_option op on od.option_no = op.option_no
+        left join request_file req on od.order_no = req.order_no
+        left join guide_file gd on od.order_no = gd.order_no
+        where od.order_no = #{ order_no };
+    </select>
 </mapper>

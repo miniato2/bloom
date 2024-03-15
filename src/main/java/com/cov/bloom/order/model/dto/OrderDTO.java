@@ -11,7 +11,7 @@ public class OrderDTO implements java.io.Serializable {
     private String orderFinal;      //구매확정 Y/N
     private String optionNo;        //옵션번호
     private String portNo;          //포폴번호
-    private int memberNo;           //내 회원번호
+    private int memberNo;           //내 회원번호 //의뢰인 회워번호
 
     public OrderDTO() {
     }

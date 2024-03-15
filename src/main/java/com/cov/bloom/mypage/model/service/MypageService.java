@@ -4,7 +4,10 @@ import com.cov.bloom.member.model.dao.MemberMapper;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.mypage.model.dao.MypageMapper;
+import com.cov.bloom.order.model.dto.GuideFileDTO;
 import com.cov.bloom.order.model.dto.MyOrder;
+import com.cov.bloom.order.model.dto.OrderDetailDTO;
+import com.cov.bloom.order.model.dto.RequestFileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,4 +86,15 @@ public class MypageService {
     }
 
 
+    @Transactional
+    public OrderDetailDTO getOrderDetail(int orderNo) {
+        System.out.println("서비스 체크2");
+
+        OrderDetailDTO orderDetail = mypageMapper.getOrderDetail(orderNo);
+
+        System.out.println(orderDetail);
+
+        return orderDetail;
+
+    }
 }
