@@ -5,6 +5,7 @@ import com.cov.bloom.common.paging.SelectCriteria;
 import com.cov.bloom.message.model.dto.MessageDTO;
 import com.cov.bloom.message.model.service.MessageService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +44,15 @@ public class MessageController {
 
         return mv;
     }
+
+    public String selectMessageDetail(@RequestParam long no, Model model){
+        MessageDTO messageDetail = messageService.selectMessagDetail(no);
+
+        model.addAttribute("board", messageDetail);
+
+        return null;
+    }
+
 
 
 }

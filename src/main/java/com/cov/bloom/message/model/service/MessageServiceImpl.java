@@ -26,4 +26,32 @@ public class MessageServiceImpl implements MessageService {
         List<MessageDTO> messageList = mapper.selectMessageList();
         return messageList;
     }
+
+    @Override
+    public MessageDTO selectMessagDetail(long no) {
+        MessageDTO messageDetail = null;
+        return messageDetail;
+    }
+
+    @Override
+    public List<MessageDTO> selectAllThumbnailList() {
+        List<MessageDTO> thumbnailList = mapper.selectAllThumbnailList();
+        return thumbnailList;
+    }
+
+
+    @Override
+    public MessageDTO selectThumbnailDetail(Long no) {
+        MessageDTO thumbnailDetail = null;
+
+        int result = mapper.incrementMessageCount(no);
+
+        if(result > 0) {
+            thumbnailDetail = mapper.selectThumbnailDetail(no);
+        }
+
+        return thumbnailDetail;
+    }
+
+
 }
