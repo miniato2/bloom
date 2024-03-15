@@ -7,19 +7,30 @@
     <div class="inner">
         <span id="bloom">Bloom</span>
         <span id="main_menu">
-                <a href="">MAIN</a>
+                <a href="/main">MAIN</a>
                 <a href="">NOTICE</a>
                 <a href="">CONTACT</a>
             </span>
+        <div sec:authorize="isAnonymous()">
         <span id="lnb">
                 <a th:href="@{/message/readmessage}">MESSAGE</a>
                 &nbsp; |  &nbsp;
-                <a th:href="@{/auth/mypage}">MY PAGE</a>
+                <a th:href="@{/mypage/main}">MY PAGE</a>
                 &nbsp; |  &nbsp;
                 <a th:href="@{/auth/login}">LOGIN</a>
                 &nbsp; |  &nbsp;
                 <a th:href="@{/member/signin}">JOIN</a>
             </span>
+        </div>
+        <div sec:authorize="hasAnyAuthority('c','m','s')">
+        <span id="lnb2">
+                <a th:href="@{/message/readmessage}">MESSAGE</a>
+                &nbsp; |  &nbsp;
+                <a th:href="@{/mypage/main}">MY PAGE</a>
+                &nbsp; |  &nbsp;
+                <a th:href="@{/auth/logout}">LOGOUT</a>
+            </span>
+        </div>
     </div>
 </header>
 </html>

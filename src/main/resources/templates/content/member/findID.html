@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="/favicon.ico" />
@@ -14,35 +17,23 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700"/>
   <link rel="stylesheet" href="https://fonts.goo gleapis.com/css?family=Noto+Sans%3A400%2C700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
-  <link rel="stylesheet" href="./styles/common.css"/>
-  <link rel="stylesheet" href="./styles/headerfooter.css"/>
-  
-    
+  <link rel="stylesheet" th:href="@{/css/findID.css}"/>
+  <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+    <script th:inline="javascript">
+        var message = [[${message}]];
+        if (message != null && message !== '') {
+            alert(message);
+        }
+    </script>
+
 </head>
-<body>
-    <header>    <!-- header -->
-        <div class="inner">
-            <span id="bloom">Bloom</span>
-            <span id="main_menu">
-                <a href="">MAIN</a>
-                <a href="">NOTICE</a>
-                <a href="">CONTACT</a>
-            </span>
-            <span id="lnb">
-                <a href="">MESSAGE</a>
-                &nbsp; |  &nbsp;
-                <a href="">MY PAGE</a>
-                &nbsp; |  &nbsp;
-                <a href="">LOGIN</a>
-                &nbsp; |  &nbsp;
-                <a href="">JOIN</a>
-            </span>
-        </div>
-    </header>
-    <div>   <!--  본문  -->
-        <div class="green_title">   <!--  초록색 타이틀 -->
+
+
+
+<div layout:fragment="content">
+<div class="green_title">   <!--  초록색 타이틀 -->
             <div class="green_title_in">
-                <span class="title">아이디 찾기</span>
+                <span class="title" style="margin-left: 100px;">아이디 찾기</span>
                 <span class="vector">
                     <img src="/img/Vector.png">
                 </span>
@@ -51,16 +42,21 @@
 
     <div class="main">
         <br><br><br><br>
+        <form th:action="@{/member/findID}" th:method="post" class="findIDform">
     <p class="title">이름</p><br>
-    <input type="text" class="textbox" placeholder="이름을 입력해주세요">
+    <input type="text" class="textbox" name="name" placeholder="이름을 입력해주세요">
     <hr/>
     <p class="title">전화번호</p><br>
-    <input type="text" class="textbox" placeholder="전화번호를 입력해주세요">
+    <input type="text" class="textbox" name="phone" placeholder="전화번호를 입력해주세요">
     <hr/>
     <br>
-   
     <button class="findButton">아이디찾기</button>
+        </form>
     </div>
 
 
-</body>
+
+
+</div>
+
+</html>
