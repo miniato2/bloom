@@ -46,7 +46,9 @@
                 <tbody th:each="order:${myorder}">
                 <tr>
                     <td>번호1</td>
-                    <td th:text="${order.portTitle}"></td>
+                    <td>
+                        <a th:href="@{/mypage/orderDetail(orderNo=${order.orderNo})}" th:text="${order.portTitle}"></a>
+                    </td>
                     <td th:text="${order.memberNick}"></td>
                     <td th:text="${order.orderDt}"></td>
                     <td th:text="${order.orderFinalDt}"></td>

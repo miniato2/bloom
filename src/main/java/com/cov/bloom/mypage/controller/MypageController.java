@@ -5,7 +5,10 @@ import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.service.MailService;
 
 import com.cov.bloom.mypage.model.service.MypageService;
+import com.cov.bloom.order.model.dto.GuideFileDTO;
 import com.cov.bloom.order.model.dto.MyOrder;
+import com.cov.bloom.order.model.dto.OrderDetailDTO;
+import com.cov.bloom.order.model.dto.RequestFileDTO;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
@@ -251,6 +254,24 @@ public class MypageController {
         model.addAttribute("myorder", orderlist);
 
         return "content/mypage/orderList";
+    }
+
+    //주문상세
+    @GetMapping("/orderDetail")
+    public String oderDetail(int orderNo, Model model, HttpSession session){
+        System.out.println("체크");
+        System.out.println(orderNo);
+
+        //주문 정보
+        OrderDetailDTO orderDetail = mypageService.getOrderDetail(orderNo);
+
+        orderDetail.setRequestStatus('d');
+
+        model.addAttribute("orderDetail", orderDetail);
+
+        System.out.println(orderDetail);
+
+        return "content/mypage/orderDetail";
     }
 
 }
