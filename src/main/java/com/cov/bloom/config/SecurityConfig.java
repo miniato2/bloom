@@ -42,7 +42,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("auth/login","/","main","member/signin","/member/email","/member/verify",
                     "/portfolio/regist","/img/**").permitAll();
-            auth.requestMatchers("/auth/*","/mypage/*").hasAnyAuthority(MemberRole.c.getRole());
+            auth.requestMatchers("/auth/*","/mypage/*").hasAnyAuthority(MemberRole.c.getRole(),MemberRole.s.getRole(),MemberRole.m.getRole());
+         
+
             auth.anyRequest().permitAll(); //권한 전부줌
 
 

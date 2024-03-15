@@ -21,13 +21,18 @@ public class AuthService implements UserDetailsService {
         LoginMemberDTO login = memberService.findByUsername(email);
 
 
-        System.out.println(login);
+
+
 
         if(Objects.isNull(login)){
 
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");
 
+        }else if(login.getStatus() == 'y'){
+            throw new UsernameNotFoundException("탈퇴한 회원입니다");
         }
+
+
 
         return new AuthDetails(login);
     }

@@ -80,7 +80,17 @@
         join member m on a.member_no = m.member_no;
     </select>
 
+    <update id="deleteMember" parameterType="string">
+        UPDATE MEMBER
+        SET MEMBER_STATUS = 'y'
+        WHERE MEMBER_EMAIL = #{ memberName }
+    </update>
 
+    <update id="getSales" parameterType="string">
+        UPDATE MEMBER
+        SET MEMBER_AUTH = 's'
+        WHERE MEMBER_EMAIL = #{ memberName }
+    </update>
 
 
 

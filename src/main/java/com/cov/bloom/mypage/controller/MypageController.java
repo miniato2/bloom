@@ -219,6 +219,22 @@ public class MypageController {
         return "/main";
     }
 
+    @GetMapping("/salesRegist")
+    public String salesRegist(){
+        return "/content/member/auth/salesRegistration";
+    }
+
+    @GetMapping("/getSales")
+    public String getSales(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberName= authentication.getName();
+        int result =  mypageService.getSales(memberName);
+
+        System.out.println("결과는 " + result);
+
+        return"content/mypage/MyPage";
+    }
+
     public String createAuthCode() {
 
         return String.valueOf((int)(Math.random() * 900000) + 100000);
