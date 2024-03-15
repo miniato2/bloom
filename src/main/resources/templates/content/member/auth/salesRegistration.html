@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="/favicon.ico" />
@@ -14,14 +17,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
-  <link rel="stylesheet" href="./styles/common.css"/>
-  <link rel="stylesheet" href="./styles/headerfooter.css"/>
+  <link rel="stylesheet" th:href="@{/css/common.css}"/>
+  <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+   <script th:src="@{/js/salesRegist.js}"></script>
      
 
 </head>
-<body>
 
-    <div>   <!--  본문  -->
+
+<div layout:fragment="content"><!--  본문  -->
         <div class="green_title">   <!--  초록색 타이틀 -->
             <div class="green_title_in">
                 <span class="title">판매자 등록</span>
@@ -60,8 +64,8 @@
         </div>
     </input>
     <br><br>
-    <button class="findButton">판매자 등록하기</button>
+    <button class="findButton" disabled onclick="alert('판매자 등록완료!'),location.href='/mypage/getSales'">판매자 등록하기</button>
     </div>
-</body>
+    </div>
 
 </html>

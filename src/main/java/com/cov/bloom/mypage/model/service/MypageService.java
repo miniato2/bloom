@@ -67,6 +67,10 @@ public class MypageService {
         int result = mypageMapper.deleteMember(memberName);
         return result;
     }
+    public int getSales(String memberName) {
+        int result = mypageMapper.getSales(memberName);
+        return result;
+    }
 
     //내 주문내역 불러오기
     @Transactional
@@ -77,4 +81,6 @@ public class MypageService {
 
         return orderlist;
     }
+
+
 }

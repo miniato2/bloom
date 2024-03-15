@@ -20,4 +20,6 @@ public interface MypageMapper {
     int deleteMember(String memberName);
 
     List<MyOrder> findAllOrderList(int memberNo);
+
+    int getSales(String memberName);
 }
