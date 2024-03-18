@@ -69,7 +69,7 @@
         </foreach>
     </insert>
 
-    <select id="getOption" parameterType="hashmap" resultMap="optionResultMap">
+    <select id="getOption" parameterType="string" resultMap="optionResultMap">
         select option_no,
         port_no,
         option_price,
@@ -77,6 +77,6 @@
         option_fix,
         option_info
         from  port_option
-        where option_no = #{ optionNo } AND port_no = #{ portNo }
+        where option_no = #{ optionNo }
     </select>
 </mapper>

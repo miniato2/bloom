@@ -48,7 +48,7 @@ public class PayController {
                            @RequestParam("file[]") List<MultipartFile> multipartFiles,
                            HttpSession session) throws IOException {
 
-        this.option.setOptionNo(option.getOptionNo());
+        this.option.setOptionNo(option.getPortNo()+"_op"+option.getOptionNo());
         this.option.setPortNo(option.getPortNo());
         this.option.setOptionDt(option.getOptionDt());
         this.option.setOptionFix(option.getOptionFix());
@@ -59,7 +59,7 @@ public class PayController {
         this.order.setRequestCon(order.getRequestCon());
         this.order.setRequestStatus("W");
         this.order.setOrderFinal("N");
-        this.order.setMemberNo(1);
+        this.order.setMemberNo(2);                              //의뢰인 회원번호
         this.order.setOptionNo(this.option.getOptionNo());
 
         //db조회해서 주문번호 확인하는 로직
@@ -127,7 +127,7 @@ public class PayController {
 
         String rootLocation = ROOT_LOCATION + IMAGE_DIR;
 
-        String fileUploadDirectory = rootLocation + "/upload/request/original";
+        String fileUploadDirectory = rootLocation + "/upload/original";
 
         File directory = new File(fileUploadDirectory);
 

@@ -2,13 +2,11 @@ package com.cov.bloom.mypage.controller;
 
 import com.cov.bloom.auth.model.service.AuthService;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
+import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.member.model.service.MailService;
 
 import com.cov.bloom.mypage.model.service.MypageService;
-import com.cov.bloom.order.model.dto.GuideFileDTO;
-import com.cov.bloom.order.model.dto.MyOrder;
-import com.cov.bloom.order.model.dto.OrderDetailDTO;
-import com.cov.bloom.order.model.dto.RequestFileDTO;
+import com.cov.bloom.order.model.dto.*;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
@@ -17,8 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -247,31 +247,105 @@ public class MypageController {
     @GetMapping("/orderlist")
     public String orderlist(Model model){
 
-        int memberNo = 1;
+        int memberNo = 2; //의뢰인 회원번호
         List<MyOrder> orderlist = mypageService.findAllOrderList(memberNo);
 
 
         model.addAttribute("myorder", orderlist);
 
+        System.out.println("주문내역");
+
         return "content/mypage/orderList";
     }
 
+    //판매내역
+    @GetMapping("/orderSalelist")
+    public String orderSalelist(Model model){
+
+        int memberNo = 1; //판매자 회원번호
+        String portNo = memberNo + "_p";
+        List<MyOrder> orderSalelist = mypageService.findAllOrderSaleList(portNo);
+
+
+        model.addAttribute("myorder", orderSalelist);
+
+        System.out.println("판매내역");
+
+        return "content/mypage/orderSaleList";
+    }
+
+
     //주문상세
     @GetMapping("/orderDetail")
-    public String oderDetail(int orderNo, Model model, HttpSession session){
-        System.out.println("체크");
-        System.out.println(orderNo);
+    public String oderDetail(int orderNo, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        LoginMemberDTO member = mypageService.findByUsername(authentication.getName());
+        System.out.println(member);
+        //로그인 회원
+
+        System.out.println(orderNo); //체크
 
         //주문 정보
         OrderDetailDTO orderDetail = mypageService.getOrderDetail(orderNo);
 
-        orderDetail.setRequestStatus('d');
-
         model.addAttribute("orderDetail", orderDetail);
 
+        //판매자 페이지로 갈때는 1
+        model.addAttribute("memberNo", member);
+
         System.out.println(orderDetail);
+        System.out.println(orderDetail.getGuideFile());
+        System.out.println(orderDetail.getRequestFile());
 
         return "content/mypage/orderDetail";
     }
 
+    //가이드 제출
+    @PostMapping("/submitGuide")
+    public String submitGuide(@RequestParam("orderNo") int orderNo,
+                              @RequestParam("guide")MultipartFile multipartFile){
+
+        System.out.println("체크");
+        System.out.println(orderNo);
+        System.out.println(multipartFile);
+
+        OrderDTO order = new OrderDTO();
+
+        order.setOrderNo(orderNo);
+        order.setOrderFinalDt(new java.sql.Date(System.currentTimeMillis())); //완료시간
+        order.setRequestStatus("D"); // done
+
+        mypageService.submitGuide(order, multipartFile);
+
+        return "redirect:/mypage/orderSalelist";
+    }
+
+    //의뢰인 구매확정
+    @PostMapping("/purchaseConfirm")
+    public String purchaseConfirm(Integer orderNo, String reqStatus){
+
+        OrderDTO order =  new OrderDTO();
+
+        order.setOrderNo(orderNo);
+        order.setRequestStatus(reqStatus);
+        order.setOrderFinal("Y");       //구매 확정 여부
+
+        mypageService.purchaseConfirm(order);
+
+        return "jsonView";
+    }
+
+    @PostMapping("/updateStatus")
+    public String updateStatus(Integer orderNo, String reqStatus){
+
+        OrderDTO order = new OrderDTO();
+
+        order.setOrderNo(orderNo);
+        order.setRequestStatus(reqStatus);
+
+        mypageService.updateStatus(order);
+
+        return "jsonView";
+    }
 }

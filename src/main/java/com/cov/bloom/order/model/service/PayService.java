@@ -114,6 +114,8 @@ public class PayService {
 
     @Transactional
     public void registOrder(OrderDTO order, List<RequestFileDTO> files) {
+        System.out.println("서비스 order 체크");
+        System.out.println(order);
         int result = orderDAO.registOrder(order); //주문 등록
 
         int result2 = orderDAO.registOrderFile(files); //파일 저장

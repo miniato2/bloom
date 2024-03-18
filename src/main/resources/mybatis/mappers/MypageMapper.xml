@@ -27,9 +27,11 @@
 
     <resultMap id="orderDetail" type="com.cov.bloom.order.model.dto.OrderDetailDTO">
         <id property="orderNo" column="order_no"/>
+        <result property="portNo" column="port_no"/>
         <result property="requestCon" column="request_con"/>
         <result property="optionNo" column="option_no"/>
         <result property="optionDt" column="option_dt"/>
+        <result property="orderFinal" column="order_final"/>
         <result property="optionFix" column="option_fix"/>
         <result property="optionPrice" column="option_price"/>
         <result property="requestStatus" column="request_status"/>
@@ -105,9 +107,9 @@
                         ,op.option_price
                         ,od.request_status
                 from(select * from orders where member_no = #{ memberNo }) as od
-        join port_option op on od.option_no = op.option_no
-        join portfolio por on por.port_no = od.port_no
-        ) as a
+                join port_option op on od.option_no = op.option_no
+                join portfolio por on por.port_no = od.port_no
+                ) as a
         join member m on a.member_no = m.member_no;
     </select>
 
@@ -127,8 +129,10 @@
     <select id="getOrderDetail" resultMap="orderDetail" parameterType="_int">
         select
                 od.order_no
+                ,od.port_no
                 ,od.request_con
                 ,od.request_status
+                ,od.order_final
                 ,op.option_no
                 ,op.option_dt
                 ,op.option_fix
@@ -145,4 +149,66 @@
         left join guide_file gd on od.order_no = gd.order_no
         where od.order_no = #{ order_no };
     </select>
+
+    <!--판매내역 조회-->
+    <select id="findAllOrderSaleList" parameterType="string" resultType="java.util.List" resultMap="myorderlist">
+        select
+                order_no
+                ,port_title
+                ,member_nickname
+                ,order_dt
+                ,order_finaldt
+                ,option_price
+                ,request_status
+        from (
+                select
+                        od.order_no
+                        ,od.member_no
+                        ,por.port_title
+                        ,od.order_dt
+                        ,od.order_finaldt
+                        ,op.option_price
+                        ,od.request_status
+                from(select * from orders where port_no = '1_p') as od
+                join port_option op on od.option_no = op.option_no
+                join portfolio por on por.port_no = od.port_no
+                ) as a
+        join member m on m.member_no = a.member_no;
+    </select>
+
+    <!--상태 업뎃-->
+    <update id="updateReqStatus" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
+        update orders
+        set request_status = #{ requestStatus }
+        where order_no = #{ orderNo }
+    </update>
+
+    <insert id="registGuideFile" parameterType="com.cov.bloom.order.model.dto.GuideFileDTO">
+        INSERT INTO guide_file(
+                                g_file_path
+                                ,g_file_name
+                                ,order_no
+                                )
+        VALUES (
+                #{ guideFilePath }
+                ,#{ guideFileName }
+                ,#{ orderNo }
+                )
+    </insert>
+
+    <!--가이드 제출-->
+    <insert id="submitGuide" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
+        update orders
+        set request_status = #{ requestStatus }
+            ,order_finaldt = #{ orderFinalDt }
+        where order_no = #{ orderNo }
+    </insert>
+
+    <!--구매 확정-->
+    <insert id="purchaseConfirm" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
+        update orders
+        set request_status = #{ requestStatus }
+            ,order_final = #{ orderFinal }
+        where order_no = #{ orderNo }
+    </insert>
 </mapper>

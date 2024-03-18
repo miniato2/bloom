@@ -1,7 +1,9 @@
 package com.cov.bloom.mypage.model.dao;
 
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
+import com.cov.bloom.order.model.dto.GuideFileDTO;
 import com.cov.bloom.order.model.dto.MyOrder;
+import com.cov.bloom.order.model.dto.OrderDTO;
 import com.cov.bloom.order.model.dto.OrderDetailDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,5 +26,15 @@ public interface MypageMapper {
 
     int getSales(String memberName);
 
-    OrderDetailDTO getOrderDetail(int orderNo);
+    OrderDetailDTO getOrderDetail(int orderNo); //주문상세
+
+    List<MyOrder> findAllOrderSaleList(String portNo); //판매내역 조회
+
+    void updateReqStatus(OrderDTO order); // requestStatus 업데이트
+
+    void registGuideFile(GuideFileDTO file); //가이드파일 저장
+
+    void purchaseConfirm(OrderDTO order);
+
+    void submitGuide(OrderDTO order);
 }

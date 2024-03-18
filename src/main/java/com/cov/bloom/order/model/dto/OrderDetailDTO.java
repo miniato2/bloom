@@ -4,9 +4,11 @@ import java.util.List;
 
 public class OrderDetailDTO implements java.io.Serializable{ //주문상세
     private int orderNo;
+    private String portNo;
     private String requestCon;
     private String optionNo;
     private String optionDt;
+    private String orderFinal;
     private int optionFix;
     private int optionPrice;
     private char requestStatus;
@@ -16,11 +18,13 @@ public class OrderDetailDTO implements java.io.Serializable{ //주문상세
     public OrderDetailDTO() {
     }
 
-    public OrderDetailDTO(int orderNo, String requestCon, String optionNo, String optionDt, int optionFix, int optionPrice, char requestStatus, List<RequestFileDTO> requestFile, List<GuideFileDTO> guideFile) {
+    public OrderDetailDTO(int orderNo, String portNo, String requestCon, String optionNo, String optionDt, String orderFinal, int optionFix, int optionPrice, char requestStatus, List<RequestFileDTO> requestFile, List<GuideFileDTO> guideFile) {
         this.orderNo = orderNo;
+        this.portNo = portNo;
         this.requestCon = requestCon;
         this.optionNo = optionNo;
         this.optionDt = optionDt;
+        this.orderFinal = orderFinal;
         this.optionFix = optionFix;
         this.optionPrice = optionPrice;
         this.requestStatus = requestStatus;
@@ -34,6 +38,14 @@ public class OrderDetailDTO implements java.io.Serializable{ //주문상세
 
     public void setOrderNo(int orderNo) {
         this.orderNo = orderNo;
+    }
+
+    public String getPortNo() {
+        return portNo;
+    }
+
+    public void setPortNo(String portNo) {
+        this.portNo = portNo;
     }
 
     public String getRequestCon() {
@@ -58,6 +70,14 @@ public class OrderDetailDTO implements java.io.Serializable{ //주문상세
 
     public void setOptionDt(String optionDt) {
         this.optionDt = optionDt;
+    }
+
+    public String getOrderFinal() {
+        return orderFinal;
+    }
+
+    public void setOrderFinal(String orderFinal) {
+        this.orderFinal = orderFinal;
     }
 
     public int getOptionFix() {
@@ -104,9 +124,11 @@ public class OrderDetailDTO implements java.io.Serializable{ //주문상세
     public String toString() {
         return "OrderDetailDTO{" +
                 "orderNo=" + orderNo +
+                ", portNo='" + portNo + '\'' +
                 ", requestCon='" + requestCon + '\'' +
                 ", optionNo='" + optionNo + '\'' +
                 ", optionDt='" + optionDt + '\'' +
+                ", orderFinal='" + orderFinal + '\'' +
                 ", optionFix=" + optionFix +
                 ", optionPrice=" + optionPrice +
                 ", requestStatus=" + requestStatus +

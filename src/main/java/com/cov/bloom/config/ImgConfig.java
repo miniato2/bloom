@@ -14,10 +14,16 @@ public class ImgConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/upload/**")
                 .addResourceLocations("file:///c:/bloom/upload/");
 
-        registry.addResourceHandler("/thumbPath/**")
-                .addResourceLocations("file:///c:/bloom/img/upload/thumbnail/");
+//        registry.addResourceHandler("/thumbPath/**")
+//                .addResourceLocations("file:///c:/bloom/img/upload/thumbnail/");
+//        registry.addResourceHandler("/imagePath/**")
+//                .addResourceLocations("file:///c:/bloom/img/upload/original/");
+
+        registry.addResourceHandler("/upload/**")
+                .addResourceLocations("file:///Users/seung/practice/upload/");
+
         registry.addResourceHandler("/imagePath/**")
-                .addResourceLocations("file:///c:/bloom/img/upload/original/");
+                .addResourceLocations("file:///Users/seung/practice/img/upload/original/");
     }
 
 }
