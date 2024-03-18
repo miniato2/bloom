@@ -25,7 +25,7 @@ public class OrderController {
 
     @GetMapping("/request")
     public String request(Model model, String portNo){
-        portNo = "p";
+        portNo = "1_p"; // 포폴 번호 받아와야함
 
         model.addAttribute("portNo", portNo);
 
@@ -45,15 +45,10 @@ public class OrderController {
 
 
     @GetMapping("/getOption")
-    public String receiveOption(@RequestParam("optionValue") String optionNo,
-                                @RequestParam("portNo") String portNo,
+    public String receiveOption(@RequestParam("optionNo") String optionNo,
                                 Model model) throws JsonProcessingException {
 
-        Map<String, String> searchOption = new HashMap<>();
-        searchOption.put("optionNo", optionNo);
-        searchOption.put("portNo", portNo);
-
-        OptionDTO option = orderService.getOption(searchOption);
+        OptionDTO option = orderService.getOption(optionNo);
 
         ObjectMapper mapper = new ObjectMapper();
 

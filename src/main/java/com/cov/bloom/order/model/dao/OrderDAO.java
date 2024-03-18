@@ -15,7 +15,7 @@ public interface OrderDAO {
 
     int registOrder(OrderDTO order);
 
-    OptionDTO getOption(Map<String, String> searchOption);
+    OptionDTO getOption(String optionNo);
 
     int registOrderFile(List<RequestFileDTO> files);
 

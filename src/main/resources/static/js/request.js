@@ -104,8 +104,7 @@ function selectOption() {
             url: "/order/getOption",
             method: "GET",
             data: {
-                optionValue: optionValue,
-                portNo : portNo
+                optionNo : portNo + "_op" + optionValue
             },
             success: function(data) {
                 let selected = JSON.parse(data.option);

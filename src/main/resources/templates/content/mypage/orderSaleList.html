@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>마이페이지 판매자 내정보</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
+    <link rel="stylesheet" th:href="@{/css/orderSaleList.css}">
+
+</head>
+
+<body>
+<div class="container">
+    <div class="containerButton">
+        <button class="Button">내 정보</button><br>
+        <button class="Button">포트폴리오</button><br>
+        <button class="Button">판매내역</button><br>
+        <button class="Button">정산</button><br>
+        <button class="Button">의뢰인 전환</button><br><br><br><br><br><br><br>
+        <button class="cancelButton">회원탈퇴</button><br>
+    </div>
+    <div class="main">
+        <h1>주문내역</h1>
+        <div class="orderCon">
+            <table class="orderList">
+                <thead>
+                <tr id="tablehead">
+                    <th scope="col" style="width: 10%">번호</th>
+                    <th scope="col" style="width: 25%">제목</th>
+                    <th scope="col" style="width: 10%">구매자</th>
+                    <th scope="col" style="width: 15%">신청일</th>
+                    <th scope="col" style="width: 15%">마감일</th>
+                    <th scope="col" style="width: 15%">결제금액</th>
+                    <th scope="col" style="width: 10%">상태</th>
+                </tr>
+                </thead>
+                <tbody th:each="order:${myorder}">
+                <tr>
+                    <td>번호1</td>
+                    <td>
+                        <a th:href="@{/mypage/orderDetail(orderNo=${order.orderNo})}" th:text="${order.portTitle}"></a>
+                    </td>
+                    <td th:text="${order.memberNick}"></td>
+                    <td th:text="${order.orderDt}"></td>
+                    <td th:text="${order.orderFinalDt}"></td>
+                    <td th:text="${order.price}"></td>
+                    <td th:text="${order.requestStatus}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="pagingArea" align="center">
+
+                <!--이전버튼-->
+                <button></button>
+
+                <!--숫자버튼-->
+                <button></button>
+
+                <!--다음버튼-->
+                <button></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>

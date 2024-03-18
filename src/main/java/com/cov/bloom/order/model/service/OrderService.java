@@ -15,9 +15,9 @@ public class OrderService {
         this.orderDAO = orderDAO;
     }
 
-    public OptionDTO getOption(Map<String, String> searchOption) {
+    public OptionDTO getOption(String optionNo) {
 
-        OptionDTO option = orderDAO.getOption(searchOption);
+        OptionDTO option = orderDAO.getOption(optionNo);
 
         return option;
     }

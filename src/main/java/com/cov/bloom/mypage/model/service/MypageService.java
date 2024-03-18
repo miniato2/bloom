@@ -4,20 +4,28 @@ import com.cov.bloom.member.model.dao.MemberMapper;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.mypage.model.dao.MypageMapper;
-import com.cov.bloom.order.model.dto.GuideFileDTO;
-import com.cov.bloom.order.model.dto.MyOrder;
-import com.cov.bloom.order.model.dto.OrderDetailDTO;
-import com.cov.bloom.order.model.dto.RequestFileDTO;
+import com.cov.bloom.order.model.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class MypageService {
+
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
+
+    @Value("${spring.servlet.multipart.location}")
+    private String ROOT_LOCATION;
 
     @Autowired
     private final MypageMapper mypageMapper;
@@ -84,17 +92,69 @@ public class MypageService {
 
         return orderlist;
     }
+    //판매내역
+    @Transactional
+    public List<MyOrder> findAllOrderSaleList(String portNo) {
 
+        List<MyOrder> orderList = mypageMapper.findAllOrderSaleList(portNo);
 
+        return orderList;
+    }
+
+    //주문상세
     @Transactional
     public OrderDetailDTO getOrderDetail(int orderNo) {
-        System.out.println("서비스 체크2");
 
         OrderDetailDTO orderDetail = mypageMapper.getOrderDetail(orderNo);
 
-        System.out.println(orderDetail);
-
         return orderDetail;
+    }
 
+
+
+    //가이드파일 업로드, 상태 업데이트
+    @Transactional
+    public void submitGuide(OrderDTO order, MultipartFile multipartFile) {
+
+        GuideFileDTO file = new GuideFileDTO();
+
+        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
+        String fileUploadDirectory = rootLocation + "/upload/original";
+
+        File directory = new File(fileUploadDirectory);
+
+        if(!directory.exists()){
+            directory.mkdirs();
+        }
+
+        try{
+            String originFileName = multipartFile.getOriginalFilename();
+            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+            String savedFileName = UUID.randomUUID().toString().replace("-","") + ext;
+
+            //저장
+            multipartFile.transferTo(new File(fileUploadDirectory + "/" + savedFileName));
+
+            //저장한 파일 dto 리스트에 담기
+            file.setGuideFileName(savedFileName);
+            file.setGuideFilePath(fileUploadDirectory);
+            file.setOrderNo(order.getOrderNo());
+        }catch (IllegalStateException | IOException e){
+            // Exception 발생시 파일 삭제
+            File deleteFile = new File(fileUploadDirectory + "/" + file.getGuideFileName());
+
+            boolean isDeleted = deleteFile.delete();
+        }
+
+        mypageMapper.submitGuide(order);
+        mypageMapper.registGuideFile(file);
+    }
+
+    public void updateStatus(OrderDTO order) {
+        mypageMapper.updateReqStatus(order);
+    }
+
+    public void purchaseConfirm(OrderDTO order) {
+        mypageMapper.purchaseConfirm(order);
     }
 }

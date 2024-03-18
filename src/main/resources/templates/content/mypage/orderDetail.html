@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="/static/css/orderDetail.css">
 
   <script th:src="@{/js/orderDetail.js}"></script>
 
   <link rel="stylesheet" th:href="@{/css/orderDetail.css}">
 </head>
 <body>
+
 <!--주문상세 주문상태에 따라 버튼 바뀜-->
 <input id="requestStatus" th:value="${orderDetail.requestStatus}"  style="display: none">
-
+<input id="memberNo" th:value="${memberNo}" style="display: none">
+<input id="portNo" th:value="${orderDetail.portNo}" style="display: none">
+<input id="orderFinal" th:value="${orderDetail.orderFinal}" style="display: none">
 
 <div class="order">
 
@@ -27,13 +29,14 @@
       <div class="myroom">
         <p>내 방</p>
         <div class="pics">
+
           <th:block th:each="reqFile:${orderDetail.requestFile}">
             <div class="pic" th:if="${ reqFile != null}">
               <img width="100%" height="100%" th:src="@{|/imagePath/${reqFile.fileName}|}"/><br>
               <a th:href="@{|/imagePath/${reqFile.fileName}|}" download>down</a>
-              <p th:text="|pic${reqFileStat.count}|"></p>
             </div>
           </th:block>
+
         </div>
       </div>
       <div class="need">
@@ -46,14 +49,17 @@
         <div class="guide">
           가이드
           <div class="guidepic">
-            <th:block th:each="guidefile:${orderDetail.guideFile}">
-              <div class="gpic"></div>
+
+            <th:block th:each="guideFile:${orderDetail.guideFile}">
+              <div class="gpic" th:if="${ guideFile.getGuideFilePath() != null}" th:id = "'gpic' + ${guideFileStat.index}">
+                <img width="100%" height="100%" th:src="@{|/imagePath/${guideFile.guideFileName}|}"/><br>
+                <a th:href="@{|/imagePath/${guideFile.guideFileName}|}" download>down</a>
+              </div>
             </th:block>
-            <div class="gpic" id="pic1"></div>
-            <div class="gpic" id="pic2"></div>
-            <div class="gpic" id="pic3"></div>
-            <div class="gpic" id="pic4"></div>
-            <div class="gpic" id="pic5"></div>
+
+            <div id="gpicUpload">
+            </div>
+
           </div>
         </div>
 
@@ -93,17 +99,32 @@
           </div>
         </div>
       </div>
-      <input type="file" name="guide" id="guide" accept="image/*" onclick="viewImg(event)">
+      <form th:action="@{/mypage/submitGuide}" id="send" method="post" enctype="multipart/form-data">
+        <input id="orderNo" name="orderNo" th:value="${orderDetail.orderNo}" style="display: none">
+          <!-- 이미지 업로드 버튼 -->
+        <input type="file" name="guide" id="guide" accept="image/*" onchange="viewImg(event)">
+      </form>
     </div>
+
+    <!--의뢰인 사용 버튼-->
       <div class="bott">
         <div class="buttons">
-          <button class="btn request" onclick="" style="display: none;">수정 요청하기</button>
-          <button class="btn decide" onclick="" style="display: none;">구매 확정</button>
-          <button class="btn cancel" onclick="" style="display: block;">결제 취소하기</button>
-          <button class="btn golist" onclick="">목록으로 가기</button>
+          <button class="btn request" onclick="requestFix()" style="display: none;">수정 요청하기</button>
+          <button class="btn decide" onclick="purchaseConfirm()" style="display: none;">구매 확정</button>
+          <button class="btn cancel" onclick="cancelPay()" style="display: block;">결제 취소하기</button>
+          <button class="btn golist" id="golist1" onclick="goBack()" style="display: block;">목록으로 가기</button>
         </div>
       </div>
-    <button onclick="changeButton()">test</button>
+
+    <!-- 판매자 사용 버튼-->
+    <div class="bott2">
+      <div class="buttons">
+        <button class="btn accept" type="button" onclick="acceptOrder()" style="display: block;">수락하기</button>
+        <button class="btn reject" type="button" onclick="rejectOrder()" style="display: block;">거절하기</button>
+        <button class="btn send" type="submit" form="send" style="display: none;" >보내기</button>
+        <button class="btn golist" id="golist2" onclick="goBack()" style="display: block;">목록으로 가기</button>
+      </div>
+    </div>
   </main>
 </div>
 </body>
