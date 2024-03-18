@@ -11,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/main.css}">
-   <script src="/js/main.js"></script>
+   <script th:if="${errorMessage != null }">
+       alert([[${errorMessage}]]);
+   </script>
     <title>Bloom</title>
 </head>
     <div layout:fragment="content">
@@ -114,7 +116,7 @@
                                     <th:block  th:each="portfolio, index : ${ portList }">
 
                                         <!-- 3의 배수에만 div 태그가 열림 -->
-                                        <div class="portfolio_product" th:if="${ index.index < 3 }" style="margin-right: 75px">
+                                        <div class="portfolio_product" th:if="${ index.index < 3 }" style="margin-right: 60px">
                                             <label th:text="${ portfolio.getPortNo() }" style="display : none" ></label>
 
                                             <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
@@ -162,7 +164,7 @@
                                     <th:block  th:each="portfolio, index : ${ portList }">
 
                                     <!-- 3의 배수에만 div 태그가 열림 -->
-                                    <div class="portfolio_product" th:if="${ index.index > 2 }"  style="margin-right: 75px">
+                                    <div class="portfolio_product" th:if="${ index.index > 2  && index.index < 6}"  style="margin-right: 60px">
                                         <label th:text="${ portfolio.getPortNo() }" style="display : none" ></label>
                                         <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
                                             <img th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}" width="353px" height="353px">
@@ -207,7 +209,13 @@
                                              location.href = "/portfolio/detail?portNo=" + portNo;
                                         });
 
+                                        /*<![CDATA[*/
+                                        var message = /*[[${message}]]*/ '';
+                                        if (message) {
+                                            alert(message);
 
+                                        }
+                                        /*]]>*/
 
                                     </script>
 
@@ -216,8 +224,43 @@
 
                             </div>
 
-                            <div class="portfolio_paging">
+                            <div class="portfolio_paging_section">
+                                <div class="portfolio_paging">
+                                    <!-- 맨 앞으로 이동 버튼 -->
+                                    <button
+                                            th:onclick="'location.href=\'/main/?currentPage=' + @{${selectCriteria.startPage}} + '\''"
+                                            th:disabled="${selectCriteria.pageNo == 1}">
+                                        <<
+                                    </button>
+                                    <!-- 이전 페이지 버튼 -->
+                                    <button
+                                            th:onclick="'location.href=\'/main?currentPage='+ @{${selectCriteria.pageNo -1}} + '\''"
+                                            th:disabled="${selectCriteria.pageNo == 1}">
+                                        <
+                                    </button>
+                                    <!-- 숫자 버튼 -->
+                                    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                                        <button class="portfolio_paging_num" style="color:black"
+                                                th:text="${ page }"
+                                                th:onclick="'locatin.href=\'/main?currentPage='+ @{${page}} + '\''"
+                                                th:disabled="${ selectCriteria.pageNo eq page}">
+                                        </button>
+                                    </th:block>
 
+                                    <!-- 다음 페이지 버튼 -->
+                                    <button
+                                            th:onclick="'location.href=\'/main?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}">
+                                        >
+                                    </button>
+                                    <!-- 마지막 페이지로 이동 버튼 -->
+                                    <button
+                                            th:onclick="'location.href=\'/main?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                                    >
+                                        >>
+                                    </button>
+                                </div>
                             </div>
 
                         </div>

@@ -14,7 +14,7 @@
 </head>
 <th:block layout:fragment="content">
     <!-- ------------------------------------------------------------------------------- -->
-    <form id="registForm" action="/portfolio/regist" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <form id="registForm" action="/portfolio/update" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <div>
             <!-- 본문 + Bloom Your Room -->
             <div>
@@ -28,6 +28,7 @@
                         <!-- 진짜본문 -->
 
                         <div>
+                            <label th:text="${portfolio.portNo}" style="display : none"></label>
                             <!-- 포트폴리오 제목 -->
                             <div class="portfolio_contents title">
                                 <!-- 제목 -->
@@ -41,7 +42,7 @@
                             <div class="portfolio_contents">
                                 <!-- 설명 -->
                                 <strong class="portfolio_contents_left">포트폴리오 설명<span class="star">*</span></strong>
-                                <textarea class="portfolio_contents_right textarea portfolio_description_textarea portfolioplaceholder" name="portCon" id="portCon"  placeholder="(최대 2000자)" oninput="validateCon()">[[${portfolio?.portCon}]]</textarea>
+                                <textarea class="portfolio_contents_right textarea portfolio_description_textarea portfolioplaceholder" id="portCon" name="portCon" placeholder="(최대 2000자)" oninput="validateCon()">[[${portfolio?.portCon}]]</textarea>
 
                             </div>
                         </div>
@@ -60,34 +61,70 @@
                                             <div class="selecting_photo_two">
 
                                                 <input type="file" class="photo_select" id="file1" name="file1" accept="image/*" onchange="previewFile(1)">
+                                                <!-- 기존 파일 정보 가져오기 -->
+                                                <label id="oriFileNo1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFileNo()}" style="display : none"></label>
+                                                <label id="oriFileName1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFileName()}" style="display : none"></label>
+                                                <label id="oriFilePath1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFilePath()}" style="display : none"></label>
+                                                <label id="oriFileThumbnailPath1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getThumbnailPath()}" style="display: none"></label>
+                                                <label id="oriFileType1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFileType()}" style="display: none"></label>
                                                 <!-- 사진 입력 -->
                                                 <div class="thumbnail">
                                                     <label class="selected_photobox" id="testLabel1" onclick="beforePreviewFile(1)">
-                                                        <img src="/img/photo_select_img.png" id="test1">
+                                                            <img class="small_photo" src='/img/photo_select_img.png' id="test1" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null  }">
+                                                            <img class="small_photo" id="updatetest1" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null  }"
+                                                            style="border-radius:20px">
+
                                                     </label>
                                                     <div class="thumbnail_des">대표 사진<span class="star">*</span></div>
                                                 </div>
 
 
                                                 <input type="file" class="photo_select" id="file2" name="file2" accept="image/*" onchange="previewFile(2)">
+                                                <!-- 기존 파일 정보 가져오기-->
+                                                <label id="oriFileNo2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFileNo()}" style="display : none"></label>
+                                                <label id="oriFileName2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFileName()}" style="display : none"></label>
+                                                <label id="oriFilePath2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFilePath()}" style="display : none"></label>
+                                                <label id="oriFileThumbnailPath2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getThumbnailPath()}" style="display: none"></label>
+                                                <label id="oriFileType2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFileType()}" style="display: none"></label>
+
                                                 <!-- 사진 입력 -->
                                                 <label class="selected_photobox" onclick="beforePreviewFile(2)" id="testLabel2">
-                                                    <img src="/img/photo_select_img.png" id="test2">
+                                                    <img class="small_photo" src='/img/photo_select_img.png' id="test2" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null  }">
+                                                    <img class="small_photo"  id="updatetest2" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[1].getThumbnailPath()}|}" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null  }">
+
                                                 </label>
 
                                             </div>
                                             <div class="selecting_photo_two">
                                                 <input type="file" class="photo_select" id="file3" name="file3" accept="image/*" onchange="previewFile(3)">
+                                                <!-- 기존 파일 정보 가져오기-->
+                                                <label id="oriFileNo3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFileNo()}" style="display : none"></label>
+                                                <label id="oriFileName3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFileName()}" style="display : none"></label>
+                                                <label id="oriFilePath3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFilePath()}" style="display : none"></label>
+                                                <label id="oriFileThumbnailPath3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getThumbnailPath()}" style="display: none"></label>
+                                                <label id="oriFileType3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFileType()}" style="display: none"></label>
+
                                                 <!-- 사진 입력 -->
                                                 <label class="selected_photobox" onclick="beforePreviewFile(3)" id="testLabel3">
-                                                    <img src="/img/photo_select_img.png" id="test3">
+                                                    <img class="small_photo" src='/img/photo_select_img.png' id="test3" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null  }">
+                                                    <img class="small_photo" id="updatetest3" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[2].getThumbnailPath()}|}" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null  }">
+
                                                 </label>
 
 
                                                 <input type="file" class="photo_select" id="file4" name="file4" accept="image/*" onchange="previewFile(4)">
+                                                <!-- 기존 파일 정보 가져오기-->
+                                                <label id="oriFileNo4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFileNo()}" style="display : none"></label>
+                                                <label id="oriFileName4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFileName()}" style="display : none"></label>
+                                                <label id="oriFilePath4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFilePath()}" style="display : none"></label>
+                                                <label id="oriFileThumbnailPath4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getThumbnailPath()}" style="display: none"></label>
+                                                <label id="oriFileType4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFileType()}" style="display: none"></label>
+
                                                 <!-- 사진 입력 -->
                                                 <label class="selected_photobox" onclick="beforePreviewFile(4)" id="testLabel4">
-                                                    <img src="/img/photo_select_img.png" id="test4">
+                                                    <img class="small_photo" src='/img/photo_select_img.png' id="test4" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null  }">
+                                                    <img class="small_photo" id="updatetest4" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[3].getThumbnailPath()}|}" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null  }">
+
                                                 </label>
 
                                             </div>
@@ -112,37 +149,68 @@
                                 function previewFile(num){
 
                                     const fileInput = document.getElementById('file' + num);
-                                    console.log(fileInput);
+                                    console.log('fileInput: ' + fileInput);
 
                                     // 현재 label 이미지를 선택한 이미지로 바꾸기 (클릭시 다른 사진으로 바꾸기 가능)
-                                    const reader = new FileReader();
+
                                     // const previewPhoto = document.querySelector('.selected_photobox');
                                     const previewPhoto = document.getElementById('testLabel' + num);
 
-                                    console.log(previewPhoto);
+
+                                    console.log('previewPhoto : ' + previewPhoto);
+
+                                    if(!fileInput || !previewPhoto){
+                                        console.error('File input or preview photo element not found');
+                                        return;
+                                    }
                                     // console.log('aaa', fileInput.files[0]);
 
-                                    reader.readAsDataURL(fileInput.files[0]);
-                                    console.log('#test1 : ' + previewPhoto.querySelector('#test1'));
 
-                                    reader.onload = function(e) {
-                                        switch(num) {
-                                            case 1 : previewPhoto.querySelector('#test1').src = e.target.result;
-                                                previewPhoto.querySelector('#test1').style.borderRadius = '20px';
-                                                break;
-                                            case 2 : previewPhoto.querySelector('#test2').src = e.target.result;
-                                                previewPhoto.querySelector('#test2').style.borderRadius = '20px';
-                                                break;
-                                            case 3 : previewPhoto.querySelector('#test3').src = e.target.result;
-                                                previewPhoto.querySelector('#test3').style.borderRadius = '20px';
-                                                break;
-                                            case 4 : previewPhoto.querySelector('#test4').src = e.target.result;
-                                                previewPhoto.querySelector('#test4').style.borderRadius = '20px';
-                                                break;
+
+                                        const reader = new FileReader();
+
+
+
+                                        reader.readAsDataURL(fileInput.files[0]);
+                                        console.log('#test1 : ' + previewPhoto.querySelector('#test1'));
+
+                                        reader.onload = function(e) {
+
+                                            const image = previewPhoto.querySelector('#test' + num);
+                                            const image2 = previewPhoto.querySelector('#updatetest' + num);
+
+                                            if(!image){
+                                                image2.src=e.target.result;
+                                                image2.style.borderRadius = '20px';
+                                                return;
+                                            }else if(!image2){
+                                                image.src=e.target.result;
+                                                image.style.borderRadius = '20px';
+                                                return;
+                                            }
+
+                                            image.src = e.target.result;
+                                            image.style.borderRadius = '20px';
+
+                                            /*switch(num) {
+                                                case 1 :
+                                                    previewPhoto.querySelector('#test1').src = e.target.result;
+                                                    previewPhoto.querySelector('#test1').style.borderRadius = '20px';
+                                                    break;
+                                                case 2 : previewPhoto.querySelector('#test2').src = e.target.result;
+                                                    previewPhoto.querySelector('#test2').style.borderRadius = '20px';
+                                                    break;
+                                                case 3 : previewPhoto.querySelector('#test3').src = e.target.result;
+                                                    previewPhoto.querySelector('#test3').style.borderRadius = '20px';
+                                                    break;
+                                                case 4 : previewPhoto.querySelector('#test4').src = e.target.result;
+                                                    previewPhoto.querySelector('#test4').style.borderRadius = '20px';
+                                                    break;
+
+                                            }*/
 
                                         }
 
-                                    }
                                 }
 
                                 function photoDelete(){
@@ -194,22 +262,22 @@
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">가격</label>
                                                 <div class="input_group portfolio_optionbox_contents">
-                                                    <input type="number" class="input" id="optionPrice1" name="optionPrice1" th:value="${allOption?.optionPrice1}">
+                                                    <input type="number" class="input" name="optionPrice1" id="optionPrice1" th:value="${portfolio.optionList.get(0)?.getOptionPrice()}">
                                                     <span class="input_suffix">원</span>
                                                 </div>
                                             </div>
                                             <div  class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">옵션 설명</label>
-                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo1" name="optionInfo1" th:value="${allOption?.optionInfo1}">
+                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo1" name="optionInfo1" th:value="${portfolio.optionList.get(0)?.getOptionInfo()}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">수정 횟수</label>
-                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix1" name="optionFix1" th:value="${allOption?.optionFix1}">
+                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix1" name="optionFix1" th:value="${portfolio.optionList.get(0)?.getOptionFix()}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">작업 소요 날짜</label>
                                                 <div class="input_group portfolio_optionbox_contents">
-                                                    <input type="number" class="input" id="optionDt1" name="optionDt1" th:value="${allOption?.optionDt1}">
+                                                    <input type="number" class="input" id="optionDt1" name="optionDt1" th:value="${portfolio.optionList.get(0)?.getOptionDt()}">
                                                     <span class="input_suffix">일</span>
                                                 </div>
                                             </div>
@@ -225,22 +293,22 @@
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">가격</label>
                                                 <div class="input_group portfolio_optionbox_contents">
-                                                    <input type="number" class="input" id="optionPrice2" name="optionPrice2" th:value="${allOption?.optionPrice2}">
+                                                    <input type="number" class="input" id="optionPrice2" name="optionPrice2" th:value="${portfolio.optionList.get(1)?.getOptionPrice()}">
                                                     <span class="input_suffix">원</span>
                                                 </div>
                                             </div>
                                             <div  class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">옵션 설명</label>
-                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo2" name="optionInfo2" th:value="${allOption?.optionInfo2}">
+                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo2" name="optionInfo2" th:value="${portfolio.optionList.get(1)?.getOptionInfo()}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">수정 횟수</label>
-                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix2" name="optionFix2" th:value="${allOption?.optionFix2}">
+                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix2" name="optionFix2" th:value="${portfolio.optionList.get(1)?.getOptionFix()}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">작업 소요 날짜</label>
                                                 <div class="input_group portfolio_optionbox_contents">
-                                                    <input type="number" class="input" id="optionDt2" name="optionDt2" th:value="${allOption?.optionDt2}">
+                                                    <input type="number" class="input" id="optionDt2" name="optionDt2" th:value="${portfolio.optionList.get(1)?.getOptionDt()}">
                                                     <span class="input_suffix">일</span>
                                                 </div>
                                             </div>
@@ -256,22 +324,22 @@
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">가격</label>
                                                 <div class="input_group portfolio_optionbox_contents">
-                                                    <input type="number" class="input" id="optionPrice3" name="optionPrice3" th:value="${allOption?.optionPrice3}">
+                                                    <input type="number" class="input" id="optionPrice3" name="optionPrice3" th:value="${portfolio.optionList.get(2)?.getOptionPrice()}">
                                                     <span class="input_suffix">원</span>
                                                 </div>
                                             </div>
                                             <div  class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">옵션 설명</label>
-                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo3" name="optionInfo3" th:value="${allOption?.optionInfo3}">
+                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo3" name="optionInfo3" th:value="${portfolio.optionList.get(2)?.getOptionInfo()}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">수정 횟수</label>
-                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix3" name="optionFix3" th:value="${allOption?.optionFix3}">
+                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix3" name="optionFix3" th:value="${portfolio.optionList.get(2)?.getOptionFix()}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">작업 소요 날짜</label>
                                                 <div class="input_group portfolio_optionbox_contents">
-                                                    <input type="number" class="input" id="optionDt3" name="optionDt3" th:value="${allOption?.optionDt3}">
+                                                    <input type="number" class="input" id="optionDt3" name="optionDt3" th:value="${portfolio.optionList.get(2)?.getOptionDt()}">
                                                     <span class="input_suffix">일</span>
                                                 </div>
                                             </div>
@@ -295,7 +363,7 @@
                                 <!-- 판매자 내용 -->
                                 <div class="portfolio_optionbox">
                                     <span class="portfolio_optionbox_title">연락 가능 시간</span>
-                                    <textarea class="portfolio_optionbox_contents textarea calltime" id="portContactDt" name="portContactDt" oninput="validateContactDt()">[[${portfolio?.portContactDt}]]</textarea>
+                                    <textarea class="portfolio_optionbox_contents textarea calltime" id="portContactDt" name="portContactDt">[[${portfolio?.portContactDt}]]</textarea>
                                 </div>
                                 <div class="portfolio_optionbox">
                                     <span class="portfolio_optionbox_title">소개</span>
@@ -306,7 +374,7 @@
                     </div>
                     <div class="portfolio_button">
                         <!-- 버튼 -->
-                        <input type="submit" id="portfolioRegist" value="등록하기"  class="portfolio_btn regist">
+                        <input type="submit" id="portfolioUpdate" value="수정하기"  class="portfolio_btn regist"  >
                         <input type="button" value="취소하기"  class="portfolio_btn cancel" onclick="goBack()" >
 
                         <!--                    <button class="portfolio_btn cancel" style="color:white;"><a th:href="/">취소하기</a></button>-->
@@ -324,8 +392,12 @@
     <script>
 
         function goBack(){
-            window.history.back();
-            return true;
+            if(confirm("페이지에서 나가시겠습니까?"))
+            {
+                window.history.back();
+                return true;
+            }
+
         }
 
 

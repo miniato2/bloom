@@ -484,17 +484,26 @@
                                     </div>
                                     <div class="purchase_message_btn"> <!-- 구매하기 및 문의하기 버튼 -->
                                         <div class="purchase_btn"> <!-- 구매하기 버튼 -->
-                                            <label for="purchase_btn">구매하기</label>
-                                            <input type="submit" id="purchase_btn" name="purchase_btn">
+                                            <a th:if="${portfolio.memberNo == loginMember}" th:href="@{/portfolio/update/{portNo}(portNo=${portfolio.portNo})}">
+                                                <label  th:if="${portfolio.memberNo == loginMember}">수정하기</label>
+                                            </a>
+<!--                                            <input type="submit" id="update_btn" name="update_btn" th:if="${portfolio.memberNo == loginMember}">-->
+
+
+                                            <label for="purchase_btn" th:unless="${portfolio.memberNo == loginMember}">구매하기</label>
+                                            <input type="submit" id="purchase_btn" name="purchase_btn" th:unless="${portfolio.memberNo == loginMember}">
                                         </div>
                                         <div class="message_btn"> <!-- 문의하기 버튼 -->
-                                            <label for="message_btn">문의하기</label>
-                                            <input type="submit" id="message_btn" name="message_btn">
+                                            <label for="delete_btn" th:if="${portfolio.memberNo == loginMember}">삭제하기</label>
+                                            <input type="button" id="delete_btn" name="delete_btn" th:if="${portfolio.memberNo == loginMember}">
+
+                                            <label for="message_btn" th:unless="${portfolio.memberNo == loginMember}">문의하기</label>
+                                            <input type="submit" id="message_btn" name="message_btn" th:unless="${portfolio.memberNo == loginMember}">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portfolio_report"> <!-- 포트폴리오 신고하기 버튼 -->
-                                    <label for="portfolio_report_btn">신고하기</label>
+                                <div class="portfolio_report" th:unless="${portfolio.memberNo == loginMember}"> <!-- 포트폴리오 신고하기 버튼 -->
+                                    <label for="portfolio_report_btn" >신고하기</label>
                                     <input type="submit" id="portfolio_report_btn" name="portfolio_report_btn">
                                 </div>
                             </div>

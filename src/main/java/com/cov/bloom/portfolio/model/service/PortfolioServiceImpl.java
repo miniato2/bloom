@@ -62,6 +62,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portDetail;
     }
 
+
     /* 사진 등록 */
     @Override
     @Transactional
@@ -123,6 +124,18 @@ public class PortfolioServiceImpl implements PortfolioService {
         }
 
     }
+
+    @Override
+    public PortfolioDTO findPortnoByMemberNo(String memberNo) {
+
+        PortfolioDTO portfolio = null;
+
+        portfolio = mapper.findPortnoByMemberNo(memberNo);
+
+        return portfolio;
+
+    }
+
 
 
 

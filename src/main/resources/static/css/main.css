@@ -265,7 +265,6 @@ header a{
 
 .portfolioBigBox{
     width : 1100px;
-    height : 800px;
 }
 
 .portfolio_list{
@@ -324,11 +323,15 @@ header a{
     justify-content: space-between;
     align-items: center;
     gap : 40px;
+    width : 300px;
 }
 .product_title{
     margin-left : 20px;
     font-weight: bold;
     font-size : 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .product_bookmark img{
     width : 25px;
@@ -360,6 +363,29 @@ header a{
     color : #858585;
 }
 
+
+/* 페이징 */
+.portfolio_paging_section{
+    margin-top : 100px;
+    display : flex;
+    align-items : center;
+    justify-content: center;
+}
+
+.portfolio_paging button{
+    margin-left : 30px;
+    cursor: pointer;
+    color : gray;
+    padding : 10px 15px;
+    border-radius: 10px;
+    border : none;
+    font-weight: bold;
+    font-size : 20px;
+    background-color : white;
+}
+.portfolio_paging_num{
+    color : black;
+}
 
 /* footer */
 .page_bottom{

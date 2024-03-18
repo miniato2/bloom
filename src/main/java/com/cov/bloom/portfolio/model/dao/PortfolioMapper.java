@@ -33,4 +33,7 @@ public interface PortfolioMapper {
 
     /* 포트폴리오 상세 조회*/
     PortfolioDTO selectPortfolioDetail(String portNo);
+
+    PortfolioDTO findPortnoByMemberNo(String memberNo);
+
 }

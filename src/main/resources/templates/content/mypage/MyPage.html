@@ -40,7 +40,7 @@
     <div class="container">
         <div class="containerButton">
           <button class="Button">내 정보</button><br>
-          <button class="Button" onclick="location.href='/portfolio/regist'">포트폴리오</button><br>
+          <button class="Button" onclick="checkPortfolioExistence()">포트폴리오</button><br>
           <button class="Button">판매내역</button><br>
           <button class="Button">정산</button><br>
             <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
@@ -71,7 +71,7 @@
             <input type="password" id="pw" class="content" th:value="${member.password}"disabled onblur="updatePW()"><br>
             <div id="pwResult"></div>
 
-
+            <label class="member_no" th:text="${member.no}" display="none"></label>
 
 
             <!-- 모달 버튼 -->

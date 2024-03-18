@@ -228,4 +228,13 @@
         WHERE P.PORT_NO = #{ portNo }
     </select>
 
+    <select id="findPortnoByMemberNo" parameterType="string" resultMap="PortfolioDetailResultMap">
+        SELECT
+            PORT_NO
+        FROM PORTFOLIO
+        WHERE MEMBER_NO = #{ memberNo }
+    </select>
+
+
+
 </mapper>

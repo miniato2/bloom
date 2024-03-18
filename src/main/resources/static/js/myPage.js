@@ -323,3 +323,26 @@ function updatePW() {
 }
 
 
+function checkPortfolioExistence(){
+
+    // 회원 번호를 가져오기
+    var memberNo = $("label.member_no").text();
+
+    // 포트폴리오 확인 요청
+    $.get("/portfolio/check?memberNo=" + memberNo, function(response){
+        var portfolioNo = response.portfolioNo;
+
+        if(portfolioNo != null && portfolioNo !== ""){
+            // 포트폴리오가 있으면 해당 페이지로 이동
+            window.location.href="/portfolio/detail?portNo=" + portfolioNo;
+        }
+        else{
+            // 포트폴리오가 없으면 확인 메시지를 띄우고, 예를 선택하면 등록 페이지로 이동
+            if(confirm("등록된 포트폴리오가 없습니다. 포트폴리오를 등록하시겠습니까?")){
+                window.location=href="/portfolio/regist";
+            }
+
+        }
+    })
+}
+

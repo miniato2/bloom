@@ -32,4 +32,7 @@ public interface PortfolioService {
 
     /* 포트폴리오 상세조회 */
     public PortfolioDTO selectPortDetail(String portNo);
+
+    PortfolioDTO findPortnoByMemberNo(String memberNo);
+
 }

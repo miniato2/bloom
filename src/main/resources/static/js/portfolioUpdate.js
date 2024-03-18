@@ -5,34 +5,44 @@ let verifyOption = false;
 let verifyContactDt = false;
 
 
+window.onload = function(){
+    if(selectedFile){
+        const fileInput1 = document.getElementById('file1');
+        fileInput.files = [selectedFile];
+
+    }
+}
+
+
+
 function previewFile() {
     const fileInput = document.getElementById('photo_select');
 
-    
+
     const reader = new FileReader();
     const previewPhoto = document.querySelectorAll('.selected_photobox_img');
 
     let count = 0;
-    
+
     reader.readAsDataURL(fileInput.files[0]);
     reader.onload = function(e) {
 
         if(document.querySelectorAll('.selected_photobox_img.active').length != previewPhoto.length){
-            
+
             previewPhoto.forEach((item, index) => {
 
                 let isActive = item.getAttribute('class').indexOf('active')
                 // active 클래스가 있는지 확인
-    
+
                 if(isActive == -1) {
                     //active 클래스가 없으면
-    
+
                     if(count == 0) {
-    
+
                         item.classList.add('active')
                         item.querySelector('img').src = e.target.result
                         count += 1
-    
+
                     }
                     else {
                         return
@@ -48,7 +58,7 @@ function previewFile() {
 
 function photoDelete(){
     const previewPhoto = document.querySelectorAll('.selected_photobox_img');
-    
+
     previewPhoto.forEach(item => {
         item.querySelector('img').src = 'img/selected_photo.png';
         item.classList.remove('active');
@@ -60,27 +70,40 @@ function validateTitle(){
 
     var title = document.getElementById('portTitle').value;
     var regex = /^.{1,30}$/;
+    var msg = "";
 
     if(regex.test(title)){
         verifyTitle = true;
+        return msg;
     }
     else{
+        if(title.length > 30){
+            msg = "제목은 30자를 넘을 수 없습니다.";
+            alert(msg);
+        }
         verifyTitle = false;
-        alert("제목은 30자를 넘을 수 없습니다.");
+        return msg;
+
     }
 }
 
 function validateCon(){
     var con = document.getElementById('portCon').value;
     var regex = /^.{1,2000}$/;
+    var msg = "";
 
     if(regex.test(con)){
         verifyCon = true;
+        return msg;
     }else{
-        if(con.length > 2000){
-            alert("내용은 2000자를 넘을 수 없습니다.");
+        if(con.length > 2000)
+        {
+            msg = "내용은 2000자를 넘을 수 없습니다.";
+            alert(msg);
         }
+
         verifyCon = false;
+        return msg;
     }
 
 }
@@ -104,16 +127,28 @@ function validatePhoto(){
 function validateContactDt(){
     var contactDt = document.getElementById('portContactDt').value;
     var regex = /^[가-힣a-zA-Z0-9\s]{1,100}$/;
+    var msg = "";
 
     if(regex.test(contactDt)){
         verifyContactDt = true;
+        return msg;
     }
     else{
         if(contactDt.length > 100)
         {
-            alert("연락 가능 시간은 100자를 넘을 수 없습니다.");
+            msg = "연락 가능 시간은 100자를 넘을 수 없습니다.";
+            alert(msg);
+        }
+        else if(contactDt.trim() == ""){
+            msg = "연락 가능 시간을 입력해 주세요.";
+            alert(msg);
+        }
+        else{
+            msg = "연락 가능 시간 : 입력 불가능한 문자가 입력되었습니다."
+            alert(msg);
         }
         verifyContactDt = false;
+        return msg;
     }
 }
 
@@ -151,7 +186,7 @@ function validateOption(){
     else if(optionDt1==null || optionDt1.length < 1){        //옵션 소요 날짜가 있는지
         isValid = "옵션1: 작업 소요 날짜를 입력해 주세요.";
     }
-    /* -----------------------------------------------------------------------------*/
+        /* -----------------------------------------------------------------------------*/
     // 두번째 옵션
     else if(optionPrice2==null || optionPrice2.length < 1){        //옵션 가격이 있는지
         isValid = "옵션2: 가격을 입력해 주세요.";
@@ -165,7 +200,7 @@ function validateOption(){
     }else if(optionDt2==null || optionDt2.length < 1){          //옵션 소요 날짜가 있는지
         isValid = "옵션2: 작업 소요 날짜를 입력해 주세요.";
     }
-    /* -----------------------------------------------------------------------------*/
+        /* -----------------------------------------------------------------------------*/
     // 세번쨰 옵션
     else if(optionPrice3==null || optionPrice3.length < 1){        //옵션 가격이 있는지
         isValid = "옵션3: 가격을 입력해 주세요.";
@@ -236,20 +271,28 @@ function validateForm(){
     if(title.trim() === "") {           //제목이 비어있는 경우
         errorMessage += "제목을 입력해 주세요\n";
     }
+    else if(validateTitle() != ""){
+        errorMessage += validateTitle();
+    }
 
     else if(con.trim() === "") {        //내용이 비어있는 경우
         errorMessage += "내용을 입력해 주세요\n";
     }
 
+    else if(validateCon() != ""){
+        errorMessage += validateCon();
+    }
+
     else if(!(validatePhoto())){        //사진이 1장도 첨부되지 않는 경우
+
         errorMessage += "사진은 최소 1장 이상 등록하여야 합니다.";
     }
 
     else if(option != ""){               //옵션 오류 메시지가 하나라도 있는 경우
         errorMessage += option;
     }
-    else if(contactDt.trim() === ""){
-        errorMessage += "연락 가능 시간을 입력해 주세요.\n";
+    else if(validateContactDt() != ""){
+        errorMessage += validateContactDt();
     }
 
 
