@@ -41,7 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("auth/login","/","main","member/*","/member/*","/member/*",
-                    "/portfolio/regist","/img/**").permitAll();
+                    "/portfolio/regist","/img/**","/notice/*").permitAll();
             auth.requestMatchers("/auth/*","/mypage/*").hasAnyAuthority(MemberRole.c.getRole(),MemberRole.s.getRole(),MemberRole.m.getRole());
          
 

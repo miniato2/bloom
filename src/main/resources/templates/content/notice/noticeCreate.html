@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#000000" />
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#texteditor").load("textEditor.html")
-            /* id 지정을 통해서도 가능합니다. 
-             $("#header").load("header.html #navbar")
-             */
-        });
-    </script>
+
     <title>공지게시판 등록</title>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,35 +21,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700" />
-    <link rel="stylesheet" href="./styles/noticeCreate.css" />
-   <link rel="stylesheet" href="./styles/headerfooter.css" />
-  
-        
-
+    <link rel="stylesheet" th:href="@{/css/noticeCreate.css}" />
+    <link rel="stylesheet" th:href="@{/css/textEditor.css}" />
+   <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
 </head>
 
-<body>
-    <header> <!-- header -->
-        <div class="inner">
-            <span id="bloom">Bloom</span>
-            <span id="main_menu">
-                <a href="">MAIN</a>
-                <a href="">NOTICE</a>
-                <a href="">CONTACT</a>
-            </span>
-            <span id="lnb">
-                <a href="">MESSAGE</a>
-                &nbsp; | &nbsp;
-                <a href="">MY PAGE</a>
-                &nbsp; | &nbsp;
-                <a href="">LOGIN</a>
-                &nbsp; | &nbsp;
-                <a href="">JOIN</a>
-            </span>
-        </div>
-    </header>
-    <div> <!--  본문  -->
-        <div class="green_title"> <!--  초록색 타이틀 -->
+
+    <div layout:fragment="content">
+        <div class="green_title">
             <div class="green_title_in">
                 <span class="title">공지 게시판</span>
                 <span class="vector">
@@ -60,32 +36,106 @@
                 </span>
             </div>
         </div>
-   
     <div class="main">
     <br>
-    <input type="text" class="noticetitle" placeholder="제목을 입력해주세요">
+        <form th:action="@{/notice/create}" method="post" enctype="multipart/form-data">
+
+    <input type="text"  name="title" placeholder="제목을 입력해주세요">
     <br>
-    
 
-    <div id="texteditor"></div>
+
+<!--------------------------------------------------------------------------------------------->
+        <div class="container">
+            <div class="options">
+                <button id="bold" type="button" class="option-button format">
+                    <i class="fa-solid fa-bold"></i>
+                </button>
+                <button id="superscript" type="button" class="option-button script">
+                    <i class="fa-solid fa-superscript"></i>
+                </button>
+                <button id="subscript" type="button"  class="option-button script">
+                    <i class="fa-solid fa-subscript"></i>
+                </button>
+
+                <button id="insertOrderedList" type="button" class="option-button">
+                    <div class="fa-solid fa-list-ol"></div>
+                </button>
+                <button id="insertUnorderedList" type="button" class="option-button">
+                    <i class="fa-solid fa-list"></i>
+                </button>
+
+                <button id="undo" type="button" class="option-button">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button id="redo" type="button" class="option-button">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+
+                <button id="createLink" type="button" class="adv-option-button">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button id="unlink" type="button" class="option-button">
+                    <i class="fa fa-unlink"></i>
+                </button>
+
+                <button id="justifyLeft" type="button" class="option-button align">
+                    <i class="fa-solid fa-align-left"></i>
+                </button>
+                <button id="justifyCenter"type="button"  class="option-button align">
+                    <i class="fa-solid fa-align-center"></i>
+                </button>
+                <button id="justifyRight" type="button" class="option-button align">
+                    <i class="fa-solid fa-align-right"></i>
+                </button>
+                <button id="justifyFull" type="button" class="option-button align">
+                    <i class="fa-solid fa-align-justify"></i>
+                </button>
+                <button id="indent" type="button" class="option-button spacing">
+                    <i class="fa-solid fa-indent"></i>
+                </button>
+                <button id="outdent" type="button"  class="option-button spacing">
+                    <i class="fa-solid fa-outdent"></i>
+                </button>
+                <select id="formatBlock" class="adv-option-button">
+                    <option value="H1">H1</option>
+                    <option value="H2">H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                </select>
+                <select id="fontName" class="adv-option-button"></select>
+                <select id="fontSize" class="adv-option-button"></select>
+
+                <div class="input-wrapper">
+                    <input type="color" id="foreColor" class="adv-option-button">
+                    <label for="foreColor">Font Color</label>
+                </div>
+                <div class="input-wrapper">
+                    <input type="color" id="backColor" class="adv-option-button">
+                    <label for="backColor">Highlight Color</label>
+                </div>
+
+            </div>
+
+<!--     <input type="text" id="text-input"  name="con" class="text-input" placeholder="공지내용을 입력해주세요.">-->
+            <textarea name="con" class="text-input" id="text-input"></textarea>
+        </div>
+
+        <script th:src="@{/js/noticeCreate.js}"></script>
+<!--------------------------------------------------------------------------------------------->
+
         <br><br>
-    </div>
+
+
     <div class="buttons">
-    <button class="cancelButton">취소하기</button>
-    <button class="registButton">등록하기</button>    
+    <button type="button" class="cancelButton">취소하기</button>
+    <button class="registButton">등록하기</button>
     </div>
-      
-     
-
-        
-    
-       
+        </form>
+    </div>
 
 
+</div>
 
-
-
-
-
-
-</body>
+</html>

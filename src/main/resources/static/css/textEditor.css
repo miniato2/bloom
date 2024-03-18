@@ -74,12 +74,18 @@ input[type="color"]::-moz-color-swatch{
     box-shadow: 0 0 0 2px #fff, 0 0 0 3px #020929;
 }
 
-#text-input{
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    height: 50vh;
+.text-input{
+   width: 870px;
+    height: 300px;
 }
+
+
+/*#text-input{*/
+/*    margin-top: 10px;*/
+/*    border: 1px solid #ddd;*/
+/*    padding: 20px;*/
+/*    height: 50vh;*/
+/*}*/
 
 .active{
     background-color: #e0e9ff;
