@@ -40,7 +40,8 @@ public class AuthController {
     @GetMapping("/fail")
     public ModelAndView loginFail(ModelAndView mv, @RequestParam String message){
         mv.addObject("message", message);
-        mv.setViewName("content/member/auth/fail");
+//        mv.setViewName("content/member/auth/fail");
+        mv.setViewName("content/member/auth/login");
 
         return mv;
     }

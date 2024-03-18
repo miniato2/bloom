@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cov.bloom.notice.model.dao.NoticeMapper">
+
+    <resultMap id="noticeResultMap" type="com.cov.bloom.notice.model.dto.NoticeDTO">
+        <id property="no" column="notice_no"/>
+        <result property="title" column="notice_title"/>
+        <result property="con" column="notice_con"/>
+        <result property="date" column="notice_date"/>
+    </resultMap>
+
+
+
+    <insert id="insertNotice" parameterType="com.cov.bloom.notice.model.dto.NoticeDTO" >
+        INSERT INTO NOTICE (
+
+        notice_title
+        ,notice_con
+
+        )
+        VALUES(
+
+        #{ title }
+        ,#{ con }
+
+        )
+    </insert>
+
+    <select id="getNotice" resultMap="noticeResultMap">
+        SELECT *
+        FROM NOTICE
+    </select>
+
+</mapper>
