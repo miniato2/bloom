@@ -70,12 +70,12 @@
         SELECT
         COUNT(*)
         FROM PORTFOLIO P
-        <if test="searchValue != ''">
+        <if test="searchValue !='' and searchValue != null">
             JOIN MEMBER M ON(P.MEMBER_NO = M.MEMBER_NO)
         </if>
         <where>
-            <if test="searchValue != ''">
-                M.MEMBER_NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
+            <if test="searchValue != '' and searchValue != null">
+                P.PORT_TITLE LIKE CONCAT('%', #{ searchValue }, '%')
             </if>
         </where>
     </select>
@@ -118,7 +118,7 @@
         <if test="sort == 'low_price'">
             ORDER BY MIN_O.MIN_OPTION_PRICE
         </if>
-
+        LIMIT #{ startRow }, 6
     </select>
 
 

@@ -288,11 +288,15 @@ public class PortfolioController {
     @PostMapping("/update")
     public String updatePortfolio(@ModelAttribute PortfolioDTO portfolio,
                                   @RequestParam("portNo") String portNo,
-                                  @RequestParam("file1") MultipartFile file1,
-                                  @RequestParam("file2") MultipartFile file2,
-                                  @RequestParam("file3") MultipartFile file3,
-                                  @RequestParam("file4") MultipartFile file4,
+                                  @RequestParam(name = "file1", required = false) MultipartFile file1,
+                                  @RequestParam(name = "file2", required = false) MultipartFile file2,
+                                  @RequestParam(name = "file3", required = false) MultipartFile file3,
+                                  @RequestParam(name = "file4", required = false) MultipartFile file4,
                                   @ModelAttribute AllOptionDTO allOption,
+                                  @RequestParam("oriFileNo1") String oriFileNo1,
+                                  @RequestParam("oriFileName1") String oriFileName1,
+                                  @RequestParam("oriFilePath1") String oriFilePath1,
+                                  @RequestParam("oriFileThumbnailPath1") String oriFileThumbnailPath1,
                                   RedirectAttributes rttr,
                                   Model model) {
 
@@ -312,10 +316,20 @@ public class PortfolioController {
 
         //업로드 파일 하나하나에 대한 정보를 담을 리스트
         List<Map<String, String>> fileList = new ArrayList<>();
+        Map<String, String> originFile1 = new HashMap<>();
+        Map<String, String> originFile2 = new HashMap<>();
+        Map<String, String> originFile3 = new HashMap<>();
+        Map<String, String> originFile4 = new HashMap<>();
+
 
 
         List<MultipartFile> paramFileList = new ArrayList<>();
-        paramFileList.add(file1);
+
+        // 입력된 파일이 없다 = 기존에 파일이 있다
+        if(file1 == null){
+            originFile1.put("originFileName", oriFileName1);
+
+        }
         paramFileList.add(file2);
         paramFileList.add(file3);
         paramFileList.add(file4);

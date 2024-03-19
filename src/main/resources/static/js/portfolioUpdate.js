@@ -79,7 +79,7 @@ function validateTitle(){
     else{
         if(title.length > 30){
             msg = "제목은 30자를 넘을 수 없습니다.";
-            alert(msg);
+            // alert(msg);
         }
         verifyTitle = false;
         return msg;
@@ -99,7 +99,7 @@ function validateCon(){
         if(con.length > 2000)
         {
             msg = "내용은 2000자를 넘을 수 없습니다.";
-            alert(msg);
+            // alert(msg);
         }
 
         verifyCon = false;
@@ -109,16 +109,25 @@ function validateCon(){
 }
 
 function validatePhoto(){
-    var file1 = document.getElementById('file1').files[0];
-    var file2 = document.getElementById('file2').files[0];
-    var file3 = document.getElementById('file3').files[0];
-    var file4 = document.getElementById('file4').files[0];
+    var ExistImages = document.querySelectorAll("img.small_photo[src^='/thumbPath']").length; //기존에 입력한 파일이 있는지
+    var file1 = document.getElementById('file1').files.length;      //새로 입력한 파일이 있는지
+    var file2 = document.getElementById('file2').files.length;      //새로 입력한 파일이 있는지
+    var file3 = document.getElementById('file3').files.length;      //새로 입력한 파일이 있는지
+    var file4 = document.getElementById('file4').files.length;      //새로 입력한 파일이 있는지
 
-    if(file1 || file2 || file3 || file4){
+
+    if(ExistImages > 0 || file1 > 0 || file2 > 0 || file3 > 0 || file4 > 0){        // 기존에 입력한 파일이 있거나, 새로 입력한 파일이 있으면
+        console.log("ExistImages > 0 || file1 > 0 || file2 > 0 || file3 > 0 || file4 > 0 : " + ExistImages > 0 || file1 > 0 || file2 > 0 || file3 > 0 || file4 > 0);
         verifyPhoto = true;
         return true;
     }else{
-        verifyPhoto = false;
+        console.log("ExistImages > 0 : " + ExistImages > 0 );
+        console.log("file1 > 0 : " + file1 > 0);
+        console.log("file2 > 0 : " + file2 > 0);
+        console.log("file3 > 0 : " + file3 > 0);
+        console.log("file4 > 0 : " + file4 > 0);
+
+        verifyPhoto = false;            //기존에 입력한 파일도 없고(삭제), 새로 입력한 파일도 없으면
         return false;
     }
 
@@ -126,7 +135,7 @@ function validatePhoto(){
 
 function validateContactDt(){
     var contactDt = document.getElementById('portContactDt').value;
-    var regex = /^[가-힣a-zA-Z0-9\s]{1,100}$/;
+    var regex = /^.{1,100}$/;
     var msg = "";
 
     if(regex.test(contactDt)){
@@ -137,15 +146,11 @@ function validateContactDt(){
         if(contactDt.length > 100)
         {
             msg = "연락 가능 시간은 100자를 넘을 수 없습니다.";
-            alert(msg);
+            // alert(msg);
         }
         else if(contactDt.trim() == ""){
             msg = "연락 가능 시간을 입력해 주세요.";
-            alert(msg);
-        }
-        else{
-            msg = "연락 가능 시간 : 입력 불가능한 문자가 입력되었습니다."
-            alert(msg);
+            // alert(msg);
         }
         verifyContactDt = false;
         return msg;
@@ -267,6 +272,11 @@ function validateForm(){
     var file4 = document.getElementById('file4').files[0];
     var option = validateOption();
     var contactDt = document.getElementById('portContactDt').value;
+    var ExistImages = document.querySelectorAll("img.small_photo[src^='/thumbPath']").length; //기존에 입력한 파일이 있는지
+    var file1 = document.getElementById('file1').files.length;      //새로 입력한 파일이 있는지
+    var file2 = document.getElementById('file2').files.length;      //새로 입력한 파일이 있는지
+    var file3 = document.getElementById('file3').files.length;      //새로 입력한 파일이 있는지
+    var file4 = document.getElementById('file4').files.length;
 
     if(title.trim() === "") {           //제목이 비어있는 경우
         errorMessage += "제목을 입력해 주세요\n";
@@ -283,9 +293,16 @@ function validateForm(){
         errorMessage += validateCon();
     }
 
-    else if(!(validatePhoto())){        //사진이 1장도 첨부되지 않는 경우
+    else if(validatePhoto()==false){        //사진이 1장도 첨부되지 않는 경우
+
+        console.log("ExistImages > 0 : " + ExistImages > 0 );
+        console.log("file1 > 0 : " + file1 > 0);
+        console.log("file2 > 0 : " + file2 > 0);
+        console.log("file3 > 0 : " + file3 > 0);
+        console.log("file4 > 0 : " + file4 > 0);
 
         errorMessage += "사진은 최소 1장 이상 등록하여야 합니다.";
+
     }
 
     else if(option != ""){               //옵션 오류 메시지가 하나라도 있는 경우

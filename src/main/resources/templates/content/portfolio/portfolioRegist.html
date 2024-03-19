@@ -32,7 +32,7 @@
                             <div class="portfolio_contents title">
                                 <!-- 제목 -->
                                 <strong class="portfolio_contents_left">포트폴리오 제목 <span class="star">*</span></strong>
-                                <input type="text" id="portTitle" name="portTitle" class="input titleplaceholder portfolio_contents_right" placeholder="(최대 30자)"   th:value="${portfolio?.portTitle}" oninput="validateTitle()">
+                                <input type="text" id="portTitle" name="portTitle" class="input titleplaceholder portfolio_contents_right" placeholder="(최대 30자)"  th:value="${portfolio?.portTitle}" maxlength="31" oninput="validateTitle()">
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                             <div class="portfolio_contents">
                                 <!-- 설명 -->
                                 <strong class="portfolio_contents_left">포트폴리오 설명<span class="star">*</span></strong>
-                                <textarea class="portfolio_contents_right textarea portfolio_description_textarea portfolioplaceholder" name="portCon" id="portCon"  placeholder="(최대 2000자)" oninput="validateCon()">[[${portfolio?.portCon}]]</textarea>
+                                <textarea class="portfolio_contents_right textarea portfolio_description_textarea portfolioplaceholder" name="portCon" id="portCon"  placeholder="(최대 2000자)" maxlength="2001" oninput="validateCon()">[[${portfolio?.portCon}]]</textarea>
 
                             </div>
                         </div>
@@ -156,7 +156,9 @@
                                         })
 
                                         previewPhoto.forEach(item => {
-                                            item.querySelector('img').src = '/img/photo_select_img.png';
+                                            const image = item.querySelector('img');
+                                            image.src = '/img/photo_select_img.png';
+                                            image.removeAttribute('srcset');
 
                                         })
                                     }
@@ -200,11 +202,11 @@
                                             </div>
                                             <div  class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">옵션 설명</label>
-                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo1" name="optionInfo1" th:value="${allOption?.optionInfo1}">
+                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo1" name="optionInfo1" maxlength="101" th:value="${allOption?.optionInfo1}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">수정 횟수</label>
-                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix1" name="optionFix1" th:value="${allOption?.optionFix1}">
+                                                <input type="number" class="input portfolio_optionbox_contents" id="optionFix1" name="optionFix1"  th:value="${allOption?.optionFix1}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">작업 소요 날짜</label>
@@ -231,7 +233,7 @@
                                             </div>
                                             <div  class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">옵션 설명</label>
-                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo2" name="optionInfo2" th:value="${allOption?.optionInfo2}">
+                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo2" name="optionInfo2" maxlength="101" th:value="${allOption?.optionInfo2}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">수정 횟수</label>
@@ -262,7 +264,7 @@
                                             </div>
                                             <div  class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">옵션 설명</label>
-                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo3" name="optionInfo3" th:value="${allOption?.optionInfo3}">
+                                                <input type="text" class="input portfolio_optionbox_contents" id="optionInfo3" name="optionInfo3" maxlength="101" th:value="${allOption?.optionInfo3}">
                                             </div>
                                             <div class="portfolio_optionbox">
                                                 <label class="portfolio_optionbox_title">수정 횟수</label>
@@ -295,11 +297,11 @@
                                 <!-- 판매자 내용 -->
                                 <div class="portfolio_optionbox">
                                     <span class="portfolio_optionbox_title">연락 가능 시간</span>
-                                    <textarea class="portfolio_optionbox_contents textarea calltime" id="portContactDt" name="portContactDt" oninput="validateContactDt()">[[${portfolio?.portContactDt}]]</textarea>
+                                    <textarea class="portfolio_optionbox_contents textarea calltime" id="portContactDt" name="portContactDt" maxlength="101" oninput="validateContactDt()">[[${portfolio?.portContactDt}]]</textarea>
                                 </div>
                                 <div class="portfolio_optionbox">
                                     <span class="portfolio_optionbox_title">소개</span>
-                                    <textarea class="portfolio_optionbox_contents textarea introduce" name="memberInfo">[[${portfolio?.memberInfo}]]</textarea>
+                                    <textarea class="portfolio_optionbox_contents textarea introduce" id="memberInfo" maxlength="1001" name="memberInfo" oninput="validateMemberInfo()" >[[${portfolio?.memberInfo}]]</textarea>
                                 </div>
                             </div>
                         </div>
