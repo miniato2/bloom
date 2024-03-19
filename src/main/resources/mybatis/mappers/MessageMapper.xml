@@ -12,12 +12,6 @@
         <result property="recipientMemberEmail" column="recipient_member_email"/>
     </resultMap>
 
-    <resultMap id="memberMap" type="com.cov.bloom.member.model.dto.MemberDTO">
-        <id property="no" column="member_no"/>
-        <result property="email" column="member_email"/>
-        <result property="nickname" column="member_nickname"/>
-    </resultMap>
-
     <select id="selectTotalCount" resultType="_int" >
         SELECT
         COUNT(*)
