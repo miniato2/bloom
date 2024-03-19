@@ -2,7 +2,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
+      layout:decorate="~{layouts/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 
   <meta charset="utf-8" />
@@ -39,14 +39,24 @@
             </div>
     <div class="container">
         <div class="containerButton">
+
+<!--            <div sec:authorize="hasAnyAuthority('s')">-->
           <button class="Button">내 정보</button><br>
           <button class="Button" onclick="checkPortfolioExistence()">포트폴리오</button><br>
           <button class="Button">판매내역</button><br>
           <button class="Button">정산</button><br>
             <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
             <button class="Button">의뢰인 전환</button><br><br><br><br><br><br><br>
-
           <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
+<!--            </div>-->
+
+            <div sec:authorize="hasAnyAuthority('c')">
+                <button class="Button">내 정보</button><br>
+                <button class="Button">주문내역</button><br>
+                <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
+                <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
+            </div>
+
         </div>
         <div class="main">
             <h1>내 정보</h1><br>
@@ -71,7 +81,7 @@
             <input type="password" id="pw" class="content" th:value="${member.password}"disabled onblur="updatePW()"><br>
             <div id="pwResult"></div>
 
-            <label class="member_no" th:text="${member.no}" display="none"></label>
+            <label class="member_no" th:text="${member.no}" style="display: none" ></label>
 
 
             <!-- 모달 버튼 -->

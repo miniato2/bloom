@@ -1,15 +1,14 @@
-
 .main{
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   
+
 
 }
 
-.noticeTitle{
+.noticetitle{
     margin-left: -670px;
     font-weight: 500;
     font-size: 20px;
@@ -19,12 +18,12 @@
     border-bottom: 1px solid #000000;
 }
 
-  .buttons{
+.buttons{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 100px;
-  }
+}
 .cancelButton{
     margin-left: 600px;
     width: 170px;
@@ -44,14 +43,14 @@
     flex-shrink: 0;
     border: none;
     margin-right: 15px;
-  
+
 }
 .registButton{
-   
+
     width: 170px;
     height: 40px;
-   
-    
+
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,7 +64,7 @@
     border-radius: 2rem;
     flex-shrink: 0;
     border: none;
-   
+
 }
 
 input[type="text"] {
