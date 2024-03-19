@@ -13,6 +13,9 @@ public class AuthDetails implements UserDetails {
 
     private LoginMemberDTO loginMemberDTO;
 
+    private int memberNo;
+
+
     public AuthDetails(LoginMemberDTO loginMemberDTO){
         this.loginMemberDTO = loginMemberDTO;
     }
@@ -34,6 +37,7 @@ public class AuthDetails implements UserDetails {
         return authorities;
     }
 
+    public int getMemberNo(){return loginMemberDTO.getNo();}
     @Override
     public String getPassword() {
         return loginMemberDTO.getPassword();

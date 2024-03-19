@@ -3,6 +3,7 @@ let verifyCon = false;
 let verifyPhoto = false;
 let verifyOption = false;
 let verifyContactDt = false;
+let verifymemberInfo = false;
 
 
 function previewFile() {
@@ -65,8 +66,10 @@ function validateTitle(){
         verifyTitle = true;
     }
     else{
+        if(title.length > 30){
+            alert("제목은 30자를 넘을 수 없습니다.");
+        }
         verifyTitle = false;
-        alert("제목은 30자를 넘을 수 없습니다.");
     }
 }
 
@@ -87,11 +90,8 @@ function validateCon(){
 
 function validatePhoto(){
     var file1 = document.getElementById('file1').files[0];
-    var file2 = document.getElementById('file2').files[0];
-    var file3 = document.getElementById('file3').files[0];
-    var file4 = document.getElementById('file4').files[0];
 
-    if(file1 || file2 || file3 || file4){
+    if(file1){
         verifyPhoto = true;
         return true;
     }else{
@@ -114,6 +114,25 @@ function validateContactDt(){
             alert("연락 가능 시간은 100자를 넘을 수 없습니다.");
         }
         verifyContactDt = false;
+    }
+}
+
+function validateMemberInfo(){
+    var memberInfo = document.getElementById('memberInfo').value;
+    var regex = /^.{0,1000}$/;
+    var msg = "";
+
+    if(regex.test(memberInfo)){
+        verifymemberInfo = true;
+        return msg;
+    }
+    else{
+        if(memberInfo.length > 1000){
+            msg = "판매자 소개는 1000자를 넘을 수 없습니다.";
+            alert(msg);
+        }
+        verifymemberInfo = false;
+        return msg;
     }
 }
 
@@ -198,22 +217,20 @@ setInterval(checkAll, 1000); // 1초에 한 번씩 checkAll 함수를 실행
 function checkAll(){
 
 
-
-    if(verifyTitle && verifyCon && verifyPhoto && (validateOption().trim()==="") && verifyContactDt ){
+    if (verifyTitle && verifyCon && verifyPhoto && (validateOption().trim() === "") && verifyContactDt && verifymemberInfo) {
 
         // $("#portfolioRegist").prop('disabled',false);
         $("#portfolioRegist").css('background-color', '');
 
-    }else {
+    } else {
 
         // $("#portfolioRegist").prop('disabled', true);
         $("#portfolioRegist").css('background-color', 'gray');
     }
 
-    if(verifyTitle && verifyCon && verifyPhoto && (validateOption().trim()==="") && verifyContactDt ){
+    if (verifyTitle && verifyCon && verifyPhoto && (validateOption().trim() === "") && verifyContactDt) {
         $("#portfolioUpdate").css('background-color', '');
-    }
-    else{
+    } else {
         $("#portfolioRegist").css('background-color', 'gray');
     }
 
@@ -242,7 +259,7 @@ function validateForm(){
     }
 
     else if(!(validatePhoto())){        //사진이 1장도 첨부되지 않는 경우
-        errorMessage += "사진은 최소 1장 이상 등록하여야 합니다.";
+        errorMessage += "대표 사진을 등록해 주세요";
     }
 
     else if(option != ""){               //옵션 오류 메시지가 하나라도 있는 경우
@@ -250,6 +267,9 @@ function validateForm(){
     }
     else if(contactDt.trim() === ""){
         errorMessage += "연락 가능 시간을 입력해 주세요.\n";
+    }
+    else if(validateMemberInfo() != ""){
+        errorMessage += validateMemberInfo();
     }
 
 

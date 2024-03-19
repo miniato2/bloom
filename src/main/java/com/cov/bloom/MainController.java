@@ -38,6 +38,9 @@ public class MainController {
         // 전체 포트폴리오 수
         int totalCount = portfolioService.selectTotalCount(searchMap);
 
+        System.out.println("searchValue==null" + (searchValue == null));
+        System.out.println("totalCount " + totalCount);
+
         // 한 페이지에 보여 줄 포트폴리오 수
         int limit = 6;
 
@@ -53,6 +56,8 @@ public class MainController {
 
         }else{
             selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+            System.out.println("시작 페이지 : " + selectCriteria.getStartPage() + " | 끝 페이지 : " + selectCriteria.getEndPage());
+            System.out.println("selectCriteria : "  + selectCriteria);
         }
 
 

@@ -154,18 +154,36 @@ header a{
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    background-color: #fff;
     color: #25432A;
     width: 100%;
-            justify-content: space-between;
-            padding: 10px;
-            border: 1px solid #ffffff;
-            margin: 5px;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    margin: 5px;
+    background-color: transparent; /* 배경색을 투명하게 설정 */
 }
 
 .message-details p {
     flex: 1;
     text-align: center;
+    padding: 5px;
+}
+
+.message-details .sender {
+    text-align: left;
+    background-color: #F0F0F0;
+    padding: 10px;
+}
+
+.message-details .content {
+    text-align: left;
+    background-color: #0e0202;
+    padding: 10px;
+}
+
+.message-details .date {
+    text-align: right;
+    background-color: #D0D0D0;
+    padding: 10px;
 }
 
 .message-content {

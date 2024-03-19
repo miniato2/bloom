@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,6 +62,9 @@ public class MypageController {
         LoginMemberDTO member = authService.getMember(memberName);
         mv.addObject("member",member);
         mv.setViewName("content/mypage/MyPage");
+
+
+        System.out.println();
 
         return mv;
     }
@@ -213,21 +217,24 @@ public class MypageController {
     }
 
     @GetMapping("/delete")
+    @Transactional
     public String deleteMember(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberName= authentication.getName();
       int result =  mypageService.deleteMember(memberName);
 
 
-        return "/main";
+        return "redirect:/auth/logout";
     }
 
     @GetMapping("/salesRegist")
+    @Transactional
     public String salesRegist(){
         return "/content/member/auth/salesRegistration";
     }
 
     @GetMapping("/getSales")
+    @Transactional
     public String getSales(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberName= authentication.getName();
@@ -235,7 +242,7 @@ public class MypageController {
 
         System.out.println("결과는 " + result);
 
-        return"content/mypage/MyPage";
+        return"redirect:/mypage/main";
     }
 
     public String createAuthCode() {

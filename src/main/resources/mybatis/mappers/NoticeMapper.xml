@@ -33,4 +33,22 @@
         FROM NOTICE
     </select>
 
+    <update id="updateNotice" parameterType="Map">
+        UPDATE NOTICE
+        SET NOTICE_CON = #{ con }
+        WHERE NOTICE_NO = #{ no }
+    </update>
+
+    <delete id="deleteNotice" parameterType="int">
+        DELETE
+        FROM NOTICE
+        WHERE NOTICE_NO = #{ no }
+    </delete>
+
+    <select id="findNotice" resultMap="noticeResultMap">
+        SELECT *
+        FROM NOTICE
+        where notice_date = #{ date }
+    </select>
+
 </mapper>

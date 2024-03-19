@@ -22,5 +22,27 @@ rating_input.addEventListener('input', () => {
   currentRating.innerText = value / 2;
 });
 
+function messageSend(){
+    const nickname = $("#ReceiverNick").text().trim();
+    const encodedNickname = encodeURIComponent(nickname); // 닉네임을 URL 인코딩합니다.
+    const memberNo = $("#memberNo").text().trim();
+
+    $.ajax({
+        url:"/message/send/" + memberNo,
+        type: 'GET',
+        data:{
+            nickname: encodedNickname
+        },
+        success: function (response){
+            console.log('요청이 완료되었습니다.');
+            console.log(response);
+        },
+        error: function (xhr, status, error){
+            console.error('요청이 실패했습니다.');
+            console.error(error);
+        }
+    });
+}
+
 
  

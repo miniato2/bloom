@@ -27,7 +27,7 @@ html{
   flex-shrink: 0;
 }
 .emailTitle{
-  margin-left: -500px;
+
   font-size: 15px;
   line-height: 1.2575;
   color: rgba(10, 10, 10, 0.5400000215);
@@ -56,7 +56,7 @@ html{
   outline: none;
 }
 .passwordTitle{
-  margin-left: -500px;
+
   font-size: 15px;
   line-height: 1.2575;
   color: rgba(10, 10, 10, 0.5400000215);
