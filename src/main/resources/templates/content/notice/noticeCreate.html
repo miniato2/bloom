@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700" />
     <link rel="stylesheet" th:href="@{/css/noticeCreate.css}" />
     <link rel="stylesheet" th:href="@{/css/textEditor.css}" />
-   <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+
 </head>
 
 
@@ -45,91 +45,14 @@
 
 
 <!--------------------------------------------------------------------------------------------->
-        <div class="container">
-            <div class="options">
-                <button id="bold" type="button" class="option-button format">
-                    <i class="fa-solid fa-bold"></i>
-                </button>
-                <button id="superscript" type="button" class="option-button script">
-                    <i class="fa-solid fa-superscript"></i>
-                </button>
-                <button id="subscript" type="button"  class="option-button script">
-                    <i class="fa-solid fa-subscript"></i>
-                </button>
+            <div th:insert="~{/content/notice/textEditor.html}"></div>
 
-                <button id="insertOrderedList" type="button" class="option-button">
-                    <div class="fa-solid fa-list-ol"></div>
-                </button>
-                <button id="insertUnorderedList" type="button" class="option-button">
-                    <i class="fa-solid fa-list"></i>
-                </button>
-
-                <button id="undo" type="button" class="option-button">
-                    <i class="fa-solid fa-rotate-left"></i>
-                </button>
-                <button id="redo" type="button" class="option-button">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </button>
-
-                <button id="createLink" type="button" class="adv-option-button">
-                    <i class="fa fa-link"></i>
-                </button>
-                <button id="unlink" type="button" class="option-button">
-                    <i class="fa fa-unlink"></i>
-                </button>
-
-                <button id="justifyLeft" type="button" class="option-button align">
-                    <i class="fa-solid fa-align-left"></i>
-                </button>
-                <button id="justifyCenter"type="button"  class="option-button align">
-                    <i class="fa-solid fa-align-center"></i>
-                </button>
-                <button id="justifyRight" type="button" class="option-button align">
-                    <i class="fa-solid fa-align-right"></i>
-                </button>
-                <button id="justifyFull" type="button" class="option-button align">
-                    <i class="fa-solid fa-align-justify"></i>
-                </button>
-                <button id="indent" type="button" class="option-button spacing">
-                    <i class="fa-solid fa-indent"></i>
-                </button>
-                <button id="outdent" type="button"  class="option-button spacing">
-                    <i class="fa-solid fa-outdent"></i>
-                </button>
-                <select id="formatBlock" class="adv-option-button">
-                    <option value="H1">H1</option>
-                    <option value="H2">H2</option>
-                    <option value="H3">H3</option>
-                    <option value="H4">H4</option>
-                    <option value="H5">H5</option>
-                    <option value="H6">H6</option>
-                </select>
-                <select id="fontName" class="adv-option-button"></select>
-                <select id="fontSize" class="adv-option-button"></select>
-
-                <div class="input-wrapper">
-                    <input type="color" id="foreColor" class="adv-option-button">
-                    <label for="foreColor">Font Color</label>
-                </div>
-                <div class="input-wrapper">
-                    <input type="color" id="backColor" class="adv-option-button">
-                    <label for="backColor">Highlight Color</label>
-                </div>
-
-            </div>
-
-<!--     <input type="text" id="text-input"  name="con" class="text-input" placeholder="공지내용을 입력해주세요.">-->
-            <textarea name="con" class="text-input" id="text-input"></textarea>
-        </div>
-
-        <script th:src="@{/js/noticeCreate.js}"></script>
 <!--------------------------------------------------------------------------------------------->
 
         <br><br>
 
-
     <div class="buttons">
-    <button type="button" class="cancelButton">취소하기</button>
+    <button type="button" class="cancelButton" onclick="location.href='/notice/main'">취소하기</button>
     <button class="registButton">등록하기</button>
     </div>
         </form>

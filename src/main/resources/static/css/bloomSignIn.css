@@ -4,18 +4,28 @@ html {
 }
 .main{
     display: flex;
-
     justify-content: center;
     align-items: center;
 
 
 }
-input{
+.input{
 
+    /*box-sizing: border-box;*/
+    /*padding: 1rem 2rem 0.6rem 1.6rem;*/
+    /*width: 15.5rem;*/
+    /*height: 100%;*/
+    /*overflow: hidden;*/
+    /*text-align: center;*/
+    /*font-size: 1rem;*/
+    /*font-weight: 400;*/
+
+    /*font-family: "Noto Sans KR", 'Source Sans Pro';*/
+    /*border: solid 0.1rem #9d9d9d;*/
 }
 
 .memberInput input{
-    margin-right: 0.4rem;
+    margin-left: 125px;
     box-sizing: border-box;
     padding: 1rem 2rem 0.6rem 1.6rem;
     width: 15.5rem;
@@ -27,6 +37,7 @@ input{
     line-height: 1.2575;
     font-family: "Noto Sans KR", 'Source Sans Pro';
     border: solid 0.1rem #9d9d9d;
+    border-width: 0 0 1px;
 
 
 
@@ -71,6 +82,7 @@ p{
     white-space: nowrap;
 }
 button{
+    margin-left: 300px;
     width: 7.9rem;
     height: 100%;
     overflow: hidden;
@@ -82,21 +94,29 @@ button{
     background-color: #25422a;
     border-radius: 2rem;
     justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .submitButton{
-    width: 7.9rem;
+    width: 21.5rem;
     height: 100%;
-    overflow: hidden;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #ffffff;
-    font-family: "Noto Sans KR", 'Source Sans Pro';
-    background-color: #25422a;
-    border-radius: 2rem;
-    justify-content: center;
 
+    margin-left: 70px;
+    background-color: #25422a;
+
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2575;
+    color: #878787;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    white-space: nowrap;
+    border: solid 0 rgba(10, 10, 10, 0.2700000107);
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: 2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
 

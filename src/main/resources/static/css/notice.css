@@ -1,0 +1,21 @@
+table{
+        font-family: 'Arial', sans-serif; /* 폰트 스타일 */
+        width: 100%; /* 테이블 너비 */
+        border-collapse: collapse; /* 테이블 사이 간격 없애기 */
+        padding: 8px;
+
+}
+
+th{
+        background-color: #7a7a7a; /* 배경색 */
+        color: white; /* 글자색 */
+        padding: 10px; /* 여백 */
+        text-align: center; /* 텍스트 정렬 */
+
+}
+
+td{
+        border-bottom: 1px solid #ddd; /* 행 사이의 경계선 */
+        padding: 8px; /* 여백 */
+        text-align: center;
+}

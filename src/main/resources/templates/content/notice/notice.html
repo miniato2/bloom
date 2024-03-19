@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/notice.css}"/>
 </head>
 <div layout:fragment="content">
     <div class="green_title">   <!--  초록색 타이틀 -->
@@ -17,8 +18,8 @@
             </span>
         </div>
     </div>
-    <table border="1">
-        <h1>공지게시판 조회</h1>
+    <table>
+
         <tr>
             <th>공지번호</th>
             <th>공지제목</th>
@@ -26,11 +27,10 @@
             <th>공지날짜</th>
         </tr>
         <tr th:each="notice : ${ noticeList }">
-            <td th:text="${ notice.getNo() }"></td>
-            <td th:text="${ notice.getTitle() }"></td>
-            <td th:text="${ notice.getCon() }"></td>
-<!--            <td th:text="${ notice.getDate() }"></td>-->
-            <td><a th:href="@{/notice/detail/{id}(id=${notice.no})}" th:text="${notice.date}">날짜</a></td>
+            <td><a th:href="@{/notice/detail(date=${notice.date})}" th:text="${notice.no}"></a></td>
+            <td><a th:href="@{/notice/detail(date=${notice.date})}" th:text="${notice.title}"></a></td>
+            <td><a th:text="${ notice.con }"></a></td>
+            <td><a th:href="@{/notice/detail(date=${notice.date})}" th:text="${notice.date}"></a></td>
 
         </tr>
     </table>

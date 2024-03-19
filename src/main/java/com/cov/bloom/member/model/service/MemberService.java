@@ -37,7 +37,7 @@ public class MemberService {
     public LoginMemberDTO findByUsername(String email){
         LoginMemberDTO login = memberMapper.findByUsername(email);
 
-        System.out.println("aaa: " + passwordEncoder.encode(login.getPassword()));
+
 
 
         if(!Objects.isNull((login))){

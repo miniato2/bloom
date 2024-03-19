@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#000000" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <title>공지게시판 상세조회</title>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700" />
+    <link rel="stylesheet" th:href="@{/css/noticeCreate.css}" />
+    <link rel="stylesheet" th:href="@{/css/textEditor.css}" />
+    <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+
+</head>
+
+
+<div layout:fragment="content">
+    <div class="green_title">
+        <div class="green_title_in">
+            <span class="title">공지 상세조회</span>
+            <span class="vector">
+                    <img src="/img/Vector.png">
+                </span>
+        </div>
+    </div>
+    <div class="main">
+        <br>
+
+
+            <input type="text"  name="title" th:value="${ notice.title }" disabled>
+            <input type="text"  name="date" th:value="${ notice.date }" disabled>
+            <br>
+
+        <div sec:authorize="hasAnyAuthority('s','c')">
+            <input type="text"  class="text-input" id="text-input"th:value=" ${ notice.con }" disabled >
+        </div>
+
+        <div sec:authorize="!hasAnyAuthority('s','c','m')">
+            <input type="text"  class="text-input"  th:value=" ${ notice.con }" disabled >
+        </div>
+
+        <form action="/notice/update" method="post">
+        <div sec:authorize="hasAnyAuthority('m')">
+            <input type="text" class="text-input" name="con" th:value=" ${ notice.con }" >
+            <input type="text"  name="no" th:value="${ notice.no }"  style="display: none">
+        </div>
+
+
+            <script th:src="@{/js/noticeCreate.js}"></script>
+            <!--------------------------------------------------------------------------------------------->
+
+            <br><br>
+
+
+            <div class="buttons">
+                <button type="button" class="cancelButton" onclick="location.href='/notice/main'">뒤로가기</button>
+                <div sec:authorize="hasAnyAuthority('m')">
+                <button class="registButton" onclick="alert('수정완료 입니다.')"  >수정하기</button>
+                </div>
+            </div>
+            <div sec:authorize="hasAnyAuthority('m')">
+                <a class="registButton" type="button" th:href="@{/notice/delete(no=${notice.no})}">삭제하기</a>
+            </div>
+        </form>
+
+
+
+
+    </div>
+
+
+</div>
+
+</html>
