@@ -13,9 +13,9 @@ public interface MessageMapper {
 
     List<MessageDTO> selectMessageList();
 
-    List<MessageDTO> selectAllThumbnailList();
-
-    int incrementMessageCount(Long no);
-
-    MessageDTO selectThumbnailDetail(Long no);
+//    List<MessageDTO> selectAllThumbnailList();
+//
+//    int incrementMessageCount(Long no);
+//
+//    MessageDTO selectThumbnailDetail(Long no);
 }

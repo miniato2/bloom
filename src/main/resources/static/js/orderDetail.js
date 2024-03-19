@@ -5,13 +5,18 @@ $(document).ready(function (){
     let portNo = document.getElementById("portNo").value;   //포폴번호
     let status = document.getElementById("requestStatus").value;  //주문상태
 
+    let gpic = document.querySelectorAll('.gpic'); //가이드사진들
+    let optionFix = document.getElementById('optionFix'); //수정횟수
+
+    const fileInput = document.getElementById('guide'); //파일인풋
+
     if(member+"_p" === portNo){
-        //판매자 경우
         document.querySelector(".bott").style.display="none";
         const accept = document.querySelector('.accept');
         const reject = document.querySelector('.reject');
         const send = document.querySelector('.send');
         const list = document.getElementById('golist2');
+
 
         switch (status){
             case 'W' :
@@ -25,6 +30,7 @@ $(document).ready(function (){
                 reject.style.display = "none";
                 send.style.display = "block";
                 list.style.display = "block";
+                fileInput.style.display = "block";
                 break; //작업
             case 'C' :
                 accept.style.display = "none";
@@ -73,7 +79,11 @@ $(document).ready(function (){
                     request.style.display = "none";
                     decide.style.display = "none";
                 }else{
-                    request.style.display = "block";
+                    if(gpic.length < optionFix || gpic.item(0) == null){
+                        request.style.display = "block";
+                    }else{
+                        request.style.display = "none";
+                    }
                     decide.style.display = "block";
                 }
                 break; //완료
@@ -99,6 +109,7 @@ function viewImg(e){
         guidepic.appendChild(img);
     };
     reader.readAsDataURL(e.target.files[0]);
+    guidepic.style.display = "block";
 }
 
 //의뢰인 수정 요청
@@ -144,6 +155,21 @@ function purchaseConfirm(){
 
 //의뢰인 결제 취소
 function cancelPay(){
+    $.ajax({
+        url: "/pay/cancelPay",
+        method: "POST",
+        data: {
+            orderNo: document.getElementById('orderNo').value,
+            reqStatus: 'C'
+        },
+        success: function (data){
+            location.reload();
+            console.log(data);
+        },
+        error: function (xhr, status, error){
+            console.log(error);
+        }
+    })
 
 }
 

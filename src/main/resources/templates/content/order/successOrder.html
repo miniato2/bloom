@@ -35,10 +35,10 @@
                 </div>
             </div>
             <div class="buttons">
-                <button class="btn golist">
+                <button type="button" class="btn golist" th:onclick="|location.href='@{/mypage/orderlist}'|">
                     구매 내역 보기
                 </button>
-                <button type='button' class="btn gomain" onclick="location.href='/main'">
+                <button type='button' class="btn gomain" th:onclick="|location.href='@{/main}'|">
                     메인으로 가기
                 </button>
             </div>

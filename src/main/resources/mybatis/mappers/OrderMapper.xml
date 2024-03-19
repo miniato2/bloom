@@ -13,17 +13,18 @@
         <result property="optionInfo" column="option_info"/>
     </resultMap>
 
-    <!--    <resultMap id="orderResultMap" type="com.cov.bloom.order.model.dto.OrderDTO">-->
-    <!--        <id property="orderNo" column="order_no"/>-->
-    <!--        <result property="orderDt" column="order_dt"/>-->
-    <!--        <result property="orderFinalDt" column="order_finaldt"/>-->
-    <!--        <result property="requestCon" column="request_con"/>-->
-    <!--        <result property="requestStatus" column="request_status"/>-->
-    <!--        <result property="orderFinal" column="option_final"/>-->
-    <!--        <result property="optionNo" column="option_no"/>-->
-    <!--        <result property="portNo" column="port_no"/>-->
-    <!--        <result property="memberNo" column="member_no"/>-->
-    <!--    </resultMap>-->
+        <resultMap id="orderResultMap" type="com.cov.bloom.order.model.dto.OrderDTO">
+            <id property="orderNo" column="order_no"/>
+            <result property="tid" column="order_tid"/>
+            <result property="orderDt" column="order_dt"/>
+            <result property="orderFinalDt" column="order_finaldt"/>
+            <result property="requestCon" column="request_con"/>
+            <result property="requestStatus" column="request_status"/>
+            <result property="orderFinal" column="option_final"/>
+            <result property="optionNo" column="option_no"/>
+            <result property="portNo" column="port_no"/>
+            <result property="memberNo" column="member_no"/>
+        </resultMap>
 
     <select id="checkOrderNo">
         select count(*)
@@ -33,6 +34,7 @@
     <insert id="registOrder" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
         INSERT INTO ORDERS(
         order_no
+        ,order_tid
         ,order_dt
         ,request_con
         ,request_status
@@ -43,6 +45,7 @@
         )
         VALUES(
         #{ orderNo }
+        ,#{ tid }
         ,#{ orderDt }
         ,#{ requestCon }
         ,#{ requestStatus }
@@ -78,5 +81,15 @@
         option_info
         from  port_option
         where option_no = #{ optionNo }
+    </select>
+
+    <!--결제 취소를 위한 정보-->
+    <select id="selectOrder" parameterType="_int" resultType="hashmap">
+        select
+                od.order_tid
+                ,op.option_price
+        from    orders od
+        join    port_option op on od.option_no = op.option_no
+        where   od.order_no = #{ orderNO }
     </select>
 </mapper>

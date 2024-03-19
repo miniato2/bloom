@@ -11,7 +11,7 @@ public interface MessageService {
 
     MessageDTO selectMessagDetail(long no);
 
-    List<MessageDTO> selectAllThumbnailList();
+//    List<MessageDTO> selectAllThumbnailList();
 
-    MessageDTO selectThumbnailDetail(Long no);
+//    MessageDTO selectThumbnailDetail(Long no);
 }

@@ -87,32 +87,6 @@
         WHERE member_email = #{ email }
     </select>
 
-    <!--주문내역 조회-->
-    <select id="findAllOrderList" parameterType="_int" resultType="java.util.List" resultMap="myorderlist">
-        select
-                order_no
-                ,port_title
-                ,member_nickname
-                ,order_dt
-                ,order_finaldt
-                ,option_price
-                ,request_status
-        from (
-                select
-                        od.order_no
-                        ,por.port_title
-                        ,por.member_no
-                        ,od.order_dt
-                        ,od.order_finaldt
-                        ,op.option_price
-                        ,od.request_status
-                from(select * from orders where member_no = #{ memberNo }) as od
-                join port_option op on od.option_no = op.option_no
-                join portfolio por on por.port_no = od.port_no
-                ) as a
-        join member m on a.member_no = m.member_no;
-    </select>
-
     <update id="deleteMember" parameterType="string">
         UPDATE MEMBER
         SET MEMBER_STATUS = 'y'
@@ -150,32 +124,6 @@
         where od.order_no = #{ order_no };
     </select>
 
-    <!--판매내역 조회-->
-    <select id="findAllOrderSaleList" parameterType="string" resultType="java.util.List" resultMap="myorderlist">
-        select
-                order_no
-                ,port_title
-                ,member_nickname
-                ,order_dt
-                ,order_finaldt
-                ,option_price
-                ,request_status
-        from (
-                select
-                        od.order_no
-                        ,od.member_no
-                        ,por.port_title
-                        ,od.order_dt
-                        ,od.order_finaldt
-                        ,op.option_price
-                        ,od.request_status
-                from(select * from orders where port_no = '1_p') as od
-                join port_option op on od.option_no = op.option_no
-                join portfolio por on por.port_no = od.port_no
-                ) as a
-        join member m on m.member_no = a.member_no;
-    </select>
-
     <!--상태 업뎃-->
     <update id="updateReqStatus" parameterType="com.cov.bloom.order.model.dto.OrderDTO">
         update orders
@@ -183,6 +131,7 @@
         where order_no = #{ orderNo }
     </update>
 
+    <!--가이드파일 저장-->
     <insert id="registGuideFile" parameterType="com.cov.bloom.order.model.dto.GuideFileDTO">
         INSERT INTO guide_file(
                                 g_file_path
@@ -211,4 +160,79 @@
             ,order_final = #{ orderFinal }
         where order_no = #{ orderNo }
     </insert>
+
+    <!--판매내역 전체 수 조회-->
+    <select id="selectTotalSale" parameterType="string">
+        select count(*)
+        from orders
+        where port_no = #{ portNo }
+    </select>
+
+    <!--판매 내역 조회 (페이징)-->
+    <select id="selectSaleList" resultMap="myorderlist">
+        select
+                order_no
+                ,port_title
+                ,member_nickname
+                ,order_dt
+                ,order_finaldt
+                ,option_price
+                ,request_status
+        from (
+                select
+                        od.order_no
+                        ,od.member_no
+                        ,por.port_title
+                        ,od.order_dt
+                        ,od.order_finaldt
+                        ,op.option_price
+                        ,od.request_status
+                from(select * from orders where port_no = '1_p') as od
+                join port_option op on od.option_no = op.option_no
+                join portfolio por on por.port_no = od.port_no
+                ) as a
+        join member m on m.member_no = a.member_no
+        order by order_no DESC
+        LIMIT #{ startRow }, #{ limit };
+    </select>
+
+    <!--회원 전체 주문목록 수 조회-->
+    <select id="selectTotalOrder" parameterType="_int">
+        select count(*)
+        from orders
+        where member_no = #{ memberNo }
+    </select>
+
+    <!--회원 주문목록 조회(페이징)-->
+    <select id="selectOrderList" resultMap="myorderlist">
+        select
+                order_no
+                ,port_title
+                ,member_nickname
+                ,order_dt
+                ,order_finaldt
+                ,option_price
+                ,request_status
+        from (
+                select
+                        od.order_no
+                        ,por.port_title
+                        ,por.member_no
+                        ,od.order_dt
+                        ,od.order_finaldt
+                        ,op.option_price
+                        ,od.request_status
+                from(
+                        select * from orders
+                        where member_no = (select member_no
+                                            from member
+                                            where member_email = #{ searchValue })
+                    ) as od
+                join port_option op on od.option_no = op.option_no
+                join portfolio por on por.port_no = od.port_no
+                ) as a
+        join member m on a.member_no = m.member_no
+        order by order_no DESC
+        LIMIT #{ startRow }, #{ limit };
+    </select>
 </mapper>

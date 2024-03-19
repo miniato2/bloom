@@ -1,5 +1,6 @@
 package com.cov.bloom.mypage.model.service;
 
+import com.cov.bloom.common.paging.SelectCriteria;
 import com.cov.bloom.member.model.dao.MemberMapper;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.dto.MemberDTO;
@@ -83,24 +84,6 @@ public class MypageService {
         return result;
     }
 
-    //내 주문내역 불러오기
-    @Transactional
-    public List<MyOrder> findAllOrderList(int memberNo) {
-
-        List<MyOrder> orderlist = mypageMapper.findAllOrderList(memberNo);
-        System.out.println(orderlist);
-
-        return orderlist;
-    }
-    //판매내역
-    @Transactional
-    public List<MyOrder> findAllOrderSaleList(String portNo) {
-
-        List<MyOrder> orderList = mypageMapper.findAllOrderSaleList(portNo);
-
-        return orderList;
-    }
-
     //주문상세
     @Transactional
     public OrderDetailDTO getOrderDetail(int orderNo) {
@@ -150,11 +133,33 @@ public class MypageService {
         mypageMapper.registGuideFile(file);
     }
 
+    @Transactional
     public void updateStatus(OrderDTO order) {
         mypageMapper.updateReqStatus(order);
     }
 
+    @Transactional
     public void purchaseConfirm(OrderDTO order) {
         mypageMapper.purchaseConfirm(order);
+    }
+
+    //판매내역 전체 수 조회
+    public int selectTotalSale(String portNo) {
+        return mypageMapper.selectTotalSale(portNo);
+    }
+
+    //판매내역 조회 (페이징)
+    public List<MyOrder> selectSaleList(SelectCriteria selectCriteria) {
+        return mypageMapper.selectSaleList(selectCriteria);
+    }
+
+    //회원 전체 주문내역 수 조회
+    public int selectTotalOrder(int memberNo) {
+        return mypageMapper.selectTotalOrder(memberNo);
+    }
+
+    //주문내역 조회 (페이징)
+    public List<MyOrder> selectOrderList(SelectCriteria selectCriteria) {
+        return mypageMapper.selectOrderList(selectCriteria);
     }
 }

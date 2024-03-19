@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,17 +13,17 @@
 
   <link rel="stylesheet" th:href="@{/css/orderDetail.css}">
 </head>
-<body>
+<div layout:fragment="content">
 
 <!--주문상세 주문상태에 따라 버튼 바뀜-->
 <input id="requestStatus" th:value="${orderDetail.requestStatus}"  style="display: none">
 <input id="memberNo" th:value="${memberNo}" style="display: none">
 <input id="portNo" th:value="${orderDetail.portNo}" style="display: none">
 <input id="orderFinal" th:value="${orderDetail.orderFinal}" style="display: none">
+<input id="optionFix" th:value="${orderDetail.optionFix}" style="display: none">
+
 
 <div class="order">
-
-  <main>
     <div class="top"></div>
     <div class="ordertitle">
       주문상세
@@ -57,7 +60,8 @@
               </div>
             </th:block>
 
-            <div id="gpicUpload">
+            <br>
+            <div id="gpicUpload" style="display: none">
             </div>
 
           </div>
@@ -102,17 +106,17 @@
       <form th:action="@{/mypage/submitGuide}" id="send" method="post" enctype="multipart/form-data">
         <input id="orderNo" name="orderNo" th:value="${orderDetail.orderNo}" style="display: none">
           <!-- 이미지 업로드 버튼 -->
-        <input type="file" name="guide" id="guide" accept="image/*" onchange="viewImg(event)">
+        <input type="file" name="guide" id="guide" accept="image/*" onchange="viewImg(event)" style="display: none">
       </form>
     </div>
 
     <!--의뢰인 사용 버튼-->
       <div class="bott">
         <div class="buttons">
-          <button class="btn request" onclick="requestFix()" style="display: none;">수정 요청하기</button>
+          <button class="btn request" onclick="requestFix()" style="display: none;" >수정 요청하기</button>
           <button class="btn decide" onclick="purchaseConfirm()" style="display: none;">구매 확정</button>
           <button class="btn cancel" onclick="cancelPay()" style="display: block;">결제 취소하기</button>
-          <button class="btn golist" id="golist1" onclick="goBack()" style="display: block;">목록으로 가기</button>
+          <button class="btn golist" id="golist1" th:onclick="|location.href='@{/mypage/orderlist}'|" style="display: block;">목록으로 가기</button>
         </div>
       </div>
 
@@ -122,10 +126,8 @@
         <button class="btn accept" type="button" onclick="acceptOrder()" style="display: block;">수락하기</button>
         <button class="btn reject" type="button" onclick="rejectOrder()" style="display: block;">거절하기</button>
         <button class="btn send" type="submit" form="send" style="display: none;" >보내기</button>
-        <button class="btn golist" id="golist2" onclick="goBack()" style="display: block;">목록으로 가기</button>
+        <button class="btn golist" id="golist2" th:onclick="|location.href='@{/mypage/orderSalelist}'|" style="display: block;">목록으로 가기</button>
       </div>
     </div>
-  </main>
 </div>
-</body>
-</html>
+</div>
