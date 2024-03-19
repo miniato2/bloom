@@ -448,7 +448,7 @@
                             <div class="portfolio_big_info"> <!-- 포트폴리오 정보 큰 틀 -->
                                 <div class="portfolio_middle_info"> <!-- 포트폴리오 정보 신고하기 뺀 틀 -->
                                     <div class="seller_nickname_info"> <!-- 판매자 닉네임 -->
-                                        <div class="seller_nickname" th:text="${portfolio.memberNickname.nickname}">
+                                        <div class="seller_nickname" name="ReceiverNick" id="ReceiverNick" th:text="${portfolio.memberNickname.nickname}">
                                             판매자 닉네임
                                         </div>
                                     </div>
@@ -497,8 +497,17 @@
                                             <label for="delete_btn" th:if="${portfolio.memberNo == loginMember}">삭제하기</label>
                                             <input type="button" id="delete_btn" name="delete_btn" th:if="${portfolio.memberNo == loginMember}">
 
-                                            <label for="message_btn" th:unless="${portfolio.memberNo == loginMember}">문의하기</label>
-                                            <input type="submit" id="message_btn" name="message_btn" th:unless="${portfolio.memberNo == loginMember}">
+                                            <a th:unless="${portfolio.memberNo == loginMember}" th:href="@{/message/send(nickname=${portfolio.memberNickname.nickname},memberNo=${portfolio.memberNo})}">
+                                                <label  th:unless="${portfolio.memberNo == loginMember}">
+                                                    문의하기
+                                                </label>
+                                                <label th:text="${portfolio.memberNo}" id="memberNo" name="memberNo" style="display: none">
+
+                                                </label>
+                                            </a>
+
+
+
                                         </div>
                                     </div>
                                 </div>
