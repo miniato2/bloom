@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Massage.css">
+
+    <title>쪽지함</title>
+</head>
+
+<div layout:fragment="content">
+
+    <div>
+        <div class="green_title">
+            <div class="green_title_in">
+                <span class="title">쪽지함</span>
+                <span class="vector">
+                    <img src="/img/message.png" style="width: 150px; height: auto;">
+                </span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="main-container">
+                <div class="sidebar">
+                    <a th:href="@{/message/readmessage}" class="inbox-button" >받은 쪽지함</a>
+                    <a th:href="@{/message/sendermessage}"class="sent-button" >보낸 쪽지함</a>
+
+                </div>
+                <div class="message-container" id="inbox">
+
+                    <style>
+                        table {
+                            border-collapse: collapse;
+                        }
+
+                        th, td {
+                            padding: 10px;
+                            text-align: center;
+                        }
+
+                        .message-row {
+                            border-bottom: 2px solid #CCCCCC;
+                        }
+                    </style>
+
+                    <table>
+                        <tr>
+                            <th>보낸 사람</th>
+                            <th>내용</th>
+                            <th>날짜</th>
+                        </tr>
+
+                        <tr th:each="message : ${ messageDTOList }" class="message-row">
+                            <td th:text="${ message.readMessageDTOList}"></td>
+                            <td th:text="${message.msgContent}"></td>
+                            <td th:text="${message.msgDate}"></td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+                <div class="message-container" id="sent" style="display:none;"></div>
+            </div>
+            <div class="footer">
+                <!-- 페이지 처리 -->
+                <div class="pagingArea" align="center">
+                    <!-- 맨 앞으로 이동 버튼 -->
+                    <button
+                            th:onclick="'location.href=\'/message/readmessage?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                            th:disabled="${selectCriteria.pageNo == 1}"
+                    >
+                        <<
+                    </button>
+                    <!-- 이전 페이지 버튼 -->
+                    <button
+                            th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                            th:disabled="${selectCriteria.pageNo == 1}"
+                    >
+                        <
+                    </button>
+                    <!-- 숫자 버튼 -->
+                    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                        <button
+                                th:text="${ page }"
+                                th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"
+                                th:disabled="${ selectCriteria.pageNo eq page }">
+                        </button>
+                    </th:block>
+
+                    <!-- 다음 페이지 버튼 -->
+                    <button
+                            th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                    >
+                        >
+                    </button>
+                    <!-- 마지막 페이지로 이동 버튼 -->
+                    <button
+                            th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                            th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                    >
+                        >>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        var currentBoxType = '';
+
+        function truncateText(text, maxLength) {
+            return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+        }
+
+        function updatePageButtons(boxType, currentPage, totalPages) {
+            console.log("updatePageButtons called with", boxType, "current page", currentPage, "total pages", totalPages);
+
+            var pageButtonsHTML = '<button onclick="changePage(\'' + boxType + '\', ' + (currentPage - 1) + ')">&#60;</button>';
+
+            for (var i = 1; i <= totalPages; i++) {
+                var activeClass = (i === currentPage) ? 'active' : '';
+                pageButtonsHTML += '<button class="' + activeClass + '" onclick="changePage(\'' + boxType + '\', ' + i + ')">' + i + '</button>';
+            }
+
+            pageButtonsHTML += '<button onclick="changePage(\'' + boxType + '\', ' + (currentPage + 1) + ')">&#62;</button>';
+
+            var footer = document.querySelector('.footer');
+            footer.innerHTML = pageButtonsHTML;
+        }
+
+        function changePage(boxType, page) {
+            if (boxType === 'inbox' || boxType === 'sent') {
+                showMessages(boxType, page);
+            }
+        }
+
+        function toggleActive(button) {
+            var buttons = document.querySelectorAll('.sidebar div');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 쪽지 가져옴
+            var messageContainers = document.querySelectorAll('.message-container');
+
+            // 쪽지에 클릭 이벤 추가
+            messageContainers.forEach(function (container) {
+                container.addEventListener('click', function () {
+                    console.log('메시지 클릭됨'); // 클릭 이벤트 확인 문구
+                    // 클릭 쪽지 정보 가져옴
+                    var sender = container.querySelector('.sender').textContent;
+                    var content = container.querySelector('.content').textContent;
+
+                    // 받은 쪽지 표시
+                    var leadMessageContainer = document.querySelector('.lead-message-container');
+                    var leadSender = leadMessageContainer.querySelector('.lead-sender');
+                    var leadContent = leadMessageContainer.querySelector('.lead-content');
+
+                    // 클릭한 쪽지 받아서 쪽지에 쓰기
+                    leadSender.textContent = sender;
+                    leadContent.textContent = content;
+
+                    // 받은 쪽지 표시
+                    leadMessageContainer.style.display = 'block';
+                });
+            });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            showMessages('inbox', 1);
+        });
+    </script>
+
+</div>
+
+
+
+
+</html>

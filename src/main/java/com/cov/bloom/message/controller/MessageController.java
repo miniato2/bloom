@@ -6,7 +6,6 @@ import com.cov.bloom.common.paging.SelectCriteria;
 import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.message.model.dto.MessageDTO;
 import com.cov.bloom.message.model.service.MessageService;
-import com.cov.bloom.portfolio.model.dto.PortfolioDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,13 +20,17 @@ import java.util.List;
 public class MessageController {
 
     private final MessageService messageService;
+    private SelectCriteria sentCriteria;
 
     public MessageController(MessageService messageService) {
         this.messageService = messageService;}
 
-    @GetMapping("/readmessage")
-    public ModelAndView messageList(@RequestParam(defaultValue = "1")int pageNo, ModelAndView mv){
-        int cmemberNo = 1;
+    @GetMapping("/sendermessage") //보낸 편지함
+    public ModelAndView senderMessageList(@RequestParam(defaultValue = "1")int pageNo, ModelAndView mv){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String senderMemberEmail = authentication.getName();
+
         int totalCount = messageService.selectTotalCount();
 
         int limit = 8;
@@ -38,15 +41,44 @@ public class MessageController {
 
         selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount );
 
-        List<MessageDTO> messageDTOList = messageService.selectMessageList();
+        List<MessageDTO> senderMessageDTOList = messageService.selectMessageList(senderMemberEmail);
 
-        mv.addObject("messageDTOList",messageDTOList);
+        mv.addObject("messageDTOList",senderMessageDTOList);
         mv.addObject("selectCriteria",selectCriteria);
         mv.setViewName("content/message/Message");
 
 
         return mv;
     }
+
+    @GetMapping("/readmessage") //받은쪽지함
+    public ModelAndView readMessageList(@RequestParam(defaultValue = "1")int pageNo,ModelAndView mv){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String readMemberEmail = authentication.getName();
+
+        int totalCount = messageService.selectTotalCount();
+
+        int limit = 8;
+
+        int buttonAmount = 5;
+
+        SelectCriteria selectCriteria = null;
+
+        selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount );
+
+        List<MessageDTO> readMessageDTOList = messageService.receiveMemberEmail(readMemberEmail);
+
+        mv.addObject("messageDTOList",readMessageDTOList);
+        mv.addObject("selectCriteria",selectCriteria);
+        mv.setViewName("content/message/readMessage");
+
+        System.out.println("controller 나감 ");
+
+        return mv;
+    }
+
+
 
     public String selectMessageDetail(@RequestParam long no, Model model){
         MessageDTO messageDetail = messageService.selectMessagDetail(no);
@@ -107,16 +139,16 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public String send (@RequestParam int senderMember,
-                        @RequestParam String senderNick,
-                        @RequestParam int rememberNo,
-                        @RequestParam String recipient,
-                        @RequestParam MessageDTO messageDTO) throws MessageRegistException {
+    public String send (@RequestParam("memberNo") int senderMember, //보낸사람 회원번호
+                        @RequestParam("senderNick") String senderNick,    //보낸사람닉네임
+                        @RequestParam("rememberNo") int rememberNo,   //받는사람 회원번호
+                        @RequestParam("recipient") String recipient,     //받는사람닉네임
+                        @ModelAttribute MessageDTO messageDTO) throws MessageRegistException {
 
-        String sendEmail =messageService.findMemberEmail(senderMember);
-        String reciEmail =messageService.findMemberEmail(rememberNo);
+        String sendEmail =messageService.findMemberEmail(senderMember); //보낸사람 이메일
+        String reciEmail =messageService.findMemberEmail(rememberNo);   //받는사람 이메일
 
-
+        System.out.println("asdfasd");
        messageDTO.setSenderMemberEmail(sendEmail);
        messageDTO.setRecipientMemberEmail(reciEmail);
 
@@ -126,8 +158,22 @@ public class MessageController {
 
     }
 
+    @GetMapping("/sentbox")
+    public ModelAndView sentBox(@RequestParam(defaultValue = "1") int pageNo, ModelAndView mv) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        int currentUserEmail = selectMessageDetail(authentication);
 
+        List<MessageDTO> sentMessageDTOList = messageService.selectSentMessageList(currentUserEmail, sentCriteria);
 
+        mv.addObject("sentMessageDTOList", sentMessageDTOList);
+        mv.setViewName("content/message/SentBox");
+
+        return mv;
+    }
+
+    private int selectMessageDetail(Authentication authentication) {
+        return Integer.parseInt(null);
+    }
 
 
 }

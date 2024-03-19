@@ -5,11 +5,19 @@
 <mapper namespace="com.cov.bloom.message.model.dao.MessageMapper">
 
     <resultMap id="messageMap" type="com.cov.bloom.message.model.dto.MessageDTO">
-        <id property="msgNo" column="msg_no"/>
-        <result property="msgDate" column="msg_day"/>
-        <result property="msgContent" column="msg_content"/>
-        <result property="senderMemberEmail" column="sender_member_email"/>
-        <result property="recipientMemberEmail" column="recipient_member_email"/>
+        <id property="msgNo" column="MAS_NO"/>
+        <result property="msgDate" column="MAS_DAY"/>
+        <result property="msgContent" column="MAS_CONTENT"/>
+        <result property="senderMemberEmail" column="SENDER_EMAIL"/>
+        <result property="recipientMemberEmail" column="RECEIVE_EMAIL"/>
+    </resultMap>
+    <resultMap id="senderMap" type="com.cov.bloom.message.model.dto.MessageDTO">
+        <id property="msgNo" column="MAS_NO"/>
+        <result property="msgDate" column="MAS_DAY"/>
+        <result property="msgContent" column="MAS_CONTENT"/>
+        <result property="senderMemberEmail" column="SENDER_EMAIL"/>
+        <result property="recipientMemberEmail" column="RECEIVE_EMAIL"/>
+        <association property="nickname" resultMap="memberMap" column="MEMBER_NICKNAME"/>
     </resultMap>
 
     <resultMap id="memberMap" type="com.cov.bloom.member.model.dto.MemberDTO">
@@ -22,13 +30,33 @@
         SELECT
         COUNT(*)
         FROM MESSAGE
-        WHERE RECIPIENT_MEMBER_EMAIL = "qwer@dddd.com"
+        WHERE RECEIVE_EMAIL = "qwer@dddd.com"
     </select>
 
-    <select id="selectMessageList" resultMap="messageMap">
-        SELECT *
-        FROM MESSAGE
-        WHERE RECIPIENT_MEMBER_EMAIL = "qwer@dddd.com"
+    <select id="sendMessageList" resultMap="messageMap">
+        SELECT M.MAS_NO,
+                M.MAS_DAY,
+                M.MAS_CONTENT,
+                M.SENDER_EMAIL,
+                M.RECEIVE_EMAIL,
+                B.MEMBER_NICKNAME
+        FROM MESSAGE M
+        JOIN MEMBER B ON (B.MEMBER_EMAIL = M.SENDER_EMAIL)
+        WHERE SENDER_EMAIL = #{ senderMemberEmail }
+
+    </select>
+
+    <select id="receiveMemberEmail" resultMap="messageMap">
+        SELECT M.MAS_NO,
+                    M.MAS_DAY,
+                    M.MAS_CONTENT,
+                    M.SENDER_EMAIL,
+                    M.RECEIVE_EMAIL,
+                    B.MEMBER_NICKNAME
+        FROM MESSAGE M
+        JOIN MEMBER B ON (B.MEMBER_EMAIL = M.RECEIVE_EMAIL)
+        WHERE RECEIVE_EMAIL = #{ receiveMemberEmail }
+
     </select>
 
     <select id="findMemberId" resultMap="memberMap" >
@@ -47,7 +75,7 @@
 
     <insert id="regiMessage" >
         INSERT INTO MESSAGE
-        (MSG_DAY,MSG_CONTENT,SENDER_MEMBER_EMAIL,RECIPIENT_MEMBER_EMAIL)
+        (MAS_DAY,MAS_CONTENT,SENDER_EMAIL,RECEIVE_EMAIL)
         VALUES (NOW(),#{ msgContent },#{ senderMemberEmail },#{ recipientMemberEmail })
 
     </insert>

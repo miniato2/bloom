@@ -27,9 +27,15 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageDTO> selectMessageList() {
-        List<MessageDTO> messageList = mapper.selectMessageList();
+    public List<MessageDTO> selectMessageList(String senderMemberEmail) {
+        List<MessageDTO> messageList = mapper.sendMessageList(senderMemberEmail);
         return messageList;
+    }
+
+    public List<MessageDTO> receiveMemberEmail(String receiveMemberEmail){
+        List<MessageDTO> receiveMessageList = mapper.receiveMemberEmail(receiveMemberEmail);
+        return receiveMessageList;
+
     }
 
     @Override
@@ -88,7 +94,9 @@ public class MessageServiceImpl implements MessageService {
     public String findMemberEmail(int allMemberNo) {
         String Email = "";
 
-        Email = mapper.findEmail(allMemberNo);
+        MemberDTO memberDTO = mapper.findEmail(allMemberNo);
+
+        Email = memberDTO.getEmail();
 
         return Email;
     }
