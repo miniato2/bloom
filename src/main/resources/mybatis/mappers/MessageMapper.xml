@@ -11,6 +11,11 @@
         <result property="senderMemberEmail" column="sender_member_email"/>
         <result property="recipientMemberEmail" column="recipient_member_email"/>
     </resultMap>
+    <resultMap id="memberMap" type="com.cov.bloom.member.model.dto.MemberDTO">
+        <id property="no" column="member_no"/>
+        <result property="email" column="member_email"/>
+        <result property="nickname" column="member_nickname"/>
+    </resultMap>
     <select id="selectTotalCount" resultType="_int" >
         SELECT
         COUNT(*)
@@ -24,4 +29,24 @@
         WHERE RECIPIENT_MEMBER_EMAIL = "qwer@dddd.com"
     </select>
 
+    <select id="findMemberId" resultMap="memberMap" >
+        SELECT MEMBER_NO , MEMBER_NICKNAME
+            FROM MEMBER
+                WHERE MEMBER_EMAIL = #{ memberEmail }
+
+    </select>
+
+    <select id="findEmail" parameterType="int" resultMap="memberMap">
+        SELECT MEMBER_EMAIL
+            FROM MEMBER
+                WHERE MEMBER_NO = #{ allMemberNo }
+    </select>
+
+
+    <insert id="regiMessage" >
+        INSERT INTO MESSAGE
+        (MSG_DAY,MSG_CONTENT,SENDER_MEMBER_EMAIL,RECIPIENT_MEMBER_EMAIL)
+        VALUES (NOW(),#{ msgContent },#{ senderMemberEmail },#{ recipientMemberEmail })
+
+    </insert>
 </mapper>

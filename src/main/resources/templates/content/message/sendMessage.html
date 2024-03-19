@@ -128,12 +128,21 @@
                 <div class="header-join">JOIN</div>
             </span>
         </div>
-    
+
+        <form id="sendMessage" action="@{/message/send}" METHOD="post">
+
         <div class="header">
             쪽지 보내기
         </div>
+        <label id="memberNo" th:text="senderMember" style="display: none" >
+        </label>
+        <label id="rememberNo" th:text="memberNo" style="display: none" >
+        </label>
+        <label id="senderNick" th:text="${senderNick}" style="display: none" >
+        </label>
         <div class="recipient">
-            받는 사람: <input type="text" id="recipientInput" placeholder="이름">
+            받는 사람: <label th:text="${rememNick}" id="recipient" placeholder="이름">
+        </label>
         </div>
         <div class="message-container">
             <div class="message">
@@ -143,6 +152,7 @@
         <div class="footer">
             <button onclick="sendMessage()">전송</button>
         </div>
+        </form>
     </div>
 
     <script>

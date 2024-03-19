@@ -86,47 +86,6 @@
                 return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
             }
 
-            // function showMessages(boxType, page) {
-            //     console.log("showMessages called with", boxType, "and page", page);
-            //
-            //     currentBoxType = boxType;
-            //     var messagesContainer = document.getElementById(boxType);
-            //     messagesContainer.innerHTML = '';
-            //
-            //     var dummyMessages = getDummyMessages(boxType);
-            //     var startIndex = (page - 1) * 5;
-            //     var endIndex = Math.min(startIndex + 5, dummyMessages.length);
-            //     var totalPages = Math.ceil(dummyMessages.length / 5);
-            //
-            //     var headerHTML = `
-            //     <div class="message">
-            //         <div class="message-details">
-            //             <p>이름</p>
-            //             <p>내용</p>
-            //             <p>날짜</p>
-            //         </div>
-            //     </div>
-            // `;
-            //     messagesContainer.insertAdjacentHTML('beforeend', headerHTML);
-            //
-            //     for (var i = startIndex; i < endIndex; i++) {
-            //         var message = dummyMessages[i];
-            //         var truncatedContent = truncateText(message.content, 10);
-            //         var messageHTML = `
-            //         <div class="message">
-            //             <div class="message-details">
-            //                 <p>${(boxType === 'inbox') ? message.sender : message.recipient}</p>
-            //                 <p>${truncatedContent}</p>
-            //                 <p>${message.date}</p>
-            //             </div>
-            //         </div>
-            //     `;
-            //         messagesContainer.insertAdjacentHTML('beforeend', messageHTML);
-            //     }
-            //
-            //     updatePageButtons(boxType, page, totalPages);
-            // }
-
             function updatePageButtons(boxType, currentPage, totalPages) {
                 console.log("updatePageButtons called with", boxType, "current page", currentPage, "total pages", totalPages);
 
@@ -158,54 +117,32 @@
             }
 
             document.addEventListener('DOMContentLoaded', function () {
-                // 메세지 끌어옴
+                // 쪽지 가져옴
                 var messageContainers = document.querySelectorAll('.message-container');
 
-                // 메세지에 클릭 이벤트 추가
+                // 쪽지에 클릭 이벤 추가
                 messageContainers.forEach(function (container) {
                     container.addEventListener('click', function () {
-                        console.log('메시지 클릭됨'); // 이벤트 확인용
-                        // 클릭한 메세지 정보
+                        console.log('메시지 클릭됨'); // 클릭 이벤트 확인 문구
+                        // 클릭 쪽지 정보 가져옴
                         var sender = container.querySelector('.sender').textContent;
                         var content = container.querySelector('.content').textContent;
 
-                        // 받은 메세지 표시하려고 넣음
+                        // 받은 쪽지 표시
                         var leadMessageContainer = document.querySelector('.lead-message-container');
                         var leadSender = leadMessageContainer.querySelector('.lead-sender');
                         var leadContent = leadMessageContainer.querySelector('.lead-content');
 
-                        // 클릭 정보 받은 쪽지에 쓰기
+                        // 클릭한 쪽지 받아서 쪽지에 쓰기
                         leadSender.textContent = sender;
                         leadContent.textContent = content;
 
-                        // 받은 메시지
+                        // 받은 쪽지 표시
                         leadMessageContainer.style.display = 'block';
                     });
                 });
             });
 
-
-            // function getDummyMessages(boxType) {
-            //     var dummyReceivedMessages = [
-            //         { sender: '크샤흐레와르 학부', content: '네 가능합니다.', date: '2024-02-29' },
-            //         { sender: '독립 디자인 공방', content: '어떠한 방식으로 인테리어를 원하시나요?', date: '2024-02-29' },
-            //         { sender: '마리아나', content: '원룸 관련 신청서로 보내주시면 확인 하겠습니다.', date: '2024-02-29' },
-            //         { sender: '지안트', content: '어떠한 특이한걸 말씀하시나요?', date: '2024-02-29' },
-            //         { sender: '스티브', content: '네 가능합니다.', date: '2024-02-29' },
-            //         { sender: '다이달로스', content: '날개가 들어간 인테리어 말씀이십니까?', date: '2024-02-29' },
-            //     ];
-            //
-            //     var dummySentMessages = [
-            //         { recipient: '봄감자', content: '한옥집 느낌 나는 스타일도 가능하신가요', date: '2024-02-29' },
-            //         { recipient: '전기맛장아찌', content: '포폴맛집 연락 드려요', date: '2024-02-29' },
-            //         { recipient: '힉힉호무리', content: '원룸 셀프 인테리어로 연락 드려요', date: '2024-02-29' },
-            //         { recipient: '구와아아악', content: '약간 특이한 인테리어도 가능하십니까?', date: '2024-02-29' },
-            //         { recipient: '탄산붐붐', content: '힙한 느낌 인테리어 가능?', date: '2024-02-29' },
-            //         { recipient: '이카로스', content: '날개를 이용한 인테리어도 가능한가요?', date: '2024-02-29' },
-            //     ];
-            //
-            //     return (boxType === 'inbox') ? dummyReceivedMessages : dummySentMessages;
-            // }
 
             document.addEventListener("DOMContentLoaded", function () {
                 showMessages('inbox', 1);
