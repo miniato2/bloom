@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -18,7 +21,15 @@
 
 </head>
 
-<body>
+<div layout:fragment="content">
+    <div class="green_title">   <!--  초록색 타이틀 -->
+        <div class="green_title_in">
+            <span class="title">마이 페이지</span>
+            <span class="vector">
+                        <img src="/img/Vector.png">
+                    </span>
+        </div>
+    </div>
 <div class="container">
     <div class="containerButton">
         <button class="Button">내 정보</button><br>
@@ -29,7 +40,7 @@
         <button class="cancelButton">회원탈퇴</button><br>
     </div>
     <div class="main">
-        <h1>주문내역</h1>
+        <h1>판매내역</h1>
         <div class="orderCon">
             <table class="orderList">
                 <thead>
@@ -43,34 +54,68 @@
                     <th scope="col" style="width: 10%">상태</th>
                 </tr>
                 </thead>
-                <tbody th:each="order:${myorder}">
+                <tbody th:each="sale:${saleList}">
                 <tr>
-                    <td>번호1</td>
+                    <td th:text="${sale.orderNo}"></td>
                     <td>
-                        <a th:href="@{/mypage/orderDetail(orderNo=${order.orderNo})}" th:text="${order.portTitle}"></a>
+                        <a th:href="@{/mypage/orderDetail(orderNo=${sale.orderNo})}" th:text="${sale.portTitle}"></a>
                     </td>
-                    <td th:text="${order.memberNick}"></td>
-                    <td th:text="${order.orderDt}"></td>
-                    <td th:text="${order.orderFinalDt}"></td>
-                    <td th:text="${order.price}"></td>
-                    <td th:text="${order.requestStatus}"></td>
+                    <td th:text="${sale.memberNick}"></td>
+                    <td th:text="${sale.orderDt}"></td>
+                    <td th:text="${sale.orderFinalDt}"></td>
+                    <td th:text="${sale.price}"></td>
+                    <td th:switch="${sale.requestStatus}">
+                        <span th:case="W">대기</span>
+                        <span th:case="P">작업중</span>
+                        <span th:case="C">취소</span>
+                        <span th:case="D">완료</span>
+                    </td>
                 </tr>
                 </tbody>
+<!--                <tbody th:each="order:${myorder}">-->
+<!--                <tr>-->
+<!--                    <td th:text="${order.orderNo}"></td>-->
+<!--                    <td>-->
+<!--                        <a th:href="@{/mypage/orderDetail(orderNo=${order.orderNo})}" th:text="${order.portTitle}"></a>-->
+<!--                    </td>-->
+<!--                    <td th:text="${order.memberNick}"></td>-->
+<!--                    <td th:text="${order.orderDt}"></td>-->
+<!--                    <td th:text="${order.orderFinalDt}"></td>-->
+<!--                    <td th:text="${order.price}"></td>-->
+<!--                    <td th:switch="${order.requestStatus}">-->
+<!--                        <span th:case="W">대기</span>-->
+<!--                        <span th:case="P">작업중</span>-->
+<!--                        <span th:case="C">취소</span>-->
+<!--                        <span th:case="D">완료</span>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
             </table>
 
             <div class="pagingArea" align="center">
 
                 <!--이전버튼-->
-                <button></button>
+                <button
+                        th:onclick="'location.href=\'/mypage/orderSalelist?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == 1}"><
+                </button>
 
                 <!--숫자버튼-->
-                <button></button>
+                <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                    <button
+                            th:text="${ page }"
+                            th:onclick="'location.href=\'/mypage/orderSalelist?currentPage='+ @{${page}} + '\''"
+                            th:disabled="${ selectCriteria.pageNo eq page }">
+                    </button>
+                </th:block>
 
                 <!--다음버튼-->
-                <button></button>
+                <button
+                        th:onclick="'location.href=\'/mypage/orderSalelist?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                        th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}">>
+                </button>
             </div>
         </div>
     </div>
 </div>
-
-</body>
+</div>

@@ -1,5 +1,6 @@
 package com.cov.bloom.mypage.model.dao;
 
+import com.cov.bloom.common.paging.SelectCriteria;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.order.model.dto.GuideFileDTO;
 import com.cov.bloom.order.model.dto.MyOrder;
@@ -22,13 +23,9 @@ public interface MypageMapper {
 
     int deleteMember(String memberName);
 
-    List<MyOrder> findAllOrderList(int memberNo); //주문내역 조회
-
     int getSales(String memberName);
 
     OrderDetailDTO getOrderDetail(int orderNo); //주문상세
-
-    List<MyOrder> findAllOrderSaleList(String portNo); //판매내역 조회
 
     void updateReqStatus(OrderDTO order); // requestStatus 업데이트
 
@@ -37,4 +34,12 @@ public interface MypageMapper {
     void purchaseConfirm(OrderDTO order);
 
     void submitGuide(OrderDTO order);
+
+    int selectTotalSale(String portNo);     //판매내역 수 조회
+
+    List<MyOrder> selectSaleList(SelectCriteria selectCriteria); //판매내역조회 (페이징)
+
+    int selectTotalOrder(int memberNo);
+
+    List<MyOrder> selectOrderList(SelectCriteria selectCriteria); //주문내역조회 (페이징)
 }

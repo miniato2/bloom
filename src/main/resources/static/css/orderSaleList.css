@@ -5,7 +5,6 @@
     font-family:  "zen old mincho" , sans-serif;
 }
 .container{
-    width: 1440px;
     display: flex;
     position: relative;
     flex-direction: row;
@@ -29,6 +28,7 @@ td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     text-align: center;
+    overflow: hidden;
 }
 th {
     padding: 10px;
@@ -43,6 +43,7 @@ th {
 
 
 .main{
+    margin-top: 50px;
     margin-left: 100px;
 }
 
@@ -57,7 +58,7 @@ h1{
     border: solid 0.1rem #a2a2a2;
     box-sizing: border-box;
     border-width: 0 0 1px;
-    width: 844px;
+    width: 950px;
 }
 p{
     margin-left: 100px;

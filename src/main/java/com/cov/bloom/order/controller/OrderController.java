@@ -25,7 +25,7 @@ public class OrderController {
 
     @GetMapping("/request")
     public String request(Model model, String portNo){
-        portNo = "1_p"; // 포폴 번호 받아와야함
+//        portNo = "1_p"; // 포폴 번호 받아와야함
 
         model.addAttribute("portNo", portNo);
 

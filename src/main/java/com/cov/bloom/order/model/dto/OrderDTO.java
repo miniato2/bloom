@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class OrderDTO implements java.io.Serializable {
     private int orderNo;         //주문번호
+    private String tid;             //결제 tid
     private Date orderDt;           //주문일시
     private Date orderFinalDt;      //작업완료일시
     private String requestCon;      //주문요구사항
@@ -16,8 +17,9 @@ public class OrderDTO implements java.io.Serializable {
     public OrderDTO() {
     }
 
-    public OrderDTO(int orderNo, Date orderDt, Date orderFinalDt, String requestCon, String requestStatus, String orderFinal, String optionNo, String portNo, int memberNo) {
+    public OrderDTO(int orderNo, String tid, Date orderDt, Date orderFinalDt, String requestCon, String requestStatus, String orderFinal, String optionNo, String portNo, int memberNo) {
         this.orderNo = orderNo;
+        this.tid = tid;
         this.orderDt = orderDt;
         this.orderFinalDt = orderFinalDt;
         this.requestCon = requestCon;
@@ -34,6 +36,14 @@ public class OrderDTO implements java.io.Serializable {
 
     public void setOrderNo(int orderNo) {
         this.orderNo = orderNo;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
     }
 
     public Date getOrderDt() {
@@ -104,6 +114,7 @@ public class OrderDTO implements java.io.Serializable {
     public String toString() {
         return "OrderDTO{" +
                 "orderNo=" + orderNo +
+                ", tid='" + tid + '\'' +
                 ", orderDt=" + orderDt +
                 ", orderFinalDt=" + orderFinalDt +
                 ", requestCon='" + requestCon + '\'' +

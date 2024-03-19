@@ -7,7 +7,7 @@ public class MyOrder implements java.io.Serializable {
     private String orderDt;          //신청일
     private String orderFinalDt;     //마감일
     private int price;               //가격
-    private String requestStatus;      //상태
+    private String requestStatus;     //상태
 
     public MyOrder() {
     }

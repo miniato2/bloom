@@ -1,8 +1,9 @@
 package com.cov.bloom.mypage.controller;
 
 import com.cov.bloom.auth.model.service.AuthService;
+import com.cov.bloom.common.paging.Pagenation;
+import com.cov.bloom.common.paging.SelectCriteria;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
-import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.member.model.service.MailService;
 
 import com.cov.bloom.mypage.model.service.MypageService;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class MypageController {
 
 
 
-    public MypageController(AuthService authService, MypageService mypageService, PasswordEncoder passwordEncoder,MailService mailService,HttpSession session){
+    public MypageController(AuthService authService, MypageService mypageService, PasswordEncoder passwordEncoder,MailService mailService, HttpSession session){
         this.authService = authService;
         this.mypageService=mypageService;
         this.passwordEncoder=passwordEncoder;
@@ -252,31 +252,61 @@ public class MypageController {
 
     //주문내역
     @GetMapping("/orderlist")
-    public String orderlist(Model model){
+    public String orderlist(@RequestParam(value = "currentPage", defaultValue = "1") int pageNo
+                            ,Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginMemberDTO member = mypageService.findByUsername(authentication.getName());
+        int memberNo = member.getNo(); //의뢰인 회원번호 member.getNo();
 
-        int memberNo = 2; //의뢰인 회원번호
-        List<MyOrder> orderlist = mypageService.findAllOrderList(memberNo);
+        //전체 목록 사이즈
+        int totalCount = mypageService.selectTotalOrder(memberNo);
 
+        //한페이지에 보여줄 내역 수
+        int limit = 10;
 
-        model.addAttribute("myorder", orderlist);
+        //한페이지에 보여줄 버튼 수
+        int buttonAmount = 3;
 
-        System.out.println("주문내역");
+        //페이징 처리에 관한 정보를 담고 있는 인스턴스
+        String searchValue = authentication.getName();
+        SelectCriteria selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount,"",searchValue);
+
+        List<MyOrder> orderList = mypageService.selectOrderList(selectCriteria);
+
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("selectCriteria", selectCriteria);
 
         return "content/mypage/orderList";
     }
 
     //판매내역
     @GetMapping("/orderSalelist")
-    public String orderSalelist(Model model){
+    public String orderSalelist(@RequestParam(value = "currentPage", defaultValue = "1") int pageNo
+                                ,Model model){
+        //현재 로그인회원 번호 조회
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginMemberDTO member = mypageService.findByUsername(authentication.getName());
 
-        int memberNo = 1; //판매자 회원번호
+        int memberNo = member.getNo(); //판매자 회원번호 member.getNo();
         String portNo = memberNo + "_p";
-        List<MyOrder> orderSalelist = mypageService.findAllOrderSaleList(portNo);
 
+        //전체 목록 사이즈
+        int totalCount = mypageService.selectTotalSale(portNo);
 
-        model.addAttribute("myorder", orderSalelist);
+        //한페이지에 보여줄 내역 수
+        int limit = 10;
 
-        System.out.println("판매내역");
+        //한페이지에 보여줄 버튼 수
+        int buttonAmount = 3;
+
+        //페이징 처리에 관한 정보를 담고 있는 인스턴스
+        String searchValue = portNo;
+        SelectCriteria selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount,"",searchValue);
+
+        List<MyOrder> saleList = mypageService.selectSaleList(selectCriteria);
+
+        model.addAttribute("saleList", saleList);
+        model.addAttribute("selectCriteria", selectCriteria);
 
         return "content/mypage/orderSaleList";
     }
@@ -288,10 +318,7 @@ public class MypageController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         LoginMemberDTO member = mypageService.findByUsername(authentication.getName());
-        System.out.println(member);
         //로그인 회원
-
-        System.out.println(orderNo); //체크
 
         //주문 정보
         OrderDetailDTO orderDetail = mypageService.getOrderDetail(orderNo);
@@ -299,7 +326,7 @@ public class MypageController {
         model.addAttribute("orderDetail", orderDetail);
 
         //판매자 페이지로 갈때는 1
-        model.addAttribute("memberNo", member);
+        model.addAttribute("memberNo", member.getNo());
 
         System.out.println(orderDetail);
         System.out.println(orderDetail.getGuideFile());
@@ -312,10 +339,6 @@ public class MypageController {
     @PostMapping("/submitGuide")
     public String submitGuide(@RequestParam("orderNo") int orderNo,
                               @RequestParam("guide")MultipartFile multipartFile){
-
-        System.out.println("체크");
-        System.out.println(orderNo);
-        System.out.println(multipartFile);
 
         OrderDTO order = new OrderDTO();
 

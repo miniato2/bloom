@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +11,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/request.css}">
+    <script th:src="@{/js/request.js}"></script>
 
 </head>
-<body>
-<script th:src="@{/js/request.js}"></script>
+<div layout:fragment="content">
+
 <div class="request">
 
     <header class="header">
@@ -115,8 +119,8 @@
                     </div>
                 </div>
                 <div class="notice">
-                    <a href="">결제 전 안내사항</a>
-                    <a href="">개인정보 제3자 제공</a>
+                    <a th:href="@{/main}" target="_blank">결제 전 안내사항</a>
+                    <a th:href="@{/main}" target="_blank">개인정보 제3자 제공</a>
                 </div>
                 <div class="accept">
                     <p>위 내용을 확인하였고, 결제에 동의합니다.</p>
@@ -136,5 +140,4 @@
 
 
 </div>
-</body>
-</html>
+</div>

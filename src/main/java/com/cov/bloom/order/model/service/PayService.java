@@ -1,5 +1,6 @@
 package com.cov.bloom.order.model.service;
 
+import com.cov.bloom.mypage.model.dao.MypageMapper;
 import com.cov.bloom.order.model.dao.OrderDAO;
 import com.cov.bloom.order.model.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,26 +11,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class PayService {
 
-
     private RestTemplate restTemplate;
     private ReadyResponse readyResponse;
+    private CancelResponse cancelReponse;
 
     private OrderDAO orderDAO;
+    private MypageMapper mypageMapper;
 
     private final String cid = "TC0ONETIME";
     private final String key = "DEVFEA509038BE8883CA03AEF9B404496B5E685F";
 
-    public PayService (OrderDAO orderDAO){
+    public PayService (OrderDAO orderDAO, MypageMapper mypageMapper){
         this.orderDAO = orderDAO;
+        this.mypageMapper = mypageMapper;
         this.restTemplate = new RestTemplate();
         this.readyResponse = new ReadyResponse();
+        this.cancelReponse = new CancelResponse();
 
     }
 
@@ -99,37 +102,59 @@ public class PayService {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(body, getHeaders());
 
-        System.out.println(requestEntity);
-
         ApproveResponse approveResponse = restTemplate.postForObject(
                 "https://open-api.kakaopay.com/online/v1/payment/approve"
                 ,requestEntity
                 ,ApproveResponse.class
         );
 
-        System.out.println(approveResponse);
-
         return approveResponse;
     }
 
     @Transactional
     public void registOrder(OrderDTO order, List<RequestFileDTO> files) {
-        System.out.println("서비스 order 체크");
-        System.out.println(order);
-        int result = orderDAO.registOrder(order); //주문 등록
-
-        int result2 = orderDAO.registOrderFile(files); //파일 저장
-
-
-        if(result > 0 && result2 >0){
-            System.out.println("성공");
-        }else{
-            System.out.println("실패");
-        }
-
+        orderDAO.registOrder(order); //주문 등록
+        orderDAO.registOrderFile(files); //파일 저장
     }
 
     public int checkOrderNo() {
         return orderDAO.checkOrderNo();
     }
+
+    //결제 취소
+    @Transactional
+    public void cancelPay(OrderDTO order) {
+
+        Map<String, Object> orderInfo = orderDAO.selectOrder(order.getOrderNo()); //주문번호로 정보조회
+
+        Map<String, Object> parameter = new LinkedHashMap<>();
+        parameter.put("cid", this.cid);
+        parameter.put("tid", orderInfo.get("order_tid"));
+        parameter.put("cancel_amount", orderInfo.get("option_price"));
+        parameter.put("cancel_tax_free_amount", 0);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        String body = null;
+        try {
+            body = mapper.writeValueAsString(parameter);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(body, getHeaders());
+
+        cancelReponse = restTemplate.postForObject(
+                "https://open-api.kakaopay.com/online/v1/payment/cancel"
+                ,requestEntity
+                ,CancelResponse.class
+        );
+
+        if(cancelReponse != null){
+            order.setRequestStatus("C");
+            mypageMapper.updateReqStatus(order); //주문 상태 C (cancel)로 업데이트
+        }
+    }
+
+
 }

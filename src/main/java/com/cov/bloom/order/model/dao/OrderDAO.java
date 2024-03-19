@@ -13,11 +13,12 @@ public interface OrderDAO {
 
     int checkOrderNo();
 
-    int registOrder(OrderDTO order);
+    void registOrder(OrderDTO order);
 
     OptionDTO getOption(String optionNo);
 
-    int registOrderFile(List<RequestFileDTO> files);
+    void registOrderFile(List<RequestFileDTO> files);
 
 
+    Map<String, Object> selectOrder(int orderNo);
 }
