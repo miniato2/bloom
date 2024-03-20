@@ -27,7 +27,10 @@ public class PayController {
     @Value("${image.image-dir}")
     private String IMAGE_DIR;
 
-    @Value("${spring.servlet.multipart.location}")
+//    @Value("${spring.servlet.multipart.location}")
+//    private String ROOT_LOCATION;
+
+    @Value("C:/bloom/")
     private String ROOT_LOCATION;
 
     private final PayService payservice;
