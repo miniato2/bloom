@@ -50,12 +50,12 @@
           <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
             </div>
 
-<!--            <div sec:authorize="hasAnyAuthority('c')">-->
+            <div sec:authorize="hasAnyAuthority('c')">
                 <button class="Button">내 정보</button><br>
                 <button class="Button" th:onclick="|location.href='@{/mypage/orderlist}'|">주문내역</button><br>
                 <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
                 <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
-<!--            </div>-->
+            </div>
 
         </div>
         <div class="main">
