@@ -41,7 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("auth/login","/","main","member/*","/member/*","/member/*",
-                    "/portfolio/regist","/img/**","/notice/*").permitAll();
+                    "/portfolio/regist","/img/**","/notice/*","/auth/fail","/portfolio/detail").permitAll();
             auth.requestMatchers("/auth/*","/mypage/*").hasAnyAuthority(MemberRole.c.getRole(),MemberRole.s.getRole(),MemberRole.m.getRole());
          
 
@@ -52,7 +52,7 @@ public class SecurityConfig {
             login.loginPage("/auth/login");
             login.usernameParameter("email");
             login.passwordParameter("password");
-            login.defaultSuccessUrl("/auth/success",true);
+            login.defaultSuccessUrl("/main",true);
             login.failureHandler(authFailHandler);
 
 
@@ -60,7 +60,7 @@ public class SecurityConfig {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"));
             logout.deleteCookies("JSEESIONID");
             logout.invalidateHttpSession(true);
-            logout.logoutSuccessUrl("/main");
+            logout.logoutSuccessUrl("/auth/login");
 
         }).sessionManagement(session ->{
             session.maximumSessions(1);

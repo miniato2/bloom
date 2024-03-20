@@ -45,7 +45,7 @@
         <p class="title">이메일</p><br>
 
         <input type="text" class="textbox" id="email" placeholder="이메일을 입력해주세요">
-        <hr/>
+
         <button class="sendButton" onclick="sendEmail()">인증번호 발송</button><br>
 
 
@@ -53,7 +53,7 @@
     <p class="title">인증번호</p><br>
         <form th:action="@{/member/verifyPW1}" method="post">
     <input type="text" class="textbox" name= "code" placeholder="인증번호를 입력해주세요">
-    <hr/>
+
     <br>
     <button class="findButton" >인증하기</button>
         </form>

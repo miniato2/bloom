@@ -73,8 +73,6 @@ public class MessageController {
         mv.addObject("selectCriteria",selectCriteria);
         mv.setViewName("content/message/readMessage");
 
-        System.out.println("controller 나감 ");
-
         return mv;
     }
 

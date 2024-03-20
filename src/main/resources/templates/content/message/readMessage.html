@@ -60,12 +60,13 @@
                             <th>날짜</th>
                         </tr>
 
-                        <tr th:each="message : ${ messageDTOList }" class="message-row">
-                            <td th:text="${ message.readMessageDTOList}"></td>
+                        <tr th:each="message : ${messageDTOList}" class="message-row">
+                            <td th:text="${message.senderMemberEmail}"></td>
                             <td th:text="${message.msgContent}"></td>
                             <td th:text="${message.msgDate}"></td>
                         </tr>
                     </table>
+
 
 
 
