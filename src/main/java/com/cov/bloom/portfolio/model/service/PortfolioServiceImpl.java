@@ -1,8 +1,6 @@
 package com.cov.bloom.portfolio.model.service;
 
-import com.cov.bloom.common.exception.OptionRegistException;
-import com.cov.bloom.common.exception.PortfolioRegistException;
-import com.cov.bloom.common.exception.ThumbnailRegistException;
+import com.cov.bloom.common.exception.*;
 import com.cov.bloom.common.paging.SelectCriteria;
 import com.cov.bloom.member.model.dto.MemberDTO;
 import com.cov.bloom.portfolio.model.dao.PortfolioMapper;
@@ -63,12 +61,11 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
 
-    /* 사진 등록 */
+    /* 포트폴리오 & 사진 등록 */
     @Override
     @Transactional
     public void registThumbnail(PortfolioDTO thumbnail) throws ThumbnailRegistException {
         System.out.println("***** PortfolioServiceImpl : registThumbnail 들어왔대요");
-        int result = 0;
 
         // 포트폴리오 등록
         int boardResult = mapper.insertPortfolio(thumbnail);
@@ -95,17 +92,6 @@ public class PortfolioServiceImpl implements PortfolioService {
         }
     }
 
-    /* 포트폴리오 등록 */
-    @Override
-    @Transactional
-    public void registPortfolio(PortfolioDTO portfolio) throws PortfolioRegistException {
-        int result = mapper.insertPortfolio(portfolio);
-
-        if(!(result >0)){
-
-            throw new PortfolioRegistException("게시글 등록에 실패하였습니다.");
-        }
-    }
 
     /* 옵션 등록 */
     @Override
@@ -125,6 +111,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     }
 
+    /* 포트폴리오넘버 조회 */
     @Override
     public PortfolioDTO findPortnoByMemberNo(String memberNo) {
 
@@ -136,7 +123,115 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     }
 
+    /* 기존 파일 지우기 */
+    @Override
+    @Transactional
+    public boolean deleteByFileNo(String fileNo) throws FileDeleteException {
+        int result = 0;
 
+        result = mapper.deleteByFileNo(fileNo);
+
+        if(!(result > 0)){
+            throw new FileDeleteException("파일 삭제에 실패했습니다.");
+
+        }
+
+        return result > 0 ? true : false;
+    }
+
+    /* 파일번호로 파일 정보 불러오기 */
+    @Override
+    public AttachmentDTO getFileInfo(String fileNo) {
+        AttachmentDTO attachmentDTO = mapper.getFileInfo(fileNo);
+
+        return attachmentDTO;
+    }
+
+    /* 포트폴리오 수정 */
+    @Override
+    @Transactional
+    public void updatePortfolio(PortfolioDTO portfolio) throws ThumbnailRegistException {
+        System.out.println("***** PortfolioServiceImpl : updatePortfolio 들어왔대요");
+        int result = 0;
+
+        // 포트폴리오 수정
+        int boardResult = mapper.updatePortfolio(portfolio);
+        System.out.println("***** mapper.updatePortfolio 다녀왔대요");
+
+
+        // 파일 등록
+        List<AttachmentDTO> attachmentList = portfolio.getAttachmentDTOList();
+
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentList.get(i).setRefPortNo(portfolio.getPortNo());
+        }
+
+        int attachmentResult = 0;
+        for(int i = 0; i < attachmentList.size(); i++){
+            attachmentResult += mapper.insertAttachment(attachmentList.get(i));
+        }
+        System.out.println("***** mapper.insertAttachment 다녀왔대요");
+
+
+        if(!(boardResult > 0 && attachmentResult == attachmentList.size())) {
+            throw new ThumbnailRegistException("포트폴리오 등록에 실패하였습니다.");
+        }
+
+
+    }
+
+    /* 옵션 수정 */
+    @Override
+    @Transactional
+    public void updateOption(List<OptionDTO> optionDTOList) throws OptionRegistException {
+        int registOptionResult = 0;
+
+        for(int i = 0; i < optionDTOList.size(); i++){
+
+            registOptionResult += mapper.updateOption(optionDTOList.get(i));
+        }
+        System.out.println("***** mapper.updateOption 다녀왔대요");
+
+        if(registOptionResult != optionDTOList.size()){
+            throw new OptionRegistException("옵션 등록에 실패하였습니다.");
+        }
+    }
+
+    /* 포트폴리오번호로 기존 파일 목록 조회  */
+    @Override
+    public List<AttachmentDTO> getOriginalfile(String portNo) {
+        List<AttachmentDTO> attachmentDTOList = mapper.getOriginalfiles(portNo);
+
+
+        return attachmentDTOList;
+    }
+
+    /* 포트폴리오 삭제 */
+    @Override
+    @Transactional
+    public void deletePortfolio(String portNo) throws DeletePortfolioException {
+        int portresult = 0;
+        int fileresult = 0;
+        int optionresult = 0;
+
+        //파일 삭제
+        fileresult = mapper.deleteFiles(portNo);
+        System.out.println("파일 삭제 : " + fileresult);
+
+        //옵션 삭제
+        optionresult = mapper.deleteOptions(portNo);
+        System.out.println("옵션 삭제 : " + optionresult);
+
+
+        //포트폴리오 삭제
+        portresult = mapper.deletePortfolio(portNo);
+        System.out.println("포트폴리오 삭제 : " + portresult);
+
+
+        if(!(portresult > 0 && fileresult > 0 && optionresult > 0)){
+            throw new DeletePortfolioException("포트폴리오 삭제에 실패했습니다.");
+        }
+    }
 
 
 }

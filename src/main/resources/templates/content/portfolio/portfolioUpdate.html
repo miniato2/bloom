@@ -60,14 +60,8 @@
                                         <div class="selecting_photo">
                                             <div class="selecting_photo_two">
 
-                                                <input type="file" class="photo_select" id="file1" name="file1" accept="image/*" onchange="previewFile(1)">
-                                                <!-- 기존 파일 정보 가져오기 -->
-                                                <label id="oriFileNo1" name="oriFileNo1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFileNo()}" style="display : none"></label>
-                                                <label id="oriFileName1" name="oriFileName1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFileName()}" style="display : none"></label>
-                                                <label id="oriFilePath1" name="oriFilePath1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFilePath()}" style="display : none"></label>
-                                                <label id="oriFileThumbnailPath1" name="oriFileThumbnailPath1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getThumbnailPath()}" style="display: none"></label>
-                                                <label id="oriFileType1" name="oriFileType1" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}" th:text="${portfolio.attachmentDTOList.get(0).getFileType()}" style="display: none"></label>
-                                                <!-- 사진 입력 -->
+                                                <input type="file" class="photo_select" id="file1" th:name="${portfolio.portNo}+'_FILE_0'" accept="image/*" onchange="previewFile(1)">
+                                                  <!-- 사진 입력 -->
                                                 <div class="thumbnail">
                                                     <label class="selected_photobox" id="testLabel1" onclick="beforePreviewFile(1)">
                                                             <img class="small_photo" src='/img/photo_select_img.png' id="test1" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null  }">
@@ -79,15 +73,8 @@
                                                 </div>
 
 
-                                                <input type="file" class="photo_select" id="file2" name="file2" accept="image/*" onchange="previewFile(2)">
-                                                <!-- 기존 파일 정보 가져오기-->
-                                                <label id="oriFileNo2" name="oriFileNo2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFileNo()}" style="display : none"></label>
-                                                <label id="oriFileName2" name="oriFileName2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFileName()}" style="display : none"></label>
-                                                <label id="oriFilePath2" name="oriFilePath2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFilePath()}" style="display : none"></label>
-                                                <label id="oriFileThumbnailPath2" name="oriFileThumbnailPath2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getThumbnailPath()}" style="display: none"></label>
-                                                <label id="oriFileType2" name="oriFileType2" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null}" th:text="${portfolio.attachmentDTOList.get(1).getFileType()}" style="display: none"></label>
-
-                                                <!-- 사진 입력 -->
+                                                <input type="file" class="photo_select" id="file2" th:name="${portfolio.portNo}+'_FILE_1'" accept="image/*" onchange="previewFile(2)">
+                                                 <!-- 사진 입력 -->
                                                 <label class="selected_photobox" onclick="beforePreviewFile(2)" id="testLabel2">
                                                     <img class="small_photo" src='/img/photo_select_img.png' id="test2" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null  }">
                                                     <img class="small_photo"  id="updatetest2" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[1].getThumbnailPath()}|}" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 2 or portfolio.attachmentDTOList[1] == null  }"
@@ -97,14 +84,7 @@
 
                                             </div>
                                             <div class="selecting_photo_two">
-                                                <input type="file" class="photo_select" id="file3" name="file3" accept="image/*" onchange="previewFile(3)">
-                                                <!-- 기존 파일 정보 가져오기-->
-                                                <label id="oriFileNo3" name="oriFileNo3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFileNo()}" style="display : none"></label>
-                                                <label id="oriFileName3" name="oriFileName3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFileName()}" style="display : none"></label>
-                                                <label id="oriFilePath3" name="oriFilePath3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFilePath()}" style="display : none"></label>
-                                                <label id="oriFileThumbnailPath3" name="oriFileThumbnailPath3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getThumbnailPath()}" style="display: none"></label>
-                                                <label id="oriFileType3" name="oriFileType3" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null}" th:text="${portfolio.attachmentDTOList.get(2).getFileType()}" style="display: none"></label>
-
+                                                <input type="file" class="photo_select" id="file3" th:name="${portfolio.portNo}+'_FILE_2'" accept="image/*" onchange="previewFile(3)">
                                                 <!-- 사진 입력 -->
                                                 <label class="selected_photobox" onclick="beforePreviewFile(3)" id="testLabel3">
                                                     <img class="small_photo" src='/img/photo_select_img.png' id="test3" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 3 or portfolio.attachmentDTOList[2] == null  }">
@@ -114,15 +94,8 @@
                                                 </label>
 
 
-                                                <input type="file" class="photo_select" id="file4" name="file4" accept="image/*" onchange="previewFile(4)">
-                                                <!-- 기존 파일 정보 가져오기-->
-                                                <label id="oriFileNo4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFileNo()}" style="display : none"></label>
-                                                <label id="oriFileName4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFileName()}" style="display : none"></label>
-                                                <label id="oriFilePath4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFilePath()}" style="display : none"></label>
-                                                <label id="oriFileThumbnailPath4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getThumbnailPath()}" style="display: none"></label>
-                                                <label id="oriFileType4" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList)  or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null}" th:text="${portfolio.attachmentDTOList.get(3).getFileType()}" style="display: none"></label>
-
-                                                <!-- 사진 입력 -->
+                                                <input type="file" class="photo_select" id="file4" th:name="${portfolio.portNo}+'_FILE_3'" accept="image/*" onchange="previewFile(4)">
+                                               <!-- 사진 입력 -->
                                                 <label class="selected_photobox" onclick="beforePreviewFile(4)" id="testLabel4">
                                                     <img class="small_photo" src='/img/photo_select_img.png' id="test4" th:if="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null  }">
                                                     <img class="small_photo" id="updatetest4" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[3].getThumbnailPath()}|}" th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 4 or portfolio.attachmentDTOList[3] == null  }"
@@ -219,8 +192,10 @@
                                 function photoDelete(){
 
                                     if(confirm("사진을 전체 삭제하시겠습니까?")==true) {
+                                        const portNo = document.querySelector('input[name="portNo"]').value;
                                         const inputPhoto = document.querySelectorAll('.photo_select');
                                         const previewPhoto = document.querySelectorAll('.selected_photobox');
+                                        deleteAllPhotos(portNo);
 
                                         inputPhoto.forEach( item => {
                                             item.value = '';
@@ -232,12 +207,26 @@
                                             image.removeAttribute('srcset');
 
                                         })
+
+
                                     }
                                     else{
                                         return false;
                                     }
 
 
+                                };
+                                function deleteAllPhotos(portNo){
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("DELETE", "/portfolio/deletePhoto?portNo=" + portNo, true);
+                                    xhr.onreadystatechange =  function(){
+                                        if(xhr.readyState === 4 && xhr.status === 200){
+                                            alert("모든 사진이 삭제되었습니다.");
+                                        }else if(xhr.readyState === 4 && xhr.status !== 200){
+                                            alert("사진 삭제 중 오류가 발생했습니다.");
+                                        }
+                                    };
+                                    xhr.send();
                                 }
 
 

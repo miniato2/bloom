@@ -191,6 +191,9 @@ tr:not(:last-child) td{
     justify-content: center;
     
 }
+.optionInfo{
+    line-height: 1.2;
+}
 .price_purchase button{
     margin-top : 30px;
     width : 100%;
@@ -216,7 +219,7 @@ tr:not(:last-child) td{
 .review_title{
     display : flex;
     justify-content : left;
-    align-items: left;
+    /*align-items: left;*/
     gap : 30px;
 }
 .porftfolio_bottom_starpoint {
@@ -420,6 +423,10 @@ tr:not(:last-child) td{
     background-color: white;
     padding-left : 30px; 
     padding-right : 30px;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     
 }
 .portfolio_small_info{
@@ -449,6 +456,7 @@ tr:not(:last-child) td{
     border-right : 1px solid #C9C9C9;
     flex : 1;
     width:250px;
+    padding : 0px 10px;
 }
 
 .callable_time_detail{
@@ -456,6 +464,7 @@ tr:not(:last-child) td{
     text-align: center;
     overflow-wrap: break-word;
     /* margin-right : 10px; */
+    padding : 10px;
 
 }
 .callable_time_title{
@@ -499,11 +508,13 @@ tr:not(:last-child) td{
     margin-bottom : 20px;
 }
 .seller_intro_content{
-    width : auto;
+    width : 350px;
     font-size : 13px;
     color : #929292;
     min-height : 300px;
+
 }
+
 .purchase_message_btn{
     text-align: center;
     justify-content: center;
@@ -520,7 +531,7 @@ tr:not(:last-child) td{
     margin-bottom : 10px;
 }
 
-.purchase_btn a{
+.purchase_btn a, .message_btn a{
     color : white;
     text-decoration: none;
 }

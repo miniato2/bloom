@@ -109,6 +109,9 @@
                     FROM PORT_OPTION O
                     GROUP BY PORT_NO) MIN_O ON(MIN_O.PORT_NO = P.PORT_NO)
         WHERE F.FILE_TYPE = 'TITLE'
+        <if test="searchValue != null and searchValue != ''">
+            AND P.PORT_TITLE LIKE CONCAT('%', #{ searchValue } , '%')
+        </if>
         <if test="sort == 'latest_regist'">
             ORDER BY P.WRITE_DT DESC
         </if>
@@ -155,6 +158,7 @@
                         , PORT_NO
                         , FILE_PATH
                         , FILE_NAME
+                        , FILE_SAVED_NAME
                         , FILE_TYPE
                         , THUMB_PATH
         )
@@ -163,6 +167,7 @@
                 , #{ refPortNo }
                 , #{ filePath }
                 , #{ fileName }
+                , #{ fileSavedName }
                 , #{ fileType }
                 , #{ thumbnailPath }
         )
@@ -235,6 +240,78 @@
         WHERE MEMBER_NO = #{ memberNo }
     </select>
 
+    <select id="getOriginalfiles" parameterType="string" resultMap="attachmentResultMap">
+        SELECT F.FILE_NO
+                , F.FILE_PATH
+                , F.FILE_NAME
+                , F.PORT_NO
+                , F.FILE_TYPE
+                , F.THUMB_PATH
+        FROM PORT_FILE F
+        JOIN PORTFOLIO P ON (F.PORT_NO = P.PORT_NO)
+        WHERE F.PORT_NO = #{ portNo }
+
+    </select>
+
+    <delete id="deleteByFileNo" parameterType="string" >
+        DELETE
+        FROM PORT_FILE
+        WHERE FILE_NO = #{ fileNo }
+    </delete>
+
+    <select id="getFileInfo" parameterType="string" resultMap="attachmentResultMap">
+        SELECT FILE_NO
+                ,FILE_PATH
+                ,FILE_NAME
+                ,PORT_NO
+                ,FILE_TYPE
+                ,THUMB_PATH
+        FROM PORT_FILE
+        WHERE FILE_NO = #{ fileNo }
+    </select>
+
+
+
+    <update id="updatePortfolio" parameterType="com.cov.bloom.portfolio.model.dto.PortfolioDTO">
+        UPDATE PORTFOLIO
+        SET PORT_TITLE = #{ portTitle }
+            , PORT_CON = #{ portCon }
+            , PORT_CONTACTDT = #{ portContactDt }
+            , MEMBER_INFO = #{ memberInfo }
+        WHERE PORT_NO = #{ portNo }
+
+    </update>
+
+    <update id="">
+
+    </update>
+
+    <update id="updateOption" parameterType="com.cov.bloom.portfolio.model.dto.OptionDTO">
+        UPDATE PORT_OPTION
+        SET OPTION_PRICE = #{ optionPrice }
+            , OPTION_INFO = #{ optionInfo }
+            , OPTION_FIX = #{ optionFix }
+            , OPTION_DT = #{ optionDt }
+        WHERE OPTION_NO = #{ optionNo }
+    </update>
+
+    <delete id="deletePortfolio" parameterType="string">
+        DELETE
+        FROM PORTFOLIO
+        WHERE PORT_NO = #{ portNo }
+    </delete>
+
+    <delete id="deleteFiles" parameterType="string">
+        DELETE
+        FROM PORT_FILE
+        WHERE PORT_NO = #{ portNo }
+    </delete>
+
+    <delete id="deleteOptions">
+        DELETE
+        FROM PORT_OPTION
+        WHERE PORT_NO = #{ portNo }
+    </delete>
 
 
 </mapper>

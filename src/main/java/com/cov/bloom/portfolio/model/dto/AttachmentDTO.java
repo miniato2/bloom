@@ -5,6 +5,7 @@ public class AttachmentDTO {
     private String fileNo;       // 파일번호       / DB : file_no
     private String filePath;    // 파일경로     / DB : file_path
     private String fileName;    // 원본 파일 이름     / DB : file_name
+    private String fileSavedName; // 저장 파일 이름       / DB : file_saved_name
     private String refPortNo;      // 포트폴리오 번호     / DB : port_no
     private String fileType;    // 파일 타입 (TITLE / CONTENT)  / DB : file_type
     private String thumbnailPath; // 썸네일 경로     / DB : thumb_path
@@ -13,14 +14,17 @@ public class AttachmentDTO {
     public AttachmentDTO() {
     }
 
-    public AttachmentDTO(String fileNo, String refPortNo, String fileName, String filePath, String fileType, String thumbnailPath) {
+    public AttachmentDTO(String fileNo, String filePath, String fileName, String fileSavedName, String refPortNo, String fileType, String thumbnailPath) {
         this.fileNo = fileNo;
-        this.refPortNo = refPortNo;
-        this.fileName = fileName;
         this.filePath = filePath;
+        this.fileName = fileName;
+        this.fileSavedName = fileSavedName;
+        this.refPortNo = refPortNo;
         this.fileType = fileType;
         this.thumbnailPath = thumbnailPath;
     }
+
+
 
     public String getFileNo() {
         return fileNo;
@@ -44,6 +48,13 @@ public class AttachmentDTO {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+    public String getFileSavedName() {
+        return fileSavedName;
+    }
+
+    public void setFileSavedName(String fileSavedName) {
+        this.fileSavedName = fileSavedName;
     }
 
     public String getFilePath() {
@@ -73,10 +84,11 @@ public class AttachmentDTO {
     @Override
     public String toString() {
         return "AttachmentDTO{" +
-                "fileNo=" + fileNo +
-                ", refPortNo=" + refPortNo +
-                ", fileName='" + fileName + '\'' +
+                "fileNo='" + fileNo + '\'' +
                 ", filePath='" + filePath + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", fileSavedName='" + fileSavedName + '\'' +
+                ", refPortNo='" + refPortNo + '\'' +
                 ", fileType='" + fileType + '\'' +
                 ", thumbnailPath='" + thumbnailPath + '\'' +
                 '}';
