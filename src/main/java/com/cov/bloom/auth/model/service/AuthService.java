@@ -4,6 +4,7 @@ import com.cov.bloom.auth.model.AuthDetails;
 import com.cov.bloom.member.model.dto.LoginMemberDTO;
 import com.cov.bloom.member.model.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,11 +29,7 @@ public class AuthService implements UserDetailsService {
 
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");
 
-        }else if(login.getStatus() == 'y'){
-            throw new UsernameNotFoundException("탈퇴한 회원입니다");
         }
-
-
 
         return new AuthDetails(login);
     }

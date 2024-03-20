@@ -20,12 +20,17 @@ h1{
   border-width: 0 0 1px;
   width: 844px;
 }
-p{
-  margin-left: 100px;
+.mypageTitle{
+  margin-left: 250px;
   color: #878787;
 }
 .content{
   margin-left: 400px;
+  border-width: 0 0 0px;
+  text-align: center;
+  background-color: transparent;
+  font-size: 15px;
+
   
   
   
@@ -65,10 +70,11 @@ outline: none;
 cursor: pointer;
 }
 .modify{
-  border-color: #F5D14F;
+  border-color: transparent;
   width: 55px;
   font-weight: 600;
   background-color: #F5D14F;
+  border-radius: 2rem;
 }
 hr {
   margin-left: 275px;
@@ -79,3 +85,38 @@ hr {
 
 }
 
+.Title{
+  margin-top: 40px;
+  margin-left: 100px;
+
+
+}
+
+.textbox{
+
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2575;
+  font-family: "Noto Sans KR", 'Source Sans Pro';
+  border: solid 0.1rem #9d9d9d;
+  border-width: 0 0 1px;
+  overflow: hidden;
+
+}
+
+.verifyButton{
+
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  font-family: Noto Sans KR, 'Source Sans Pro';
+  background-color: #25422a;
+  border-radius: 2rem;
+  border-color: transparent;
+}
+.result{
+  margin-left: 550px;
+  color: #878787;
+}
