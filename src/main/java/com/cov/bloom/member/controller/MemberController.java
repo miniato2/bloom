@@ -56,7 +56,7 @@ public class MemberController {
     @PostMapping("/duplicationEmail")
     @ResponseBody
     public Map<String, Object> duplication(@RequestParam("email") String email){
-        System.out.println(email);
+
 
         Map<String, Object> duplResult = new HashMap<>();
 
@@ -92,7 +92,7 @@ public class MemberController {
     public Map<String, Object> verify(String code){
 
         Map<String, Object> result = new HashMap<>();
-        System.out.println("전달된 코드는 "+code + " 입니다.");
+
         String sessionAuthCode = (String) session.getAttribute("authCode");
 
 
@@ -129,13 +129,11 @@ public class MemberController {
     public ModelAndView findID(ModelAndView mv,String name, String phone){
 
 
-        System.out.println(name);
-        System.out.println(phone);
+
 
         String resultID = memberService.findID(name,phone);
 
-        System.out.println(resultID);
-        System.out.println(resultID == null);
+
 
         if(resultID == null){
 
@@ -161,7 +159,7 @@ public class MemberController {
     @PostMapping("/findPWEmail")
     @ResponseBody
     public Map<String, Object> findPWEmail(@RequestParam("email") String email){
-        System.out.println(email);
+
         session.setAttribute("findPWEmail",email);
 
         Map<String, Object> Result = new HashMap<>();
@@ -185,10 +183,10 @@ public class MemberController {
     public ModelAndView verifyPW1(ModelAndView mv, String code){
 
 
-        System.out.println("전달된 코드는 "+ code + " 입니다.");
+
         createAuthCode();
         String sessionAuthCode = (String) session.getAttribute("authCode");
-        System.out.println("저장된 인증 코드는" + sessionAuthCode + "입니다.");
+
 
 
 
@@ -214,13 +212,12 @@ public class MemberController {
 
 
 
-        System.out.println("입력받은 비밀번호" + pw);
 
 
 
         String encpw =  passwordEncoder.encode(pw);
 
-        System.out.println(encpw);
+
 
         String memberName = (String)session.getAttribute("findPWEmail");
 

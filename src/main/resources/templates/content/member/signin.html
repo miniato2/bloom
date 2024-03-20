@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet"  th:href="@{/css/bloomSignIn.css}"/>
     <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
+    <link rel="stylesheet" th:href="@{/css/signinModal1.css}"/>
 
     <script th:src="@{/js/signin.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -46,7 +47,7 @@
 
 
 
-        <p class="emailTitle">이메일 입력</p>
+        <p class="Title">이메일 입력</p>
         <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요">
         <br>
         <button type="button"  onclick="duplEmail()">인증번호 발송</button>
@@ -62,24 +63,24 @@
 
 <!--        <button onclick="validateEmail()">이메일유효성</button>-->
 
-        <p>비밀번호</p>
+        <p class="Title">비밀번호</p>
         <input type="password" id="pw" name="password" placeholder="영문자,숫자 12~15자" oninput="validatePW()">
-        <div id="pwResult"></div>
+        <div id="pwResult" class="result"></div>
 
-        <p>비밀번호 확인</p>
+        <p class="Title">비밀번호 확인</p>
         <input type="password" id="pw2"  name="password2" placeholder="한번더 입력해주세요" oninput="validatePW2()">
-        <div id="pw2Result"></div>
+        <div id="pw2Result" class="result"></div>
 
-        <p>이름</p>
+        <p class="Title">이름</p>
         <input type="text" id="name" name="name" placeholder="한글,영문자 2~20자" oninput="validateName()">
-        <div id="nameResult"></div>
+        <div id="nameResult" class="result"></div>
 
-        <p>닉네임</p>
+        <p class="Title">닉네임</p>
         <input type="text" id="nickname" name="nickname" placeholder="한글,영문자,숫자 3~20자" oninput="validateNickname()">
-        <div id="nicknameResult"></div>
-        <p>전화번호</p>
+        <div id="nicknameResult" class="result"></div>
+        <p class="Title">전화번호</p>
         <input type="text" id="phone" name="phone" placeholder=" ' - ' 를빼고 입력하세요" oninput="validatePhone()">
-        <div id="phoneResult"></div>
+        <div id="phoneResult" class="result"></div>
 
     </div>
 
@@ -95,20 +96,55 @@
             <label for="ageLimit">만 14세 이상입니다.<a style="color: red;">(필수)</a></label>
         </div>
 
-
-
         <div>
             <input type="checkbox" id="serviceAgreement" name="serviceAgreement" onclick="service()"/>
             <label for="serviceAgreement">서비스 이용약관에 동의합니다.<a style="color: red;">(필수)</a></label>
+            <a class="modify" id="modalBtn" type="button" >보기</a>
         </div>
 
         <div>
             <input type="checkbox" id="privateInfoAgreement" name="privateInfoAgreement" onclick="privateInfo()"/>
             <label for="privateInfoAgreement">개인정보 수집/이용에 동의합니다. <a style="color: red;">(필수)</a></label>
+            <a class="modify" id="modalBtn2" >보기</a>
+
         </div>
     </fieldset>
-        <input type="submit" id="signinButton" class="submitButton" value="가입하기" disabled>
+        <button type="submit" id="signinButton" class="submitButton"  disabled>가입하기</button>
     </form>
+
+
+
+
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeBtn">&times;</span>
+
+              <p class="modal-body">
+                <div th:replace="~{content/member/agreement.html}"></div>
+              </p>
+
+
+            </div>
+        </div>
+
+
+    <div id="myModal2" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeBtn2">&times;</span>
+
+            <p class="modal-body">
+            <div th:replace="~{content/member/agreement2.html}"></div>
+            </p>
+
+
+        </div>
+    </div>
+
+
+
+
+
 
 </div>
 </div>

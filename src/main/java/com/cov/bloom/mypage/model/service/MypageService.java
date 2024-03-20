@@ -84,6 +84,14 @@ public class MypageService {
         return result;
     }
 
+    @Transactional
+    public int changeCustomer(String memberName) {
+
+       int result =  mypageMapper.changeCustomer(memberName);
+
+       return result;
+    }
+
     //주문상세
     @Transactional
     public OrderDetailDTO getOrderDetail(int orderNo) {
@@ -162,4 +170,6 @@ public class MypageService {
     public List<MyOrder> selectOrderList(SelectCriteria selectCriteria) {
         return mypageMapper.selectOrderList(selectCriteria);
     }
+
+
 }

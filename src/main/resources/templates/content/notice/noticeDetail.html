@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700" />
-    <link rel="stylesheet" th:href="@{/css/noticeCreate.css}" />
+    <link rel="stylesheet" th:href="@{/css/noticeDetail.css}" />
     <link rel="stylesheet" th:href="@{/css/textEditor.css}" />
     <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
 
@@ -41,8 +41,8 @@
         <br>
 
 
-            <input type="text"  name="title" th:value="${ notice.title }" disabled>
-            <input type="text"  name="date" th:value="${ notice.date }" disabled>
+            <input type="text" class="textbox" name="title" th:value="${ notice.title }" disabled>
+            <input type="text" class="textbox" name="date" th:value="${ notice.date }" disabled>
             <br>
 
         <div sec:authorize="hasAnyAuthority('s','c')">
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div sec:authorize="hasAnyAuthority('m')">
-                <a class="registButton" type="button" th:href="@{/notice/delete(no=${notice.no})}">삭제하기</a>
+                <a class="deleteButton" type="button" th:href="@{/notice/delete(no=${notice.no})}">삭제하기</a>
             </div>
         </form>
 

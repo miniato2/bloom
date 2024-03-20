@@ -40,15 +40,15 @@
     <div class="container">
         <div class="containerButton">
 
-<!--            <div sec:authorize="hasAnyAuthority('s')">-->
+            <div sec:authorize="hasAnyAuthority('s')">
           <button class="Button">내 정보</button><br>
           <button class="Button" onclick="checkPortfolioExistence()">포트폴리오</button><br>
           <button class="Button">판매내역</button><br>
           <button class="Button">정산</button><br>
-            <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
-            <button class="Button">의뢰인 전환</button><br><br><br><br><br><br><br>
+
+            <button class="Button" onclick="alert('로그아웃 되었습니다. 다시 로그인 해주세요'),location.href='/mypage/customer'">의뢰인 전환</button><br><br><br><br><br><br><br>
           <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
-<!--            </div>-->
+            </div>
 
             <div sec:authorize="hasAnyAuthority('c')">
                 <button class="Button">내 정보</button><br>
@@ -60,46 +60,51 @@
         </div>
         <div class="main">
             <h1>내 정보</h1><br>
-            <p class="emailTitle">이메일</p><br>
+            <p class="mypageTitle">이메일</p><br>
             <input type="text" class="content" th:value="${member.email}"disabled><br>
             <hr/>
-            <p class="passwordTitle">닉네임</p><br>
-            <input type="text"  id="nickname" class="content" th:value="${member.nickname}" onblur="updateNickname()"  disabled><br>
+            <p class="mypageTitle">닉네임</p><br>
+            <input type="text"  id="nickname" class="content" th:value="${member.nickname}" onblur="updateNickname()"  disabled placeholder="한글,영문자,숫자 3~20자">
             <button class="modify" onclick="activateNickname()" >수정</button><br>
-            <div id="nicknameResult"></div>
+            <hr/>
+            <div id="nicknameResult" class="result"></div>
 
+
+            <p class="mypageTitle">이름</p><br>
+            <input type="text" class="content" th:value="${member.name}"disabled><br>
             <hr/>
-            <p class="emailTitle">이름</p><br>
-            <input type="text" class="content" th:value="${member.name}"disabled><br><br>
-            <hr/>
-            <p class="passwordTitle">전화번호</p><br>
-            <input type="text" class="content" id="phone" th:value="${member.phone}"disabled onblur="updatePhone()"><br>
+            <p class="mypageTitle">전화번호</p><br>
+            <input type="text" class="content" id="phone" th:value="${member.phone}"disabled onblur="updatePhone()" placeholder="-제외하고 입력해주세요">
             <button class="modify" onclick="activatePhone()">수정</button><br>
-            <div id="phoneResult"></div>
             <hr/>
-            <p class="emailTitle">비밀번호</p><br>
-            <input type="password" id="pw" class="content" th:value="${member.password}"disabled onblur="updatePW()"><br>
-            <div id="pwResult"></div>
+            <div id="phoneResult" class="result"></div>
+
+            <p class="mypageTitle">비밀번호</p><br>
+            <input type="password" id="pw" class="content" th:value="${member.password}"disabled onblur="updatePW()" placeholder="12~15자리입니다.">
+            <button class="modify" id="modalBtn">수정</button>
+            <hr/>
+            <div id="pwResult" class="result"></div>
+
 
             <label class="member_no" th:text="${member.no}" style="display: none" ></label>
 
 
             <!-- 모달 버튼 -->
-            <button class="modify" id="modalBtn">수정</button>
+
 
             <!-- 모달 창 -->
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="closeBtn">&times;</span>
-                    <p>로그인메일로 인증번호 발송되었습니다.</p>
-                    <input type="text" id="authCode" placeholder="인증번호를 입력해주세요">
-                    <button onclick="codeSend()">인증하기</button>
+                    <p class="Title">로그인메일로 인증번호 발송되었습니다.</p>
+                    <br><br><br>
+                    <input type="text" id="authCode" class="textbox" placeholder="인증번호를 입력해주세요" style="margin-left: 100px">
+                    <button onclick="codeSend()" class="verifyButton" >인증하기</button>
 
                 </div>
             </div>
 
             <br>
-            <hr/>
             <br><br>
         </div>
     </div>

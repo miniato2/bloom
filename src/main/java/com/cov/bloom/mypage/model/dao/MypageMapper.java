@@ -42,4 +42,6 @@ public interface MypageMapper {
     int selectTotalOrder(int memberNo);
 
     List<MyOrder> selectOrderList(SelectCriteria selectCriteria); //주문내역조회 (페이징)
+
+    int changeCustomer(String memberName);
 }

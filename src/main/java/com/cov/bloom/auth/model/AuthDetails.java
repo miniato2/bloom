@@ -13,8 +13,6 @@ public class AuthDetails implements UserDetails {
 
     private LoginMemberDTO loginMemberDTO;
 
-    private int memberNo;
-
 
     public AuthDetails(LoginMemberDTO loginMemberDTO){
         this.loginMemberDTO = loginMemberDTO;
@@ -50,7 +48,12 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-       return true;
+       if(loginMemberDTO.getStatus()=='y') {
+           return false;
+       }else{
+           return true;
+       }
+
     }
 
     @Override

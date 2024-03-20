@@ -18,16 +18,6 @@ import java.util.Map;
 public class AuthController {
 
 
-
-    private final AuthService authService;
-    private final MemberService memberService;
-
-    public AuthController(AuthService authService, MemberService memberService){
-        this.authService = authService;
-        this.memberService=memberService;
-    }
-
-
     @GetMapping("/login")
     public String login(){
         return "content/member/login";
@@ -38,10 +28,15 @@ public class AuthController {
     }
 
     @GetMapping("/fail")
-    public ModelAndView loginFail(ModelAndView mv, @RequestParam String message){
+    public ModelAndView loginFail(ModelAndView mv, @RequestParam("message") String message){
+
+
+
+
         mv.addObject("message", message);
-//        mv.setViewName("content/member/auth/fail");
-        mv.setViewName("content/member/auth/login");
+
+        mv.setViewName("content/member/auth/fail");
+
 
         return mv;
     }
