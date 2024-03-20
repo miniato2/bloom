@@ -1,11 +1,8 @@
 .main{
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
 }
 
 .noticetitle{
@@ -24,6 +21,7 @@
     align-items: center;
     margin-bottom: 100px;
 }
+
 .cancelButton{
     margin-left: 600px;
     width: 170px;
@@ -43,14 +41,11 @@
     flex-shrink: 0;
     border: none;
     margin-right: 15px;
-
 }
-.registButton{
 
+.registButton{
     width: 170px;
     height: 40px;
-
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,12 +59,46 @@
     border-radius: 2rem;
     flex-shrink: 0;
     border: none;
-
 }
 
-input[type="text"] {
-    /* 텍스트를 가운데 정렬합니다. */
+.textbox{
+    margin-left: -700px;
+    box-sizing: border-box;
+    padding: 1rem 2rem 0.6rem 1.6rem;
+    width: 15rem;
+    height: 100%;
+    overflow: hidden;
     text-align: center;
-    /* 필요에 따라 input 필드의 너비를 조정합니다. */
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2575;
+    font-family: "Noto Sans KR", 'Source Sans Pro';
+    border: solid 0.1rem #9d9d9d;
+    border-width: 0 0 1px;
+    background-color: transparent;
 
+}
+.text-input{
+    text-align: center;
+}
+
+.deleteButton{
+    margin-left: 785px;
+    width: 170px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: Noto Sans KR, 'Source Sans Pro';
+    white-space: nowrap;
+    background-color: #25422a;
+    border-radius: 2rem;
+    flex-shrink: 0;
+    border: none;
+    margin-top: -70px;
+   text-decoration: none;
+    margin-bottom: 10px;
 }

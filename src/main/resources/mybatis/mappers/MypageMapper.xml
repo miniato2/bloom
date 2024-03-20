@@ -99,6 +99,12 @@
         WHERE MEMBER_EMAIL = #{ memberName }
     </update>
 
+    <update id="changeCustomer" parameterType="string">
+        UPDATE MEMBER
+        SET MEMBER_AUTH = 'c'
+        WHERE MEMBER_EMAIL = #{ memberName }
+    </update>
+
     <!--주문상세 조회-->
     <select id="getOrderDetail" resultMap="orderDetail" parameterType="_int">
         select

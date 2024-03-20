@@ -4,16 +4,7 @@
     justify-content: center;
     align-items: center;
 }
-.findIDform.title{
-    font-weight: 800;
-    margin-left: -500px;
-    font-size: 25px;
-    line-height: 1.2575;
 
-    font-family: Noto Sans KR, 'Source Sans Pro';
-
-
-}
 .password{
     font-weight: 500;
     font-size: 20px;
@@ -47,11 +38,12 @@ hr {
     border-radius: 2rem;
     border-color: transparent;
 }
-.findIDform.findButton{
-    width: 30%;
-    height: 80px;
-    font-size: 40px;
-    font-weight: 600;
+.findButton{
+    margin-left: -30px;
+    width: 120%;
+    height: 50px;
+    font-size: 30px;
+    font-weight: 400;
     color: #ffffff;
     font-family: Noto Sans KR, 'Source Sans Pro';
     background-color: #25422a;
@@ -59,19 +51,36 @@ hr {
     border-color: transparent;
     cursor: pointer;
     margin-bottom: 20px;
-}
-input[type="checkbox"]{
-
-
-    width: 30px;
-    height: 30px;
-    border:3px
-
+    margin-top: 20px;
 }
 
-div#editor {
-    padding: 16px 24px;
-    border: 1px solid #D6D6D6;
-    border-radius: 4px;
+
+.title{
+    margin-left: -150px;
+    margin-bottom: 2rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.2575;
+    color: rgba(0, 0, 0, 0.55);
+    font-family: "Noto Sans KR", 'Source Sans Pro';
+    white-space: nowrap;
 }
 
+.textbox{
+
+    box-sizing: border-box;
+    padding: 1rem 2rem 0.6rem 1.6rem;
+    width: 20rem;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.2575;
+    font-family: "Noto Sans KR", 'Source Sans Pro';
+    border: solid 0.1rem #9d9d9d;
+    border-width: 0 0 1px;
+
+}

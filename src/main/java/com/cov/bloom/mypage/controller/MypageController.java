@@ -58,16 +58,23 @@ public class MypageController {
     public ModelAndView myPage(ModelAndView mv){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberName= authentication.getName();
-        System.out.println(memberName);
+
         LoginMemberDTO member = authService.getMember(memberName);
         mv.addObject("member",member);
         mv.setViewName("content/mypage/MyPage");
+//        mv.setViewName("redirect:/mypage/toMypage");
 
 
-        System.out.println();
+
 
         return mv;
     }
+
+//    @GetMapping("/toMypage")
+//    public String moveToMypage(){
+//        return "content/mypage/Mypage";
+//
+//    }
 
     @PostMapping("/updateNickname")
     @ResponseBody
@@ -126,7 +133,7 @@ public class MypageController {
 
         String encpw =  passwordEncoder.encode(pw);
 
-        System.out.println(encpw);
+
 
 
         int result =  mypageService.updatePW(memberName,encpw);
@@ -152,8 +159,7 @@ public class MypageController {
         LoginMemberDTO member = mypageService.findByUsername(email);
 
 
-        System.out.println("로그인한 맴버 비밀번호 =" + member.getPassword());
-        System.out.println("입력받은 비밀번호 = " + pw);
+
 
        if (passwordEncoder.matches(pw,member.getPassword())){
            System.out.println("비밀번호 일치");
@@ -189,7 +195,7 @@ public class MypageController {
     public Map<String, Object> verify(String code){
 
         Map<String, Object> result = new HashMap<>();
-        System.out.println("전달된 코드는 "+ code + " 입니다.");
+
         String sessionAuthCode = (String) session.getAttribute("authCode");
 
 
@@ -238,11 +244,22 @@ public class MypageController {
     public String getSales(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberName= authentication.getName();
-        int result =  mypageService.getSales(memberName);
+         mypageService.getSales(memberName);
 
-        System.out.println("결과는 " + result);
 
-        return"redirect:/mypage/main";
+
+        return"redirect:/auth/logout";
+    }
+    @GetMapping("/customer")
+    public String chageCustomer(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String memberName= authentication.getName();
+       int result = mypageService.changeCustomer(memberName);
+       if(result>0){
+
+       }
+
+        return "redirect:/auth/logout";
     }
 
     public String createAuthCode() {

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR%3A700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans%3A400%2C700"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A400%2C500%2C700"/>
-  <link rel="stylesheet" th:href="@{/css/findPW2.css}"/>
+  <link rel="stylesheet" th:href="@{/css/findPW1.css}"/>
   <link rel="stylesheet" th:href="@{/css/header-footer.css}"/>
     <script th:src="@{/js/findPW2.js}"></script>
 
@@ -45,13 +45,13 @@
         <br><br><br><br>
         <form th:action="@{/member/findPW2}" method="post">
         <p>새로운 비밀번호</p>
-        <input type="password" id="findpw1" name="password" placeholder="영문자,숫자 12~15자" oninput="validatePW1()">
+        <input type="password" class="textbox"  id="findpw1" name="password" placeholder="영문자,숫자 12~15자" oninput="validatePW1()">
         <div id="pwResult"></div>
 
         <p>비밀번호 확인</p>
-        <input type="password" id="findpw2"  name="pw" placeholder="한번더 입력해주세요" oninput="validatePW2()">
+        <input type="password"  class="textbox" id="findpw2"  name="pw" placeholder="한번더 입력해주세요" oninput="validatePW2()">
         <div id="pw2Result"></div>
-    <hr/>
+
     <br>
     <br>
     <br>

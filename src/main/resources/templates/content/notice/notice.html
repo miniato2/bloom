@@ -26,12 +26,12 @@
             <th>공지내용</th>
             <th>공지날짜</th>
         </tr>
+
         <tr th:each="notice : ${ noticeList }">
             <td><a th:href="@{/notice/detail(date=${notice.date})}" th:text="${notice.no}"></a></td>
             <td><a th:href="@{/notice/detail(date=${notice.date})}" th:text="${notice.title}"></a></td>
-            <td><a th:text="${ notice.con }"></a></td>
+            <td><a th:text="${#strings.length(notice.con) > 10 ? #strings.substring(notice.con, 0, 10) + '...' : notice.con}"></a></td>
             <td><a th:href="@{/notice/detail(date=${notice.date})}" th:text="${notice.date}"></a></td>
-
         </tr>
     </table>
 
