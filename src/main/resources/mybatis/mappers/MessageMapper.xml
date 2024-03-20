@@ -30,7 +30,7 @@
         SELECT
         COUNT(*)
         FROM MESSAGE
-        WHERE RECEIVE_EMAIL = "qwer@dddd.com"
+        WHERE RECEIVE_EMAIL = #{ recipientMemberEmail }
     </select>
 
     <select id="sendMessageList" resultMap="messageMap">

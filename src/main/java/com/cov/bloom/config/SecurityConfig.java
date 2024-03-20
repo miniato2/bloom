@@ -42,8 +42,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("auth/login","/","main","member/*","/member/*","/member/*",
                     "/portfolio/regist","/img/**","/notice/*","/auth/fail","/portfolio/detail").permitAll();
-            auth.requestMatchers("/auth/*","/mypage/*").hasAnyAuthority(MemberRole.c.getRole(),MemberRole.s.getRole(),MemberRole.m.getRole());
-         
+            auth.requestMatchers("/auth/*","/mypage/*","/order/*","/imagePath/*").hasAnyAuthority(MemberRole.c.getRole(),MemberRole.s.getRole(),MemberRole.m.getRole());
+
 
             auth.anyRequest().permitAll(); //권한 전부줌
 
