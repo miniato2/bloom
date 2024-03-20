@@ -34,6 +34,9 @@ public class PortfolioController {
     @Value("C:/bloom/")
     private String ROOT_LOCATION;
 
+//    @Value("${spring.servlet.multipart.location}")
+//    private String ROOT_LOCATION;
+
     private final PortfolioService portfolioService;
 
     public PortfolioController(PortfolioServiceImpl portfolioService) {

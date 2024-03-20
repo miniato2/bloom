@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>주문상세</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <script th:src="@{/js/orderDetail.js}"></script>
@@ -50,7 +50,7 @@
       <div class="last">
 
         <div class="guide">
-          가이드
+          <p>가이드</p>
           <div class="guidepic">
 
             <th:block th:each="guideFile:${orderDetail.guideFile}">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="receipt">
-          결제내역
+          <p>결제내역</p>
           <div class="orderinfo">
             <div class="option" th:text="${orderDetail.optionNo}">
             </div>
@@ -97,7 +97,7 @@
               <div class="totalprice1">
                 결제금액
               </div>
-              <div class="totalprice2" th:text="${orderDetail.optionPrice}">
+              <div class="totalprice2" th:text="|${orderDetail.optionPrice} 원|">
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@
     <div class="bott2">
       <div class="buttons">
         <button class="btn accept" type="button" onclick="acceptOrder()" style="display: block;">수락하기</button>
-        <button class="btn reject" type="button" onclick="rejectOrder()" style="display: block;">거절하기</button>
+        <button class="btn reject" type="button" onclick="cancelPay()" style="display: block;">거절하기</button>
         <button class="btn send" type="submit" form="send" style="display: none;" >보내기</button>
         <button class="btn golist" id="golist2" th:onclick="|location.href='@{/mypage/orderSalelist}'|" style="display: block;">목록으로 가기</button>
       </div>
