@@ -33,7 +33,7 @@
                                             <img class="small_photo" src='/img/previewImg.png' >
                                         </div>
                                         <div th:unless="${#lists.isEmpty(portfolio.attachmentDTOList) or portfolio.attachmentDTOList.size() < 1 or portfolio.attachmentDTOList[0] == null}">
-                                            <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}">
+                                            <img class="small_photo" th:src="@{|/thumbPath${ portfolio.attachmentDTOList.get(0).getThumbnailPath()}|}">
                                         </div>
                                     </span>
 
@@ -133,15 +133,15 @@
                                                 <td class="option_title">옵션 설명</td>
                                                 <td>
                                                     <div class="options">옵션1</div>
-                                                    <div th:text="${portfolio.optionList.get(0).optionInfo }">짧고 강렬하게</div>
+                                                    <div class="optionInfo" th:text="${portfolio.optionList.get(0).optionInfo }">짧고 강렬하게</div>
                                                 </td>
                                                 <td>
                                                     <div class="options">옵션2</div>
-                                                    <div th:text="${portfolio.optionList.get(1).optionInfo }">적당하고 예쁘게</div>
+                                                    <div class="optionInfo" th:text="${portfolio.optionList.get(1).optionInfo }">적당하고 예쁘게</div>
                                                 </td>
                                                 <td>
                                                     <div class="options">옵션3</div>
-                                                    <div th:text="${portfolio.optionList.get(2).optionInfo }">전문적인 변화</div>
+                                                    <div class="optionInfo" th:text="${portfolio.optionList.get(2).optionInfo }">전문적인 변화</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -485,7 +485,7 @@
                                     <div class="purchase_message_btn"> <!-- 구매하기 및 문의하기 버튼 -->
                                         <div class="purchase_btn"> <!-- 구매하기 버튼 -->
                                             <a th:if="${portfolio.memberNo == loginMember}" th:href="@{/portfolio/update/{portNo}(portNo=${portfolio.portNo})}">
-                                                <label  th:if="${portfolio.memberNo == loginMember}">수정하기</label>
+                                                <label  >수정하기</label>       <!-- 작성자일시 수정하기 -->
                                             </a>
 <!--                                            <input type="submit" id="update_btn" name="update_btn" th:if="${portfolio.memberNo == loginMember}">-->
 
@@ -494,10 +494,15 @@
                                             <input type="submit" id="purchase_btn" name="purchase_btn" th:unless="${portfolio.memberNo == loginMember}">
                                         </div>
                                         <div class="message_btn"> <!-- 문의하기 버튼 -->
-                                            <label for="delete_btn" th:if="${portfolio.memberNo == loginMember}">삭제하기</label>
-                                            <input type="button" id="delete_btn" name="delete_btn" th:if="${portfolio.memberNo == loginMember}">
+                                            <a th:if="${portfolio.memberNo == loginMember}" onclick="confirmDeletePortfolio()">
+                                                <label >삭제하기</label>    <!-- 작성자일시 삭제하기 -->
+                                            </a>
+                                            <label id="portNo" th:text="${portfolio.portNo}" style="display : none"></label>
+                                            <!--<button id="delete_btn" name="delete_btn" th:if="${portfolio.memberNo == loginMember}" onclick="return confirm('포트폴리오를 삭제하시겠습니까? 삭제하면 복구할 수 없습니다.')">
+                                                <label>삭제하기</label>
+                                            </button>-->
 
-                                            <a th:unless="${portfolio.memberNo == loginMember}" th:href="@{/message/send(nickname=${portfolio.memberNickname.nickname},memberNo=${portfolio.memberNo})}">
+                                            <a id="deletePortfolioBtn" th:unless="${portfolio.memberNo == loginMember}" th:href="@{/message/send(nickname=${portfolio.memberNickname.nickname},memberNo=${portfolio.memberNo})}">
                                                 <label  th:unless="${portfolio.memberNo == loginMember}">
                                                     문의하기
                                                 </label>

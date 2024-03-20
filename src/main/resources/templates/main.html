@@ -86,26 +86,29 @@
                             </div>
                             <div class="main_portfolio"> <!-- 포트폴리오 -->
                                 <div class="portfoilo_top"> <!-- 포트폴리오 상단 -->
-                                    <div class="portfolio_top_option">
-                                        <div class="portfolio_sort"> <!-- 포트폴리오 정렬 -->
+                                    <form id="searchForm" th:action="@{/main}" method="get" >
+                                        <input type="hidden" name="currentPage" value="1">
+                                        <div class="portfolio_top_option">
+                                            <div class="portfolio_sort"> <!-- 포트폴리오 정렬 -->
 
-                                            <select id="sort" name="sort">
-                                                <option value="latest_regist">신규 등록 순</option>
-                                                <option value="past_regist">과거 등록 순</option>
-                                                <option value="low_price">낮은 가격 순</option>
-                                            </select>
+                                                <select id="sort" name="sort" onchange="sortPortfolio(this.value)">
+                                                    <option value="latest_regist">신규 등록 순</option>
+                                                    <option value="past_regist">과거 등록 순</option>
+                                                    <option value="low_price">낮은 가격 순</option>
+                                                </select>
+                                            </div>
+                                            <div class="portfoilo_bookmark"> <!-- 포트폴리오 북마크만 보기 -->
+                                                <button class="bookmark_list">북마크 목록</button>
+                                            </div>
                                         </div>
-                                        <div class="portfoilo_bookmark"> <!-- 포트폴리오 북마크만 보기 -->
-                                            <button class="bookmark_list">북마크 목록</button>
+
+                                        <div class="portfolio_search"> <!-- 포트폴리오 검색 -->
+
+                                            <input type="search" id="portfolio_search_input" name="searchValue">
+                                            <button class="searchbtn" type="submit"> </button>
+                                            <!--<label for="portfolio_search_input"><img src="img/search.png"></label>-->
                                         </div>
-                                    </div>
-
-                                    <div class="portfolio_search"> <!-- 포트폴리오 검색 -->
-
-                                        <input type="text" id="portfolio_search_input" name="searchValue">
-                                        <label for="portfolio_search_input"><img src="img/search.png"></label>
-                                    </div>
-
+                                    </form>
                                 </div>
 
 
@@ -117,7 +120,7 @@
                                     <th:block  th:each="portfolio, index : ${ portList }">
 
                                         <!-- 3의 배수에만 div 태그가 열림 -->
-                                        <div class="portfolio_product" th:if="${ index.index < 3 }" style="margin-right: 60px">
+                                        <div class="portfolio_product" th:if="${ index.index < 3 }" data-writeDt="${ portfolio.writeDt }" data-minPrice="${ portfolio.minOptionPrice }" style="margin-right: 35px; margin-left: 35px" >
                                             <label th:text="${ portfolio.getPortNo() }" style="display : none" ></label>
 
                                             <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
@@ -165,7 +168,7 @@
                                     <th:block  th:each="portfolio, index : ${ portList }">
 
                                     <!-- 3의 배수에만 div 태그가 열림 -->
-                                    <div class="portfolio_product" th:if="${ index.index > 2 }"  style="margin-right: 60px">
+                                    <div class="portfolio_product" th:if="${ index.index > 2 }" data-writeDt="${ portfolio.writeDt }" data-minPrice="${ portfolio.minOptionPrice }" style="margin-right: 35px; margin-left: 35px;">
                                         <label th:text="${ portfolio.getPortNo() }" style="display : none" ></label>
                                         <div class="product_photo"> <!-- 포트폴리오 썸네일 사진 -->
                                             <img th:src="@{|/thumbPath${ portfolio.attachmentDTOList[0].getThumbnailPath()}|}" width="353px" height="353px">
@@ -222,6 +225,33 @@
 
                                 </div>
                             </div>
+                                <script>        //정렬
+                                    function sortPortfolio(option){
+                                        var portfolios = document.querySelectorAll('.portfolio_product');
+                                        var sortedPortfolios = Array.from(portfolios);
+
+                                        sortedPortfolios.sort(function(a, b){
+                                            var aDt = parseInt(a.getAttribute('data-writeDt'));
+                                            var bDt = parseInt(b.getAttribute('data-writeDt'));
+                                            var aPrice = parseInt(a.getAttribute('data-minPrice'));
+                                            var bPrice = parseInt(b.getAttribute('data-minPrice'));
+
+                                            if(option === 'latest_regist'){
+                                                return bDt - aDt;     //최신 등록 순
+                                            }else if( option === 'past_regist'){
+                                                return aDt - bDt;     //과거 등록 순
+                                            }else if (option === 'low_price'){
+                                                return aPrice - bPrice;     //낮은 가격 순
+                                            }
+                                        });
+
+                                        //정렬된 항목을 화면에 다시 추가
+                                        let parent = document.querySelector('.portfolio_list');
+
+
+                                        sortedPortfolios.forEach(item => parent.appendChild(item));
+                                    }
+                                </script>
 
                             </div>
 
@@ -229,7 +259,7 @@
                                 <div class="portfolio_paging">
                                     <!-- 맨 앞으로 이동 버튼 -->
                                     <button class="portfolio_paging_arrow"
-                                            th:onclick="'location.href=\'/main/?currentPage=' + @{${selectCriteria.startPage}} + '\''"
+                                            th:onclick="'location.href=\'/main?currentPage=' + @{${selectCriteria.startPage}} + '\''"
                                             th:disabled="${selectCriteria.pageNo == 1}">
                                         <<
                                     </button>
@@ -241,10 +271,11 @@
                                     </button>
                                     <!-- 숫자 버튼 -->
                                     <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-                                        <button class="portfolio_paging_num" style="color:black"
+                                        <button class="portfolio_paging_num"
                                                 th:id="'portfolioPageButton' + ${page}"
                                                 th:text="${ page }"
                                                 th:disabled="${ selectCriteria.pageNo eq page}"
+                                                th:classappend="${selectCriteria.pageNo eq page} ? 'active' : ''"
                                                 th:onclick="'location.href=\'/main?currentPage='+ @{${page}} + '\''">
 
                                         </button>
@@ -268,6 +299,34 @@
                                 </div>
                             </div>
                             <script>
+                                /*window.onload = function(){
+                                    var currentPage = window.location.href;
+                                    if(currentPage.indexOf("/main") !== -1 || currentPage.indexOf("/") !== -1){
+                                        //main 페이지의 경우 맨 위로 스크롤
+                                        window.scrollTo(0,0);
+                                    }
+                                    else if(currentPage.indexOf("main/currnetPage=" ))
+                                }*/
+
+
+                                document.addEventListener('DOMContentLoaded', function(){
+                                    console.log('DOMContentLoaded에 들어왔어');
+
+                                    var pageButtons = document.querySelectorAll('.portfolio_paging > button');
+                                    pageButtons.forEach(function(button){
+                                        button.addEventListener('click', scrollToStart);
+                                    });
+
+
+                                    //현재 페이지 URL을 가져옴
+                                    var currentPage = window.location.href;
+
+                                    //현재 페이지가 /main?currentPage= 로 시작하는지 확인
+                                    if(currentPage.indexOf('/main?currentPage=') !== -1){
+                                                scrollToStart();
+                                            }
+                                    });
+
                                 function scrollToStart(){
                                     console.log('scrollToStart() 들어왔어')
                                     var scrollPosition = 2200;
@@ -275,14 +334,6 @@
                                         top: scrollPosition
                                     });
                                 }
-
-                                document.addEventListener('DOMContentLoaded', function(){
-                                    console.log('DOMContentLoaded에 들어왔어')
-                                    var pageButtons = document.querySelectorAll('.portfolio_paging > button');
-                                    pageButtons.forEach(function(button){
-                                        button.addEventListener('click', scrollToStart());
-                                    });
-                                });
 
                             </script>
                             <div id="pageContentContainer"></div>

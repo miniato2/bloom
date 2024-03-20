@@ -55,7 +55,7 @@ public class MainController {
             selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, sort, searchValue);
 
         }else{
-            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+            selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, sort);
             System.out.println("시작 페이지 : " + selectCriteria.getStartPage() + " | 끝 페이지 : " + selectCriteria.getEndPage());
             System.out.println("selectCriteria : "  + selectCriteria);
         }

@@ -5,6 +5,7 @@ let verifyOption = false;
 let verifyContactDt = false;
 
 
+/*
 window.onload = function(){
     if(selectedFile){
         const fileInput1 = document.getElementById('file1');
@@ -12,6 +13,7 @@ window.onload = function(){
 
     }
 }
+*/
 
 
 
@@ -157,6 +159,26 @@ function validateContactDt(){
     }
 }
 
+function validateMemberInfo(){
+    var memberInfo = document.getElementById('memberInfo').value;
+    var regex = /^.{0,1000}$/;
+    var msg = "";
+
+    if(regex.test(memberInfo)){
+        verifymemberInfo = true;
+        return msg;
+    }
+    else{
+        if(memberInfo.length > 1000){
+            msg = "판매자 소개는 1000자를 넘을 수 없습니다.";
+            alert(msg);
+        }
+        verifymemberInfo = false;
+        return msg;
+    }
+}
+
+
 function validateOption(){
     var optionPrice1 = document.getElementById('optionPrice1').value;
     var optionInfo1 = document.getElementById('optionInfo1').value;
@@ -226,7 +248,7 @@ function validateOption(){
 }
 
 function validateInput(value){
-    var regex = /^[가-힣a-zA-Z0-9\s]{1,100}$/;
+    var regex = /^.{1,100}$/;
     return regex.test(value);
 }
 

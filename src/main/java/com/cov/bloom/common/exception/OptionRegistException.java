@@ -1,5 +1,8 @@
 package com.cov.bloom.common.exception;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
+
+
 public class OptionRegistException extends Exception{
 
     public OptionRegistException(){}

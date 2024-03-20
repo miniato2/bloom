@@ -205,7 +205,7 @@ function validateOption(){
 }
 
 function validateInput(value){
-    var regex = /^[가-힣a-zA-Z0-9\s]{1,100}$/;
+    var regex = /^.{1,100}$/;
     return regex.test(value);
 }
 
@@ -281,4 +281,26 @@ function validateForm(){
         return false;
     }
 
+}
+
+var textareas = document.querySelectorAll("textarea");
+var textInputs = document.querySelectorAll("input[type='text']");
+
+// 각 <textarea> 요소에 들여쓰기를 적용
+textareas.forEach(function(textarea){
+
+    //textarea에 들여쓰기를 적용
+    textarea.value = applyIndentation(textarea.value);
+});
+textInputs.forEach(function(input){
+    input.value = applyIndentation(input.value);
+});
+
+function applyIndentation(text){
+    //각 줄에 들여쓰기 적용
+    var lines = text.split('\n');
+    for(var i = 0; i < lines.length; i++){
+        lines[i] = "    " + lines[i];       //4개의 공백을 추가
+    }
+    return lines.join('\n');        //줄바꿈 문자로 연결하여 반환
 }
