@@ -3,6 +3,8 @@
     padding: 0;
     box-sizing:
             border-box;
+}
+body{
     font-family:  "zen old mincho" , sans-serif;
 }
 .request{
@@ -113,7 +115,7 @@
     margin-bottom: 50px;
     width: 623px;
     height: 294px;
-    font-size: 14px;
+    font-size: 18px;
     border: solid 1px #d6d6d6;
     border-radius: 5px;
     resize: none;
@@ -233,4 +235,35 @@
     margin-top: 5px;
     margin-bottom: 7px;
     box-shadow: none;
+}
+.modal{
+    position:absolute;
+    padding: 20px;
+    font-size: 16px;
+
+    overflow-y: auto;
+    border: solid 1px #d6d6d6;
+    border-radius: 5px;
+    justify-content: center;
+    top:50%;
+    left:40%;
+
+    width:300px;
+    height:400px;
+    box-sizing: border-box;
+
+    background-color: #FFFFFF;
+}
+.modal title{
+    font-size: 24px;
+}
+#modalBtn{
+    color: #ffffff;
+    position: relative;
+    margin-top: 10px;
+    width: 100px;
+    height: 20px;
+    background-color: #425345;
+    border-radius: 20px;
+    border-style: none;
 }
