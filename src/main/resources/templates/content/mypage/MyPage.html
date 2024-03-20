@@ -43,19 +43,19 @@
 <!--            <div sec:authorize="hasAnyAuthority('s')">-->
           <button class="Button">내 정보</button><br>
           <button class="Button" onclick="checkPortfolioExistence()">포트폴리오</button><br>
-          <button class="Button">판매내역</button><br>
+          <button class="Button" th:onclick="|location.href='@{/mypage/orderSalelist}'|">판매내역</button><br>
           <button class="Button">정산</button><br>
             <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
             <button class="Button">의뢰인 전환</button><br><br><br><br><br><br><br>
           <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
 <!--            </div>-->
 
-            <div sec:authorize="hasAnyAuthority('c')">
+<!--            <div sec:authorize="hasAnyAuthority('c')">-->
                 <button class="Button">내 정보</button><br>
-                <button class="Button">주문내역</button><br>
+                <button class="Button" th:onclick="|location.href='@{/mypage/orderlist}'|">주문내역</button><br>
                 <button class="Button" onclick="location.href='/mypage/salesRegist'">판매자 등록</button><br>
                 <button class="cancelButton" onclick="location.href='/mypage/unRegister1'">회원탈퇴</button><br>
-            </div>
+<!--            </div>-->
 
         </div>
         <div class="main">
@@ -65,7 +65,7 @@
             <hr/>
             <p class="passwordTitle">닉네임</p><br>
             <input type="text"  id="nickname" class="content" th:value="${member.nickname}" onblur="updateNickname()"  disabled><br>
-            <button class="modify" onclick="activateNickname()" >수정</button><br>
+            <button class="modify" onclick="activateNickname()">수정</button><br>
             <div id="nicknameResult"></div>
 
             <hr/>

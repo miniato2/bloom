@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>신청서작성</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/request.css}">
@@ -119,8 +119,8 @@
                     </div>
                 </div>
                 <div class="notice">
-                    <a th:href="@{/main}" target="_blank">결제 전 안내사항</a>
-                    <a th:href="@{/main}" target="_blank">개인정보 제3자 제공</a>
+                    <a href="#" id="notice1">결제 전 안내사항</a>
+                    <a href="#" id="notice2">개인정보 제3자 제공</a>
                 </div>
                 <div class="accept">
                     <p>위 내용을 확인하였고, 결제에 동의합니다.</p>
@@ -134,6 +134,33 @@
         </div>
     </form>
 
+    <div class="modal" style="display: none">
+        <div class="cancelnotice">
+            <div class="title">환불 규정 유의사항 동의</div><br>
+            <div class="detail">
+                · 전문가가 의뢰인의 주문 의뢰 내용에 맞게 용역을 제공하는 맞춤형 상품의 경우,
+                가분하거나 재판매하기 어려운 성격의 상품입니다. 주문 의뢰 내용에 따라 용역 등의 작업이 진행된 이후에는 「전자상거래법」 제17조 2항에 따라 원칙적으로 청약철회가 제한됩니다.<br>
+                의뢰인은 서비스 상세페이지에 명시된 취소·환불 규정 또는 전문가와 별도 합의한 내용에 따라 청약철회를 요청할 수 있습니다.<br>
+                · 디지털 형태로 제작된 콘텐츠를 제공하는 상품의 경우, 콘텐츠 제공이 개시되면 서비스 제공이 완료된 것으로 간주합니다. 콘텐츠 제공이 개시된 이후에는 「전자상거래법」 제17조 2항에 따라 원칙적으로 청약철회가 제한됩니다.
+                의뢰인은 서비스 상세페이지에 등록된 디지털 콘텐츠의 일부를 미리 확인한 후 서비스를 구매할 수 있습니다.<br><br>
+            </div>
+        </div>
+        <div class="privacy">
+            <div class="title">개인정보 제3자 제공</div><br>
+            <div class="detail">
+                제공받는 자
+                · kakao<br>
+                제공받는 자의 개인정보 이용 목적<br>
+                · 전자상거래 계약 이행 및 서비스 제공, 의뢰인 확인, 고객상담, 상품/서비스의 배송 업무 처리 등<br>
+                제공하는 개인정보 항목<br>
+                · 의뢰인 닉네임<br>
+                제공받는 자의 보유 기간<br>
+                · 재화 또는 서비스의 제공 목적 달성 후 파기 회원은 개인정보의 제3자 제공 동의를 거부할 권리가 있으나, 이 경우 서비스 이용이 제한될 수 있습니다.<br>
+                그 밖의 내용은 서비스 이용약관 및 개인정보처리방침에 따릅니다.<br>
+            </div>
+        </div>
+        <button type="button" id="modalBtn">닫기</button>
+    </div>
     <footer class="footer">
 
     </footer>

@@ -187,7 +187,7 @@
                         ,od.order_finaldt
                         ,op.option_price
                         ,od.request_status
-                from(select * from orders where port_no = '1_p') as od
+                from(select * from orders where port_no = #{ searchValue }) as od
                 join port_option op on od.option_no = op.option_no
                 join portfolio por on por.port_no = od.port_no
                 ) as a

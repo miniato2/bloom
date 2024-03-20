@@ -1,6 +1,9 @@
-/* *{margin: 0; padding: 0; box-sizing: border-box;} */
-*{
+ *{margin: 0; padding: 0; box-sizing: border-box;}
+body{
     font-family:  "zen old mincho" , sans-serif;
+}
+body p{
+    font-size: 20px;
 }
 .order{
     width:1470px;
@@ -23,7 +26,7 @@
     justify-content: end;
     font-size: 26px;
     font-weight: bold;
-    margin-left: 197px;
+    margin-left: 210px;
     border-bottom: solid 1px rgb(167, 167, 167)
 }
 .content{
@@ -59,9 +62,9 @@
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 50px;
-    width: 1006px;
+    width: 1046px;
     height: 294px;
-    font-size: 14px;
+    font-size: 18px;
     border: solid 1px #d6d6d6;
     border-radius: 5px;
     resize: none;
@@ -74,17 +77,21 @@
 .guidepic{
     justify-content: space-evenly;
     box-sizing: border-box;
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin-top: 20px;
+    /*padding : 10px 10px 10px 10px;*/
     width: 696px;
     height: 251px;
+    overflow-y: auto;
     border: solid 1px #d6d6d6;
+    box-sizing: border-box;
     border-radius: 5px;
 
 }
 .gpic, #gpicUpload{
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: 20px 20px 20px 20px;
     width: 100px;
     height: 100px;
     border: solid 1px #d6d6d6;

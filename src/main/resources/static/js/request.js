@@ -1,3 +1,20 @@
+$(document).ready(function (){
+    const notice1 = document.getElementById("notice1");
+    const notice2 = document.getElementById("notice2");
+    const modal = document.querySelector('.modal');
+    const modalBtn = document.getElementById("modalBtn");
+
+    notice1.onclick = function (){
+        modal.style.display = "block";
+    }
+    notice2.onclick = function (){
+        modal.style.display = "block";
+    }
+    modalBtn.onclick = function (){
+        modal.style.display = "none";
+    }
+});
+
 function checkForm(){
     let file = document.querySelector("#file1").value;
     let text = document.querySelector(".text").value;
@@ -104,7 +121,7 @@ function selectOption() {
             url: "/order/getOption",
             method: "GET",
             data: {
-                optionNo : portNo + "_op" + optionValue
+                optionNo : portNo + "_OP" + optionValue
             },
             success: function(data) {
                 let selected = JSON.parse(data.option);

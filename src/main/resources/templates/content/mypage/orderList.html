@@ -8,7 +8,7 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <title>마이페이지 판매자 내정보</title>
+    <title>마이페이지 주문내역</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,9 +31,9 @@
     </div>
 <div class="container">
     <div class="containerButton">
-        <button class="Button">내 정보</button><br>
+        <button class="Button" th:onclick="|location.href='@{/mypage/main}'|">내 정보</button><br>
         <button class="Button">작성리뷰</button><br>
-        <button class="Button">주문내역</button><br>
+        <button class="Button" th:onclick="|location.href='@{/mypage/orderlist}'|">주문내역</button><br>
         <button class="Button">판매자 전환</button><br><br><br><br><br><br><br>
         <button class="cancelButton">회원탈퇴</button><br>
     </div>
@@ -61,7 +61,7 @@
                     <td th:text="${order.memberNick}"></td>
                     <td th:text="${order.orderDt}"></td>
                     <td th:text="${order.orderFinalDt}"></td>
-                    <td th:text="${order.price}"></td>
+                    <td th:text="|${order.price} 원|"></td>
                     <td th:switch="${order.requestStatus}">
                         <span th:case="W">대기</span>
                         <span th:case="P">작업중</span>

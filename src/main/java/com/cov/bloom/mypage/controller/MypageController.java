@@ -288,7 +288,7 @@ public class MypageController {
         LoginMemberDTO member = mypageService.findByUsername(authentication.getName());
 
         int memberNo = member.getNo(); //판매자 회원번호 member.getNo();
-        String portNo = memberNo + "_p";
+        String portNo = memberNo + "_P";
 
         //전체 목록 사이즈
         int totalCount = mypageService.selectTotalSale(portNo);
@@ -327,10 +327,6 @@ public class MypageController {
 
         //판매자 페이지로 갈때는 1
         model.addAttribute("memberNo", member.getNo());
-
-        System.out.println(orderDetail);
-        System.out.println(orderDetail.getGuideFile());
-        System.out.println(orderDetail.getRequestFile());
 
         return "content/mypage/orderDetail";
     }

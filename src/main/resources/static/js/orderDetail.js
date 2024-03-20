@@ -6,11 +6,12 @@ $(document).ready(function (){
     let status = document.getElementById("requestStatus").value;  //주문상태
 
     let gpic = document.querySelectorAll('.gpic'); //가이드사진들
-    let optionFix = document.getElementById('optionFix'); //수정횟수
+    let optionFix = document.getElementById('optionFix').value; //수정횟수
 
     const fileInput = document.getElementById('guide'); //파일인풋
 
-    if(member+"_p" === portNo){
+    if(member+"_P" === portNo){
+        //판매자일때
         document.querySelector(".bott").style.display="none";
         const accept = document.querySelector('.accept');
         const reject = document.querySelector('.reject');
@@ -56,7 +57,6 @@ $(document).ready(function (){
 
         const orderFinal = document.getElementById('orderFinal').value;
 
-
         switch(status){
             case 'W' :
                 request.style.display = "none";
@@ -75,13 +75,14 @@ $(document).ready(function (){
                 break;  //취소
             case 'D' :
                 cancel.style.display = "none";
-                if(orderFinal == "Y"){
+                if(orderFinal === "Y"){
                     request.style.display = "none";
                     decide.style.display = "none";
                 }else{
                     if(gpic.length < optionFix || gpic.item(0) == null){
                         request.style.display = "block";
                     }else{
+                        console.log(1);
                         request.style.display = "none";
                     }
                     decide.style.display = "block";
@@ -154,6 +155,7 @@ function purchaseConfirm(){
 }
 
 //의뢰인 결제 취소
+//판매자 거절
 function cancelPay(){
     $.ajax({
         url: "/pay/cancelPay",
@@ -182,26 +184,6 @@ function acceptOrder(){
         data: {
             orderNo: document.getElementById('orderNo').value,
             reqStatus: 'P'
-        },
-        success: function (data){
-            location.reload();
-            console.log(data);
-        },
-        error: function (xhr, status, error){
-            console.log(error);
-        }
-    })
-}
-
-
-//판매자 거절
-function rejectOrder(){
-    $.ajax({
-        url: "/mypage/updateStatus",
-        method: "POST",
-        data: {
-            orderNo: document.getElementById('orderNo').value,
-            reqStatus: 'C'
         },
         success: function (data){
             location.reload();

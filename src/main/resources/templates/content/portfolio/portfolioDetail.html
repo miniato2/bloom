@@ -159,7 +159,7 @@
                                         </table>
                                     </div>
                                     <div class="price_purchase"> <!--  구매하기 버튼 -->
-                                        <button>구매하기</button>
+                                        <button th:onclick="'location.href=\'/order/request?portNo='+ @{${portfolio.portNo}} + '\''">구매하기</button>
                                     </div>
 
                                 </div>
@@ -491,7 +491,8 @@
 
 
                                             <label for="purchase_btn" th:unless="${portfolio.memberNo == loginMember}">구매하기</label>
-                                            <input type="submit" id="purchase_btn" name="purchase_btn" th:unless="${portfolio.memberNo == loginMember}">
+                                            <input type="button" id="purchase_btn" name="purchase_btn" th:unless="${portfolio.memberNo == loginMember}"
+                                                   th:onclick="'location.href=\'/order/request?portNo='+ @{${portfolio.portNo}} + '\''">
                                         </div>
                                         <div class="message_btn"> <!-- 문의하기 버튼 -->
                                             <label for="delete_btn" th:if="${portfolio.memberNo == loginMember}">삭제하기</label>
