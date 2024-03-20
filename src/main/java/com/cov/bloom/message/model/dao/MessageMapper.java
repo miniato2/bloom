@@ -12,17 +12,21 @@ public interface MessageMapper {
 
     int selectTotalCount();
 
-    List<MessageDTO> selectMessageList();
+    List<MessageDTO> sendMessageList(String senderMemberEmail);
 
-    List<MessageDTO> selectAllThumbnailList();
+    List<MessageDTO> receiveMemberEmail(String receiveMemberEmail);
 
-    int incrementMessageCount(Long no);
+//    List<MessageDTO> selectAllThumbnailList();
+//
+//    int incrementMessageCount(Long no);
+//
+//    MessageDTO selectThumbnailDetail(Long no);
+//
+//    MemberDTO findMemberId(String memberEmail);
 
-    MessageDTO selectThumbnailDetail(Long no);
-
-    MemberDTO findMemberId(String memberEmail);
-
-    String findEmail(int allMemberNo);
+    MemberDTO findEmail(int allMemberNo);
 
     int regiMessage(MessageDTO messageDTO);
+
+    MemberDTO findMemberId(String memberEmail);
 }

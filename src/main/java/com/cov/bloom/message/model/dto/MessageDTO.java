@@ -12,8 +12,7 @@ public class MessageDTO implements java.io.Serializable{
 
     private String recipientMemberEmail;
 
-    public MessageDTO() {
-    }
+    public MessageDTO() {}
 
     public MessageDTO(int msgNo, String msgDate, String msgContent, String senderMemberEmail, String recipientMemberNo) {
         this.msgNo = msgNo;

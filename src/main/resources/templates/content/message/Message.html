@@ -30,9 +30,12 @@
             <div class="container">
                 <div class="main-container">
                     <div class="sidebar">
-                        <div class="inbox-button" onclick="showMessages('inbox', 1); toggleActive(this);">받은 쪽지함</div>
-                        <div class="sent-button" onclick="showMessages('sent', 1); toggleActive(this);">보낸 쪽지함</div>
+                        <!--<div class="inbox-button" onclick="showMessages('inbox', 1); toggleActive(this);">받은 쪽지함</div>-->
+                        <a th:href="@{/message/readmessage}" class="inbox-button" >받은 쪽지함</a>
+                        <a th:href="@{/message/sendermessage}"class="sent-button" >보낸 쪽지함</a>
 
+                        <!--<div class="sent-button" onclick="showMessages('sent', 1); toggleActive(this);">보낸 쪽지함</div>
+-->
                     </div>
                     <div class="message-container" id="inbox">
 
@@ -53,13 +56,13 @@
 
                         <table>
                             <tr>
-                                <th>보낸 사람</th>
+                                <th>받는 사람</th>
                                 <th>내용</th>
                                 <th>날짜</th>
                             </tr>
 
                             <tr th:each="message : ${messageDTOList}" class="message-row">
-                                <td th:text="${message.senderMemberEmail}"></td>
+                                <td th:text="${message.recipientMemberEmail}"></td>
                                 <td th:text="${message.msgContent}"></td>
                                 <td th:text="${message.msgDate}"></td>
                             </tr>
@@ -71,8 +74,46 @@
                     <div class="message-container" id="sent" style="display:none;"></div>
                 </div>
                 <div class="footer">
-                    <button onclick="changePage(currentBoxType, -1)">이전 페이지</button>
-                    <button onclick="changePage(currentBoxType, 1)">다음 페이지</button>
+                    <!-- 페이지 처리 -->
+                    <div class="pagingArea" align="center">
+                        <!-- 맨 앞으로 이동 버튼 -->
+                        <button
+                                th:onclick="'location.href=\'/message/readmessage?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                                th:disabled="${selectCriteria.pageNo == 1}"
+                        >
+                            <<
+                        </button>
+                        <!-- 이전 페이지 버튼 -->
+                        <button
+                                th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                                th:disabled="${selectCriteria.pageNo == 1}"
+                        >
+                            <
+                        </button>
+                        <!-- 숫자 버튼 -->
+                        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                            <button
+                                    th:text="${ page }"
+                                    th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"
+                                    th:disabled="${ selectCriteria.pageNo eq page }">
+                            </button>
+                        </th:block>
+
+                        <!-- 다음 페이지 버튼 -->
+                        <button
+                                th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                        >
+                            >
+                        </button>
+                        <!-- 마지막 페이지로 이동 버튼 -->
+                        <button
+                                th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.maxPage}} + '\''"
+                                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"
+                        >
+                            >>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

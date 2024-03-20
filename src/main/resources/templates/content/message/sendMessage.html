@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +16,13 @@
             background-color: #ffffff;
             margin: 0;
             padding: 0;
+        }
+
+        .bigcontent {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom : 50px;
         }
 
         .container {
@@ -47,7 +57,7 @@
         .header-bloom {
             font-size: 26px;
             font-weight: bold;
-            padding-left: 10px; 
+            padding-left: 10px;
         }
 
         .header-menu {
@@ -87,14 +97,15 @@
             border: none;
             resize: none;
             overflow: hidden;
+            outline: none;
+        }
+        .msgbtn{
+            display: flex;
+            justify-content: center;
         }
 
-        .footer {
-            padding: 15px;
-            text-align: center;
-        }
 
-        .footer button {
+        .msgbtn button {
             background-color: #a7b3a9;
             color: #ffffff;
             padding: 10px 15px;
@@ -103,70 +114,57 @@
             cursor: pointer;
         }
 
-        .footer button:hover {
+        .msgbtn button:hover {
             background-color: #25432A;
         }
     </style>
     <title>쪽지 보내기</title>
 </head>
-<body>
 
-    <div class="container">
-        <div class="header-infomenu">
-            <div class="header-bloom">Bloom</div>
+<div layout:fragment="content">
+    <div class="bigcontent">
+        <form id="sendMessage" action="/message/send" METHOD="post" enctype="multipart/form-data"
+              onsubmit="return sendMessage()" style="width : 830px">
 
-            <div class="header-menu">
-                <div class="header-main">MAIN</div>
-                <div class="header-notice">NOTICE</div>
-                <div class="header-contact">CONTACT</div>
+            <div class="msgtitle">
+
+                <div class="header">
+                    쪽지 보내기
+                </div>
+            </div>
+            <input type="hidden" id="memberNo" name="memberNo" th:value="${senderMember}">
+            <input type="hidden" id="rememberNo" name="rememberNo" th:value="${memberNo}">
+            <input type="hidden" id="senderNick" name="senderNick" th:value="${senderNick}">
+            <input type="hidden" name="recipient" th:value="${rememNick}">
+            <div class="receiver">
+                <div class="recipient">
+                    받는 사람: <label th:text="${rememNick}" id="recipient" placeholder="이름">
+                </label>
+                </div>
             </div>
 
-            <span>
-                <div class="header-message">MESSAGE</div>
-                <div class="header-mypage">MY PAGE</div>
-                <div class="header-login">LOGIN</div>
-                <div class="header-join">JOIN</div>
-            </span>
-        </div>
-
-        <form id="sendMessage" action="@{/message/send}" METHOD="post">
-
-        <div class="header">
-            쪽지 보내기
-        </div>
-        <label id="memberNo" th:text="senderMember" style="display: none" >
-        </label>
-        <label id="rememberNo" th:text="memberNo" style="display: none" >
-        </label>
-        <label id="senderNick" th:text="${senderNick}" style="display: none" >
-        </label>
-        <div class="recipient">
-            받는 사람: <label th:text="${rememNick}" id="recipient" placeholder="이름">
-        </label>
-        </div>
-        <div class="message-container">
-            <div class="message">
-                <textarea id="messageInput" placeholder="내용 입력칸"></textarea>
+            <div class="message-container">
+                <div class="message">
+                    <textarea id="messageInput" name="msgContent" placeholder="내용 입력칸"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="footer">
-            <button onclick="sendMessage()">전송</button>
-        </div>
+            <div class="msgbtn">
+                <button type="submit">전송</button>
+            </div>
         </form>
     </div>
 
     <script>
         function sendMessage() {
-            var recipientName = document.getElementById("recipientInput").value;
             var message = document.getElementById("messageInput").value;
 
-            if (recipientName.trim() === "" || message.trim() === "") {
-                alert("받는 사람과 메시지를 모두 입력하세요.");
+            if (message.trim() === "") {
+                alert("메시지를 입력해주세요.");
+                return false;
             } else {
-                alert("받는 사람: " + recipientName + "\n메시지 전송:\n" + message);
+                return true;
             }
         }
     </script>
-
-</body>
+</div>
 </html>

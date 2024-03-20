@@ -10,13 +10,14 @@ import java.util.List;
 public interface MessageService {
     int selectTotalCount();
 
-    List<MessageDTO> selectMessageList();
+    List<MessageDTO> selectMessageList(String senderMemberEmail);
 
+    List<MessageDTO> receiveMemberEmail(String receiveMemberEmail);
     MessageDTO selectMessagDetail(long no);
 
-    List<MessageDTO> selectAllThumbnailList();
+//    List<MessageDTO> selectAllThumbnailList();
 
-    MessageDTO selectThumbnailDetail(Long no);
+//    MessageDTO selectThumbnailDetail(Long no);
 
     int selectTotalSentCount(int cmemberNo);
 
